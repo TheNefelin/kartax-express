@@ -1,0 +1,16 @@
+
+<section class="slider-section">
+    <div class="slider-contenedor">
+        <div class="slide">
+            <h1>Prueba</h1>
+            <img src="/img/grupo_03.jpg">
+        </div>
+    </div>
+</section>
+
+<script>
+    const arrImg =  document.querySelectorAll(".slide img");
+    arrImg.forEach(el => {
+        el.addEventListener('dragstart', (e) => e.preventDefault())
+    });
+</script>
