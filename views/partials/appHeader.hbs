@@ -1,0 +1,33 @@
+<nav>
+    <section class="navBar-contenedor">
+        <a href="#" class="navBar-logo">
+            <img src="/img/logo.png">
+            <h1>Kartax</h1>
+        </a>
+        <div class="navBar-btn">
+            <div class="navBar-A"></div>
+            <div class="navBar-B"></div>
+            <div class="navBar-C"></div>
+        </div>
+        <div class="navBar-links">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </section>
+</nav>
+
+<script>
+    const linkContainer = document.querySelector(".navBar-links"); 
+
+    const burger = document.querySelector(".navBar-btn");
+    burger.addEventListener("click", () => {
+        burger.classList.toggle("navBar-btn_click");
+        linkContainer.classList.toggle("navBar-links_noOcultar");
+    });
+
+    const arrLinks = document.querySelectorAll(".navBar-links a");
+
+    console.log(arrLinks)
+
+</script>
