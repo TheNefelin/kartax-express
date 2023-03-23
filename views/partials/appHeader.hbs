@@ -22,12 +22,18 @@
 
     const burger = document.querySelector(".navBar-btn");
     burger.addEventListener("click", () => {
-        burger.classList.toggle("navBar-btn_click");
-        linkContainer.classList.toggle("navBar-links_noOcultar");
+        navBar();
     });
 
     const arrLinks = document.querySelectorAll(".navBar-links a");
+    arrLinks.forEach(e => {
+        e.addEventListener("click", () => {
+            navBar();
+        });
+    });
 
-    console.log(arrLinks)
-
+    function navBar() {
+        burger.classList.toggle("navBar-btn_click");
+        linkContainer.classList.toggle("navBar-links_noOcultar");
+    }
 </script>

@@ -1,0 +1,12 @@
+<footer>
+    <section class="footer">
+        {{#each arrLinks}}
+        <div>
+            <p>{{nombre}}</p>
+             {{#each links}}
+                <a href={{link}} target="_blank">{{nombre}}</a>
+            {{/each}}
+        </div>
+        {{/each}}
+    </section>
+</footer>
