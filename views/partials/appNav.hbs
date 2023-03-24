@@ -1,8 +1,10 @@
 <nav>
     <section class="navBar-contenedor">
         <a href="#" class="navBar-logo">
-            <img src="/img/logo.png">
-            <h1>Kartax</h1>
+            {{#each katrax}}
+            <img src={{link}}>
+            <h1>{{nombre}}</h1>
+            {{/each}}
         </a>
         <div class="navBar-btn">
             <div class="navBar-A"></div>
@@ -10,9 +12,10 @@
             <div class="navBar-C"></div>
         </div>
         <div class="navBar-links">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a href="#">RRSS</a>
+            <a href="#">Opinión</a>
+            <a href="#">Contacto</a>
+            <a href="#">Quiénes somos</a>
         </div>
     </section>
 </nav>

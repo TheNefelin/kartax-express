@@ -45,9 +45,8 @@ export default function renderAcordion(itemCateg, item) {
 
             btnItem.addEventListener("click", () => {
                 acordion_click(btnItem);
-            })
+            });
         });
-
     });
 
     return contenedor;

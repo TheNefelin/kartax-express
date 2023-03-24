@@ -268,7 +268,7 @@ nav {
 .slide img {
     border-radius: 0.5rem;
     width: 92%;
-    height: 25vh;
+    height: 20rem;
     object-fit: cover;
     box-shadow: 5px 5px 50px -1px var(--colorBase01);
     user-select: none;

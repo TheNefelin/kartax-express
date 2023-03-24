@@ -1,14 +1,14 @@
 {
   "dependencies": {
     "express": "^4.18.2",
-    "hbs": "^4.2.0"
+    "hbs": "^4.2.0",
+    "i": "^0.3.7"
   },
   "name": "kartax-express",
   "description": "> Install packages\r ```\r npm install express\r npm install hbs\r ```",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -27,8 +27,8 @@ export default class Api {
     getTipoAlimByIdNegocio(id){
         return getById(id, `${this.#urlTipoAlim}/IdNegocio`);
     };
-    getItemCategByIdTipoAlimento(id){
-        return getById(id, `${this.#urlItemCateg}/IdTipoAlimento`);
+    getItemCategByIdNegocio(id){
+        return getById(id, `${this.#urlItemCateg}/IdNegocio`);
     };
     getItemByIdCateg(id){
         return getById(id, `${this.#urlItem}/IdCateg`);
