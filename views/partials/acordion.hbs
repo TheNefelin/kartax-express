@@ -1,28 +1,11 @@
 <main>
     <section class="acordion-list">
-        <div class="acordion-list-titulo">Totilo 1</div>
-        <button class="acordion">Prod 1</button>
-        <div class="acordion-contenido">
-            <img class="acordion-contenido-img" src="./img/item_01.png">
-            <p>123123</p>
-            <p>123456</p>
-            <button class="btn animacion">
-                <span>Aceptar</span>
-            </button>
-        </div>
-        <button class="acordion">Prod 1</button>
-        <div class="acordion-contenido">
-            <img class="acordion-contenido-img" src="./img/item_01.png">
-            <p>123123</p>
-            <p>123456</p>
-            <button class="btn animacion">
-                <span>Aceptar</span>
-            </button>
-        </div>
     </section>
 </main>
 
 <script>
+    setAcordion(0);
+
     async function setAcordion(index) {
         let html = "";
         const acordionList = document.querySelector(".acordion-list");
@@ -46,13 +29,29 @@
                     <div class="acordion-contenido">
                         <img class="acordion-contenido-img" src=${eI.link}>
                         <p>${eI.descripcion}</p>
-                        <p>${eI.precio}</p>
+                        <p><strong>${eI.precio}</strong> .-</p>
                         <button class="btn animacion">
                             <span>Aceptar</span>
                         </button>
                     </div>`;
             });
+            const arrAcordion = document.querySelectorAll(".acordion");
+            arrAcordion.forEach(e => {
+                e.addEventListener("click", () => {
+                    acordion_click(e);
+                });
+            });
         });
+    };
 
+    function acordion_click(obj) {
+        obj.classList.toggle("active");
+        let hijo = obj.nextElementSibling;
+
+        if (hijo.style.maxHeight) {
+            hijo.style.maxHeight = null;
+        } else {
+            hijo.style.maxHeight = hijo.scrollHeight + "px";
+        };
     };
 </script>
