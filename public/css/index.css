@@ -350,7 +350,8 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
+    padding: 5rem;
     animation: animColor 10s linear infinite;
 }
 
