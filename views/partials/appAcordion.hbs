@@ -31,8 +31,8 @@
                         <img class="acordion-contenido-img" src=${eI.link}>
                         <p>${eI.descripcion}</p>
                         <p>$ <strong>${eI.precio}</strong> .-</p>
-                        <button class="btn animacion">
-                            <span>Aceptar</span>
+                        <button value=${eI.id} class="btn animacion">
+                            <span>Agregar</span>
                         </button>
                     </div>`;
             });
@@ -44,7 +44,14 @@
                 e.addEventListener("click", () => {
                     acordion_click(e);
                 });
-            });  
+            }); 
+
+            const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button"); 
+            arrBtnAgregar.forEach(e => {
+                e.addEventListener("click", () => {
+                    addCarrito(e.value);
+                })
+            })
         });      
     };
 
@@ -58,4 +65,14 @@
             hijo.style.maxHeight = hijo.scrollHeight + "px";
         };
     };
+
+    const arrItemCarrito = [];
+
+    function addCarrito(idItem) {
+        arrItemCarrito.push({id: arrItemCarrito.length +1, idItem: idItem})
+        console.log(arrItemCarrito)
+
+        const contCarrito = document.querySelector(".carrito-cont");
+        contCarrito.textContent = arrItemCarrito.length;
+    }
 </script>
