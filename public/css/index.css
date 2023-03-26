@@ -16,6 +16,7 @@
     --colorBase01: rgb(0, 0, 0);
     --colorBase02: rgb(255, 255, 255);
     --colorBase03: rgb(102, 102, 102);
+    --colorBase04: rgba(0, 0, 0, 0.5);
 
     --color01: rgb(32, 148, 243);
     --color02: rgb(190, 0, 29);
@@ -553,6 +554,100 @@ main {
 
 .comanda-total strong {
     color: var(--color03);
+}
+
+/* -- login -------------------------------------------- */
+/* ----------------------------------------------------- */
+.sesion-contenedor {
+    display: flex;
+    justify-content: center;
+}
+
+.sesion {
+    color: var(--colorBase02);
+    background-color: var(--colorBase04);
+    display: grid;
+    gap: 1rem;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.sesion h2 {
+    color: var(--color03);
+}
+
+.sesion-btn {
+    color: var(--colorBase02);
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.sesion-btn:hover {
+    color: var(--color03);
+}
+
+/* -- obj absoluto ------------------------------------- */
+/* ----------------------------------------------------- */
+.objAbsoluto-admin {
+    display: flex;
+    background-color: var(--colorBase04);
+}
+
+.objAbsoluto-menu {
+    max-width: 15rem;
+    text-align: center;
+}
+
+.objAbsoluto-menu > * {
+    margin-top: 1rem;
+}
+
+.objAbsoluto-error {
+    color: var(--color02);
+}
+
+.objAbsoluto-contenedor {
+    position: relative;
+    background-color: var(--colorBase03);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.objAbsoluto {
+    position: absolute;
+    display: grid;
+    cursor: move;
+    text-align: center;
+
+}
+
+.objAbsoluto div {
+    background-color: var(--color03);
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 0.5rem 1rem;
+    border: 2px solid;
+}
+
+.objAbsoluto span {
+    background-color: var(--colorBase02);
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid;
+}
+
+/* -- admin menu --------------------------------------- */
+/* ----------------------------------------------------- */
+.admin-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.admin-menu img {
+    height: 5rem;
 }
 
 /* -- footer ------------------------------------------- */

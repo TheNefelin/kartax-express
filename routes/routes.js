@@ -5,22 +5,55 @@ const myRoutes = Router();
 export default myRoutes;
 
 myRoutes.get("/", (req, res) => {
-    res.render("login");
+    res.render("iniciarSesion");
 });
 
-// myRoutes.get("/", (req, res) => {
+myRoutes.post("/", (req, res) => {
+    const dt = req.body;
+    console.log(dt.btn1)
+
+    if (dt.btn1 == 1) {
+        fn.iniciarSesion(dt.txtUser, dt.txtPass).then(data => {
+            if (data.isValid) {
+                res.render("admin");
+            } else {
+                res.render("iniciarSesion");
+            }
+        }).catch((err) => {
+            console.log(err);
+            res.render("error");
+        });
+    } else if (dt.btn1 == 2) {
+        res.render("registrarse");
+    } else if (dt.btn1 == 3) {
+        res.render("iniciarSesion");
+    } else if (dt.btn1 == 4) {
+        fn.dataKartax(1).then(data => {
+            res.render("kartax", data);
+        }).catch((err) => {
+            console.log(err);
+            res.render("error");
+        });
+    } else {
+        res.render("iniciarSesion");
+    };
+});
+
+// myRoutes.get("/kartax", (req, res) => {
 //     fn.dataKartax(1).then(data => {
 //         res.render("kartax", data);
-//     }).catch(() => {
+//     }).catch((err) => {
+//         console.log(err);
 //         res.render("error");
 //     });
 // });
 
-// myRoutes.get("/:id", (req, res) => {
+// myRoutes.get("/kartax/:id", (req, res) => {
 //     const id = isNaN() ? 1 : req.params.id;
 //     fn.dataKartax(id).then(data => {
 //         res.render("kartax", data);
-//     }).catch(() => {
+//     }).catch((err) => {
+//         console.log(err);
 //         res.render("error");
 //     });
 // });

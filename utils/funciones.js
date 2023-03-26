@@ -13,10 +13,13 @@ export async function dataKartax(id) {
         return lg;
     });
 
-    await test()
     return {katrax, tipoAlim, arrLinks};
 };
 
-async function test() {
- 
+export async function iniciarSesion(txtUser, txtPass) {
+    if (txtUser == "FRANCISCO" && txtPass == 123456) {
+        return {isValid: true}
+    } else {
+        return {isValid: false}
+    }
 }

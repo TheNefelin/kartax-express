@@ -4,4 +4,5 @@
 ```
 npm install express
 npm install hbs
+npm install body-parser
 ```
