@@ -5,28 +5,80 @@
             <label class="comanda-titulo">COMANDA</label>
             <span class="comanda-btn2">&#x2715;</span>
         </div>
-        <ul>
-            <hr>
-            <li>
-                <label>Esto</label>
-                <label>
-                    <label>3000</label>
-                    <span class="comanda-btn">&#x2715;</span>
-                </label>
-            </li>
-            <hr>
-            <li>
-                <label>Esto</label>
-                <label>
-                    <label>3000</label>
-                    <span class="comanda-btn">&#x2715;</span>
-                </label>
-            </li>
+        <ul class="comanda-item">
         </ul>
-    </div> 
+    </div>
     <div class="comanda-total">
-        <hr>
-        <span><strong class="comanda-total">TOTAL: 0</strong></span>
+        <span><strong>TOTAL: 0</strong></span>
         <span class="comanda-btn2">Hacer Pedido</span>
     </div>
 </section>
+
+<script>
+    const arrItemCarrito = [];
+
+    async function addItemCarrito(idItem) {
+        const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
+        const item = await dataItem.json();
+
+
+        arrItemCarrito.push(
+            {
+                id: arrItemCarrito.length +1, 
+                idItem: item[0].id, 
+                nomItem: item[0].nombre, 
+                precio: item[0].precio, 
+                idNegocio: item[0].id_Negocio
+            }
+        );
+
+        renderItemCarrito(arrItemCarrito);
+    };
+
+    function renderItemCarrito(arrItemCarrito){
+        let html = "";
+        const comandaItem = document.querySelector(".comanda-item");
+        comandaItem.innerHTML = html;
+
+        arrItemCarrito.sort((a , b) => a.idItem - b.idItem);
+
+        arrItemCarrito.forEach(e => {
+            html += `
+                <li>
+                    <label>${e.nomItem}</label>
+                    <label>
+                        <label>${e.precio}</label>
+                        <span value=${e.idItem} class="comanda-btn">&#x2715;</span>
+                    </label>
+                </li>`;
+        });
+        
+        comandaItem.innerHTML = html;
+
+        const comandaBtn = document.querySelectorAll(".comanda-btn");
+        comandaBtn.forEach(e => {
+            e.addEventListener("click", () => {
+                removeItemCarrito(e.value);
+            });
+        });
+
+        const carritoCont = document.querySelector(".carrito-cont");
+        carritoCont.textContent = arrItemCarrito.length;
+
+        const comandaTotal = document.querySelector(".comanda-total strong");
+        comandaTotal.textContent = `TOTAL: ${arrItemCarrito.reduce((cont, valor) => cont + valor.precio, 0)}`;
+    }
+
+    function removeItemCarrito(idItem) {
+        const index = arrItemCarrito.findIndex(e => e.idItem == idItem);
+        arrItemCarrito.splice(index, 1);
+
+        renderItemCarrito(arrItemCarrito);
+    }
+
+    const btnCerrarComanda =  document.querySelector(".comanda-cabecera span");
+    btnCerrarComanda.addEventListener("click", () => {
+        const comanda =  document.querySelector(".comanda");
+        comanda.classList.remove("comanda-visible");
+    });
+</script>

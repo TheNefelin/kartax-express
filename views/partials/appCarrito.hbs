@@ -2,3 +2,11 @@
     <img src="/img/cart.svg">
     <span class="carrito-cont">0</span>
 </button>
+
+<script>
+    const carrito =  document.querySelector(".carrito");
+    carrito.addEventListener("click", () => {
+        const comanda =  document.querySelector(".comanda");
+        comanda.classList.add("comanda-visible");
+    });
+</script>
