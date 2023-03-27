@@ -10,8 +10,8 @@ myRoutes.get("/", (req, res) => {
 
 myRoutes.post("/", (req, res) => {
     const dt = req.body;
-    console.log(dt.btn1)
 
+    console.log(req.ses)
     if (dt.btn1 == 1) {
         fn.iniciarSesion(dt.txtUser, dt.txtPass).then(data => {
             if (data.isValid) {
