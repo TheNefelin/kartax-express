@@ -1,5 +1,8 @@
+import bcrypt from "bcrypt";
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
+
+const saltRounds = 10;
 
 export async function dataKartax(id) {
     const api = new Api();
@@ -26,10 +29,16 @@ export async function dataNav() {
 
 export async function iniciarSesion(txtUser, txtPass) {
     const sql = new Sql();
+    let data;
 
-    const data = await sql.getIniciarSesion(txtUser, txtPass)
-    console.log(data)
-    if (data[0].isActive) {
+    if (txtUser && txtPass) {
+        data = await sql.getIniciarSesion(txtUser, txtPass)
+        data = data[0];
+    } else {
+        data = {isActive: false};
+    };
+
+    if (data.isActive) {
         return {isActive: true}
     } else {
         return {isActive: false, msge: "Usuario o Contraseña Incorrecta"}
@@ -37,6 +46,21 @@ export async function iniciarSesion(txtUser, txtPass) {
 };
 
 export async function registrarUsuario(obj) {
-    console.log(obj);
+    const sql = new Sql();
+    const res = { isActive: false, msge: "" };
 
+    if (obj.txtPass1 !== obj.txtPass2) {
+        res.msge = "Contraseña no Coinciden";
+        return res;
+    };
+
+    if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
+        res.msge = "Debe Ingresar Todos los Datos Requeridos";
+        return res;
+    };
+
+    obj.hash = await bcrypt.hash(obj.txtPass1, saltRounds);
+
+    const data = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.hash);
+    return data;
 };

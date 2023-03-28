@@ -18,25 +18,27 @@ VALUES
 
 SELECT * FROM usuario;
 TRUNCATE TABLE usuario;
-CALL sp_usuario_getAll("NEFELIN", "123456");
-CALL sp_usuario_getAll("NEFELIN", "1234561");
+CALL sp_usuario_get("NEFELIN", "123456");
+CALL sp_usuario_get("NEFELIN", "1234561");
+CALL sp_usuario_set("PRUEBA", "NO", "NEFELIN", 123456);
+CALL sp_usuario_set("PRUEBA", "NO", "FRANCISCO", 123456);
 
 ------------------------------------------------------------------
-CREATE PROCEDURE `sp_usuario_getAll`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_getAll`(
 	txtUsuario VARCHAR(50), 
     txtClave VARCHAR(255)
 )
 BEGIN
     SET @cont = 0;
     SET @isActive = FALSE;
-    
-	SELECT 
-		@cont := COUNT(id) 
+    SET @cont := 
+	(SELECT 
+		COUNT(id) 
 	FROM usuario 
 	WHERE 
 		usuario = txtUsuario AND 
 		clave = txtClave AND
-		isActive = 1;
+		isActive = 1);
 		
 	IF  @cont > 0 THEN
 		SET @isActive = TRUE;

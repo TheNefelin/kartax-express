@@ -7,4 +7,5 @@ npm install hbs
 npm install body-parser
 npm install mysql2
 npm install express-session
+npm install bcrypt
 ```

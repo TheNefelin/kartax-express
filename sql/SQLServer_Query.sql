@@ -90,6 +90,12 @@ CREATE TABLE [dbo].[demo_Usuario](
 	[isActive] [bit] NULL
 )
 
+CREATE TABLE [dbo].[demo_Usuario_Negocio](
+	[idUsuario] [int] NOT NULL,
+	[idNegocio] [int] NOT NULL,
+	[fecha] [datetime] NULL,
+)
+	
 INSERT demo_Color (id, nombre, R, G, B, idNegocio) 
 VALUES 
 	(1, N'colorBase01', 0, 0, 0, 1),

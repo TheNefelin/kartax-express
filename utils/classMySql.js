@@ -4,7 +4,10 @@ export default class Sql {
     constructor() {
     };
     getIniciarSesion(usuario, clave) {
-        return get("CALL sp_usuario_getAll(?,?)", [usuario, clave])
+        return get("CALL sp_usuario_get(?,?)", [usuario, clave])
+    };
+    setUsuario(nombres, apellidos, usuario, clave) {
+        return get("CALL sp_usuario_set(?,?,?,?)", [nombres, apellidos, usuario, clave])
     };
 };
 
@@ -22,5 +25,16 @@ async function get(sql, values) {
     } catch (err) {
         console.log(err);
         return [];
-    }
-}
+    };
+};
+
+async function set(sql, values) {
+    try {
+        const [data] = await connection.execute(sql, values);
+        console.log(data)
+        return data[0];
+    } catch (err) {
+        console.log(err);
+        return [];
+    };
+};

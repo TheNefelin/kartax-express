@@ -24,6 +24,8 @@ myRoutes.post("/iniciarSesion", (req, res) => {
         fn.iniciarSesion(inputs.txtUser, inputs.txtPass).then(data => {
             if (data.isActive) {
                 res.redirect("/admin");
+                req.session.logeado = true;
+				req.session.usuario =  "Prueba";
             } else {
                 res.redirect("/registrarse");
             }
@@ -47,12 +49,11 @@ myRoutes.get("/registrarse", (req, res) => {
 
 myRoutes.post("/registrarse", (req, res) => {
     const inputs = req.body;
-    console.log(inputs);
 
     if (inputs.btn1 == "registrar") {
         fn.registrarUsuario(inputs).then(data => {
-            console.log(data);
-            res.render("error");
+            console.log(data)
+            res.redirect("/iniciarSesion")
         }).catch(err => {
             console.log(err);
             res.render("error");
@@ -82,6 +83,11 @@ myRoutes.get("/kartax/:id", (req, res) => {
 });
 
 myRoutes.get("/admin", (req, res) => {
+    res.render("admin");
+});
+
+myRoutes.post("/admin", (req, res) => {
+
     res.render("admin");
 });
 

@@ -645,18 +645,24 @@ main {
 /* ----------------------------------------------------- */
 .admin-menu {
     display: flex;
-    justify-content: space-around;
-    padding: 1rem;
+    justify-content: center;
     background-color: var(--colorBase01);
+}
+
+.admin-menu > form {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .admin-menu img {
     height: 5rem;
+    width: 5rem;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.admin-menu img:hover {
+.admin-menu > form > *:hover {
     scale: calc(1.1);
 }
 
