@@ -46,3 +46,31 @@ BEGIN
     
     SELECT @isActive AS isActive;
 END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_set`(
+	nombres VARCHAR(50),
+    apellidos VARCHAR(50),
+    usuario VARCHAR(50),
+    clave VARCHAR(255)
+)
+BEGIN
+	SET @cont = 0;
+    SET @isActive = FALSE;
+    SET @msge = "";
+    
+    SET @cont := 
+    (SELECT 
+		COUNT(id) 
+    FROM usuario a 
+    WHERE a.usuario = usuario);
+    
+    IF (@cont = 0) THEN
+		SET @isActive = TRUE;
+        SET @msge = "Usuario Registrado Correctamente";
+	ELSE
+		SET @isActive = FALSE;
+        SET @msge = "Usuario ya Existe";
+    END IF;
+    
+    SELECT @isActive AS isActive, @msge AS msge;
+END
