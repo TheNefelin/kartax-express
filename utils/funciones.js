@@ -17,6 +17,13 @@ export async function dataKartax(id) {
     return {katrax, tipoAlim, arrLinks};
 };
 
+export async function dataNav() {
+    const api = new Api();
+    const katrax = await api.getNegocioById(1);
+
+    return {katrax};
+};
+
 export async function iniciarSesion(txtUser, txtPass) {
     const sql = new Sql();
 
@@ -26,5 +33,5 @@ export async function iniciarSesion(txtUser, txtPass) {
         return {isActive: true}
     } else {
         return {isActive: false, msge: "Usuario o Contraseña Incorrecta"}
-    }      
-}
+    };
+};

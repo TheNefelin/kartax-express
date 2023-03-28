@@ -34,7 +34,12 @@ myRoutes.post("/", (req, res) => {
 });
 
 myRoutes.get("/iniciarSesion", (req, res) => {
-    res.render("iniciarSesion");
+    fn.dataNav().then(data => {
+        res.render("iniciarSesion", data);
+    }).catch((err) => {
+        console.log(err);
+        res.render("error");
+    });
 });
 
 myRoutes.post("/iniciarSesion", (req, res) => {
@@ -55,7 +60,12 @@ myRoutes.post("/iniciarSesion", (req, res) => {
 });
 
 myRoutes.get("/registrarse", (req, res) => {
-    res.render("registrarse");
+    fn.dataNav().then(data => {
+        res.render("registrarse", data);
+    }).catch((err) => {
+        console.log(err);
+        res.render("error");
+    });
 });
 
 myRoutes.get("/kartax", (req, res) => {

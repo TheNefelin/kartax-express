@@ -81,6 +81,15 @@ CREATE TABLE [demo_TipoAlimento](
 	[id_Negocio] INT NULL
 )
 
+CREATE TABLE [dbo].[demo_Usuario](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nombres] [varchar](50) NULL,
+	[apellidos] [varchar](50) NULL,
+	[usuario] [varchar](50) NULL,
+	[clave] [varchar](255) NULL,
+	[isActive] [bit] NULL
+)
+
 INSERT demo_Color (id, nombre, R, G, B, idNegocio) 
 VALUES 
 	(1, N'colorBase01', 0, 0, 0, 1),
