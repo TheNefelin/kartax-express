@@ -35,3 +35,8 @@ export async function iniciarSesion(txtUser, txtPass) {
         return {isActive: false, msge: "Usuario o Contraseña Incorrecta"}
     };
 };
+
+export async function registrarUsuario(obj) {
+    console.log(obj);
+
+};

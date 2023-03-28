@@ -5,32 +5,7 @@ const myRoutes = Router();
 export default myRoutes;
 
 myRoutes.get("/", (req, res) => {
-    res.render("iniciarSesion");
-});
-
-myRoutes.post("/", (req, res) => {
-    const dt = req.body;
-
-    if (dt.btn1 == 1) {
-        fn.iniciarSesion(dt.txtUser, dt.txtPass).then(data => {
-            if (data.isActive) {
-                res.render("admin");
-            } else {
-                res.render("iniciarSesion");
-            }
-        }).catch((err) => {
-            console.log(err);
-            res.render("error");
-        });
-    } else if (dt.btn1 == 2) {
-        res.render("registrarse");
-    } else if (dt.btn1 == 3) {
-        res.render("iniciarSesion");
-    } else if (dt.btn1 == 4) {
-        res.redirect("/kartax")
-    } else {
-        res.render("iniciarSesion");
-    };
+    res.redirect("/kartax");
 });
 
 myRoutes.get("/iniciarSesion", (req, res) => {
@@ -45,10 +20,10 @@ myRoutes.get("/iniciarSesion", (req, res) => {
 myRoutes.post("/iniciarSesion", (req, res) => {
     const inputs = req.body;
 
-    if (inputs.btn1 == 1) {
+    if (inputs.btn1 == "iniciar") {
         fn.iniciarSesion(inputs.txtUser, inputs.txtPass).then(data => {
             if (data.isActive) {
-                res.render("admin");
+                res.redirect("/admin");
             } else {
                 res.redirect("/registrarse");
             }
@@ -56,7 +31,9 @@ myRoutes.post("/iniciarSesion", (req, res) => {
             console.log(err);
             res.render("error");
         });
-    };
+    } else {
+        res.redirect("/kartax");
+    }; 
 });
 
 myRoutes.get("/registrarse", (req, res) => {
@@ -66,6 +43,23 @@ myRoutes.get("/registrarse", (req, res) => {
         console.log(err);
         res.render("error");
     });
+});
+
+myRoutes.post("/registrarse", (req, res) => {
+    const inputs = req.body;
+    console.log(inputs);
+
+    if (inputs.btn1 == "registrar") {
+        fn.registrarUsuario(inputs).then(data => {
+            console.log(data);
+            res.render("error");
+        }).catch(err => {
+            console.log(err);
+            res.render("error");
+        });
+    } else {
+        res.redirect("/kartax");
+    };
 });
 
 myRoutes.get("/kartax", (req, res) => {
@@ -85,6 +79,10 @@ myRoutes.get("/kartax/:id", (req, res) => {
         console.log(err);
         res.render("error");
     });
+});
+
+myRoutes.get("/admin", (req, res) => {
+    res.render("admin");
 });
 
 myRoutes.get("/error", (req, res) => {
