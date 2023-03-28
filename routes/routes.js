@@ -40,11 +40,22 @@ myRoutes.get("/iniciarSesion", (req, res) => {
 myRoutes.post("/iniciarSesion", (req, res) => {
     const inputs = req.body;
 
-    if (dt.btn1 == 1) {
-        
-    }
- 
-    res.render("iniciarSesion");
+    if (inputs.btn1 == 1) {
+        fn.iniciarSesion(inputs.txtUser, inputs.txtPass).then(data => {
+            if (data.isActive) {
+                res.render("admin");
+            } else {
+                res.redirect("/registrarse");
+            }
+        }).catch((err) => {
+            console.log(err);
+            res.render("error");
+        });
+    };
+});
+
+myRoutes.get("/registrarse", (req, res) => {
+    res.render("registrarse");
 });
 
 myRoutes.get("/kartax", (req, res) => {
