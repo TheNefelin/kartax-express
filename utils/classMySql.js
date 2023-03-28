@@ -4,10 +4,10 @@ export default class Sql {
     constructor() {
     };
     getIniciarSesion(usuario, clave) {
-        return get("CALL sp_usuario_get(?,?)", [usuario, clave])
+        return dataSql("CALL sp_usuario_get(?)", [usuario])
     };
     setUsuario(nombres, apellidos, usuario, clave) {
-        return get("CALL sp_usuario_set(?,?,?,?)", [nombres, apellidos, usuario, clave])
+        return dataSql("CALL sp_usuario_set(?,?,?,?)", [nombres, apellidos, usuario, clave])
     };
 };
 
@@ -18,23 +18,12 @@ const connection = await mysql.createConnection({
     database: 'kartax'
 });
 
-async function get(sql, values) {
+async function dataSql(sql, values) {
     try {
         const [data] = await connection.execute(sql, values);
         return data[0];
     } catch (err) {
         console.log(err);
-        return [];
-    };
-};
-
-async function set(sql, values) {
-    try {
-        const [data] = await connection.execute(sql, values);
-        console.log(data)
-        return data[0];
-    } catch (err) {
-        console.log(err);
-        return [];
+        return {isActive: false, msge: err};
     };
 };

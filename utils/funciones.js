@@ -7,7 +7,7 @@ const saltRounds = 10;
 export async function dataKartax(id) {
     const api = new Api();
 
-    const katrax = await api.getNegocioById(id);
+    const negocio = await api.getNegocioById(id);
     const tipoAlim = await api.getTipoAlimByIdNegocio(id);
     const linksGrp = await api.getLinksGrpAll();
     const links = await api.getLinksAll();
@@ -17,50 +17,42 @@ export async function dataKartax(id) {
         return lg;
     });
 
-    return {katrax, tipoAlim, arrLinks};
+    return {negocio, tipoAlim, arrLinks};
 };
 
 export async function dataNav() {
     const api = new Api();
-    const katrax = await api.getNegocioById(1);
+    const negocio = await api.getNegocioById(1);
 
-    return {katrax};
+    return negocio;
 };
 
-export async function iniciarSesion(txtUser, txtPass) {
+export async function iniciarSesion(obj) {
     const sql = new Sql();
-    let data;
 
-    if (txtUser && txtPass) {
-        data = await sql.getIniciarSesion(txtUser, txtPass)
-        data = data[0];
-    } else {
-        data = {isActive: false};
+    if (!obj.txtUser || !obj.txtPass) {
+        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
 
-    if (data.isActive) {
-        return {isActive: true}
-    } else {
-        return {isActive: false, msge: "Usuario o Contraseña Incorrecta"}
-    };
+    const res = await sql.getIniciarSesion(obj.txtUser)
+    console.log(bcrypt.compareSync(obj.txtPass, res[0].msge))
+
+    return res[0];
 };
 
 export async function registrarUsuario(obj) {
     const sql = new Sql();
-    const res = { isActive: false, msge: "" };
 
     if (obj.txtPass1 !== obj.txtPass2) {
-        res.msge = "Contraseña no Coinciden";
-        return res;
+        return { isActive: 0, msge: "Contraseña no Coinciden" };
     };
 
     if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
-        res.msge = "Debe Ingresar Todos los Datos Requeridos";
-        return res;
+        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
 
     obj.hash = await bcrypt.hash(obj.txtPass1, saltRounds);
 
-    const data = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.hash);
-    return data;
+    const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.hash);
+    return res[0];
 };
