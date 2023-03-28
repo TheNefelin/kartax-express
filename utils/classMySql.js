@@ -4,7 +4,7 @@ export default class Sql {
     constructor() {
     };
     getIniciarSesion(usuario, clave) {
-        return dataSql("CALL sp_usuario_get(?)", [usuario])
+        return dataSql("CALL sp_usuario_get(?,?)", [usuario, clave])
     };
     setUsuario(nombres, apellidos, usuario, clave) {
         return dataSql("CALL sp_usuario_set(?,?,?,?)", [nombres, apellidos, usuario, clave])
@@ -27,3 +27,4 @@ async function dataSql(sql, values) {
         return {isActive: false, msge: err};
     };
 };
+

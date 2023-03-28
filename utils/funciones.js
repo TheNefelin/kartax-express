@@ -34,8 +34,8 @@ export async function iniciarSesion(obj) {
         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
 
-    const res = await sql.getIniciarSesion(obj.txtUser)
-    console.log(bcrypt.compareSync(obj.txtPass, res[0].msge))
+    const res = await sql.getIniciarSesion(obj.txtUser, obj.txtPass)
+    // console.log(bcrypt.compareSync(obj.txtPass, res[0].msge))
 
     return res[0];
 };
@@ -51,8 +51,8 @@ export async function registrarUsuario(obj) {
         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
 
-    obj.hash = await bcrypt.hash(obj.txtPass1, saltRounds);
+    // obj.hash = await bcrypt.hash(obj.txtPass1, saltRounds);
 
-    const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.hash);
+    const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
     return res[0];
 };
