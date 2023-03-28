@@ -1,18 +1,11 @@
-import mysql from "mysql2/promise";
+import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
-const api = new Api();
-
-const connection = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '!nfra48x',
-    database: 'kartax'
-});
 
 export async function dataKartax(id) {
+    const api = new Api();
+
     const katrax = await api.getNegocioById(id);
     const tipoAlim = await api.getTipoAlimByIdNegocio(id);
-    // const itemCateg = await api.getItemCategByIdNegocio(id);
     const linksGrp = await api.getLinksGrpAll();
     const links = await api.getLinksAll();
     
@@ -25,43 +18,13 @@ export async function dataKartax(id) {
 };
 
 export async function iniciarSesion(txtUser, txtPass) {
-    const sql = "CALL sp_usuario_getAll"
-    const [rows, fields] = await connection.execute(query);
-    console.log(rows);
-    
-    // query = "CALL sp_usuario_getAll"
-    // const [rows, fields] = await connection.execute(query);
-    // console.log(rows);
+    const sql = new Sql();
 
-    // query = "CALL sp_usuario_getAll"
-    // const [rows, fields] = await connection.execute(query);
-    // console.log(rows);
-
-    // const data = await connection.execute('SELECT * FROM `table` WHERE `name` = ? AND `age` > ?', ['Morty', 14]);
-    // const [rows, fields] = await connection.execute('SELECT * FROM usuario');
-    // try {
-    //     const query = 'INSERT INTO usuario (nombre, apellido, usuario, clave) VALUES ("FRANCISCO", "NEFELIN", "NEFELIN", 123456789);'
-    //     const [rows, fields] = await connection.execute(query);
-    //     console.log(rows);
-    // } catch (err) {
-    //     console.log(err);
-    //     console.log(rows);
-    // }
-
-
-    // connection.connect();
-
-    // data = connection.query('SELECT * FROM usuario', async function(err, rows, fields) {
-    // if (err) throw err;
-    //     console.log(rows);
-    //     return rows;
-    // });
-
-    // connection.end();
-
-    if (txtUser == "FRANCISCO" && txtPass == 123456) {
-        return {isValid: true}
+    const data = await sql.getIniciarSesion(txtUser, txtPass)
+    console.log(data)
+    if (data[0].isActive) {
+        return {isActive: true}
     } else {
-        return {isValid: false}
+        return {isActive: false, msge: "Usuario o Contraseña Incorrecta"}
     }      
 }
