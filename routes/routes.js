@@ -104,6 +104,10 @@ myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
 
+myRoutes.get("/testing", (req, res) => {
+    res.render("testing");
+});
+
 myRoutes.get("*", (req, res) => {
     res.redirect("/error");
 });

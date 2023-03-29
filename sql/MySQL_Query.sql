@@ -1,4 +1,4 @@
-CREATE SCHEMA `kartax` ;
+CREATE SCHEMA `kartax`;
 
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -21,6 +21,9 @@ CALL sp_usuario_get("NEFELIN", "123456");
 CALL sp_usuario_get("NEFELIN", "1234561");
 CALL sp_usuario_set("PRUEBA", "NO", "NEFELIN", 123456);
 CALL sp_usuario_set("PRUEBA", "NO", "FRANCISCO", 123456);
+
+SELECT SHA1('123456') AS Pass;
+SELECT SHA1(123456) AS Pass;
 
 ------------------------------------------------------------------
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_get`(

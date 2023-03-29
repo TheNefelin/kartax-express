@@ -2,8 +2,6 @@ import bcrypt from "bcrypt";
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
 
-const saltRounds = 10;
-
 export async function dataKartax(id) {
     const api = new Api();
 
@@ -35,8 +33,6 @@ export async function iniciarSesion(obj) {
     };
 
     const res = await sql.getIniciarSesion(obj.txtUser, obj.txtPass)
-    // console.log(bcrypt.compareSync(obj.txtPass, res[0].msge))
-
     return res[0];
 };
 
@@ -50,8 +46,6 @@ export async function registrarUsuario(obj) {
     if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
-
-    // obj.hash = await bcrypt.hash(obj.txtPass1, saltRounds);
 
     const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
     return res[0];
