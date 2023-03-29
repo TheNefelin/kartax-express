@@ -32,15 +32,13 @@
             }
         );
 
-        renderItemCarrito(arrItemCarrito);
+        renderItemCarrito();
     };
 
-    function renderItemCarrito(arrItemCarrito){
+    function renderItemCarrito(){
         let html = "";
         const comandaItem = document.querySelector(".comanda-item");
         comandaItem.innerHTML = html;
-
-        arrItemCarrito.sort((a , b) => a.idItem - b.idItem);
 
         arrItemCarrito.forEach(e => {
             html += `
@@ -48,7 +46,7 @@
                     <label>${e.nomItem}</label>
                     <label>
                         <label>${e.precio}</label>
-                        <span value=${e.idItem} class="comanda-btn">&#x2715;</span>
+                        <span id=${e.idItem} class="comanda-btn">&#x2715;</span>
                     </label>
                 </li>`;
         });
@@ -58,9 +56,12 @@
         const comandaBtn = document.querySelectorAll(".comanda-btn");
         comandaBtn.forEach(e => {
             e.addEventListener("click", () => {
-                removeItemCarrito(e.value);
+                removeItemCarrito(e.id);
+                console.log(e.id)
             });
         });
+
+        console.log(comandaBtn)
 
         const carritoCont = document.querySelector(".carrito-cont");
         carritoCont.textContent = arrItemCarrito.length;

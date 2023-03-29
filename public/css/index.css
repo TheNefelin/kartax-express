@@ -680,7 +680,7 @@ main {
 .rrss-contenedor {
     position: fixed;
     left: -10rem;
-    z-index: 1;
+    z-index: 2;
     transition: 0.3s;
 }
 
