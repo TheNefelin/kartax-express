@@ -192,6 +192,10 @@ nav {
 
 /* navBar comportamineto ----------- */
 @media (max-width: 767.98px) {
+    body {
+        font-size: 14px;
+    }
+
     .navBar-btn {
         display: block;
     }
@@ -525,7 +529,7 @@ main {
     padding: 0;
     margin: 1rem;
     overflow-y: scroll;
-    height: 70vh;
+    max-height: 60vh;
 }
 
 .comanda-item li {
@@ -671,10 +675,58 @@ main {
     scale: calc(1.1);
 }
 
-/* -- RRSS --------------------------------------------- */
+/* -- rrss --------------------------------------------- */
 /* ----------------------------------------------------- */
+.rrss-contenedor {
+    position: fixed;
+    left: -10rem;
+    z-index: 1;
+    transition: 0.3s;
+}
+
+.rrss-contenedor_noOcultar {
+    top: 0;
+    left: 0;
+}
+
+.rrss {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem;
+}
+
 .rrss img {
-    height: 5rem;
+    cursor: pointer;
+    height: 4rem;
+    transition: 0.3s;
+}
+
+.rrss img:hover {
+    scale: calc(1.1);
+}
+
+/* -- celular --------------------------------------------- */
+/* ----------------------------------------------------- */
+.phone {
+    background-color: #36383F;
+    border-radius: 40px;
+    width: 320px;
+    height: 600px;
+    Display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 30px 50px 100px #85888C;
+}
+.content {
+    border: 1px solid #36383F;
+    border-radius: 20px;
+    width: 94%;
+    height: 91%;
+    background-color: #F5F6FA;
+    overflow: hidden;
 }
 
 /* -- footer ------------------------------------------- */

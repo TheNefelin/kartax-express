@@ -12,7 +12,7 @@
             <div class="navBar-C"></div>
         </div>
         <div class="navBar-links">
-            <a href="/testing">RRSS</a>
+            <a id="RRSS" href="#">RRSS</a>
             <a href="/">Clientes</a>
             <a href="/iniciarSesion">Iniciar Sesión</a>
             <a href="/registrarse">Registrarse</a>
@@ -39,4 +39,10 @@
         burger.classList.toggle("navBar-btn_click");
         linkContainer.classList.toggle("navBar-links_noOcultar");
     };
+
+    const RRSS =  document.querySelector("#RRSS");
+    RRSS.addEventListener("click", () => {
+        const rrssContenedor =  document.querySelector(".rrss-contenedor");
+        rrssContenedor.classList.toggle("rrss-contenedor_noOcultar")
+    });
 </script>
