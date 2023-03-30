@@ -2,28 +2,36 @@ import bcrypt from "bcrypt";
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
 
-export async function dataKartax(id) {
+export async function kartax(id) {
     const api = new Api();
 
     const negocio = await api.getNegocioById(id);
     const tipoAlim = await api.getTipoAlimByIdNegocio(id);
-    const linksGrp = await api.getLinksGrpAll();
-    const links = await api.getLinksAll();
-    
-    const arrLinks = linksGrp.map(lg => {
-        lg.links = links.filter(l => l.idLinkGrupo == lg.id);
-        return lg;
-    });
+    const nav = await dataNav();
+    const footer = await dataFooter();
 
-    return {negocio, tipoAlim, arrLinks};
+    return {negocio, tipoAlim, nav, footer};
 };
 
 export async function dataNav() {
     const api = new Api();
     const negocio = await api.getNegocioById(1);
-
     return negocio;
 };
+
+export async function dataFooter() {
+    const api = new Api();
+
+    const linksGrp = await api.getLinksGrpAll();
+    const links = await api.getLinksAll();
+    
+    const footer = linksGrp.map(lg => {
+        lg.links = links.filter(l => l.idLinkGrupo == lg.id);
+        return lg;
+    });
+
+    return footer;
+}
 
 export async function iniciarSesion(obj) {
     const sql = new Sql();

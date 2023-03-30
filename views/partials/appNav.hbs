@@ -1,7 +1,7 @@
 <nav>
     <section class="navBar-contenedor">
         <a href="#" class="navBar-logo">
-            {{#each negocio}}
+            {{#each nav}}
             <img src={{link}}>
             <h1>{{nombre}}</h1>
             {{/each}}
@@ -19,6 +19,8 @@
         </div>
     </section>
 </nav>
+
+{{> appRRSS}}
 
 <script>
     const linkContainer = document.querySelector(".navBar-links"); 

@@ -4,14 +4,21 @@ import * as fn from "../utils/funciones.js";
 const myRoutes = Router();
 export default myRoutes;
 
-myRoutes.get("/", (req, res) => {
-    res.redirect("/kartax");
+myRoutes.get("/", async (req, res) => {
+    try {
+        const nav = await fn.dataNav();
+        const footer = await fn.dataFooter();
+        res.render("index", {nav: nav, footer: footer});
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
 });
 
 myRoutes.get("/iniciarSesion", async (req, res) => {
     try {
-        const negocio = await fn.dataNav();
-        res.render("iniciarSesion", {negocio: negocio});
+        const nav = await fn.dataNav();
+        res.render("iniciarSesion", {nav: nav});
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -23,7 +30,7 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
     try {
         if (inputs.btn1 == "iniciar") {
-            const negocio = await fn.dataNav();
+            const nav = await fn.dataNav();
             const resIS = await fn.iniciarSesion(inputs);
 
             if (resIS.isActive) {
@@ -31,7 +38,7 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
                 req.session.usuario = inputs.txtUser;
                 res.redirect("/admin");
             } else {
-                res.render("iniciarSesion", {negocio: negocio, resIS: resIS})
+                res.render("iniciarSesion", {nav: nav, resIS: resIS})
             };
         } else {
             res.redirect("/kartax");
@@ -44,8 +51,8 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
 myRoutes.get("/registrarse", async (req, res) => {
     try {
-        const negocio = await fn.dataNav()
-        res.render("registrarse", {negocio: negocio});
+        const nav = await fn.dataNav()
+        res.render("registrarse", {nav: nav});
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -57,10 +64,10 @@ myRoutes.post("/registrarse", async (req, res) => {
 
     try {
         if (inputs.btn1 == "registrar") {
-            const negocio = await fn.dataNav()
+            const nav = await fn.dataNav()
             const resU = await fn.registrarUsuario(inputs)
             console.log(resU)
-            res.render("registrarse", {negocio: negocio, resU: resU})
+            res.render("registrarse", {nav: nav, resU: resU})
         } else {
             res.redirect("/kartax");
         };
@@ -72,7 +79,7 @@ myRoutes.post("/registrarse", async (req, res) => {
 
 myRoutes.get("/kartax", async (req, res) => {
     try {
-        const data = await fn.dataKartax(1);
+        const data = await fn.kartax(1);
         res.render("kartax", data);
     } catch (err) {
         console.log(err);
@@ -84,7 +91,7 @@ myRoutes.get("/kartax/:id", async (req, res) => {
     const id = isNaN() ? 1 : req.params.id;
 
     try {
-        const data = await fn.dataKartax(id);
+        const data = await fn.kartax(id);
         res.render("kartax", data);
     } catch (err) {
         console.log(err);

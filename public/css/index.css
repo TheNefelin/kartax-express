@@ -708,27 +708,6 @@ main {
     scale: calc(1.1);
 }
 
-/* -- celular --------------------------------------------- */
-/* ----------------------------------------------------- */
-.phone {
-    background-color: #36383F;
-    border-radius: 40px;
-    width: 320px;
-    height: 600px;
-    Display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 30px 50px 100px #85888C;
-}
-.content {
-    border: 1px solid #36383F;
-    border-radius: 20px;
-    width: 94%;
-    height: 91%;
-    background-color: #F5F6FA;
-    overflow: hidden;
-}
-
 /* -- footer ------------------------------------------- */
 /* ----------------------------------------------------- */
 .footer {
@@ -748,3 +727,66 @@ main {
     font-size: 1rem;
     color: var(--color04);
 }
+
+/* ---Index -------------------------------------------- */
+/* ----------------------------------------------------- */
+.pageHeader {
+    background-color: var(--colorBase01);
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.pageMain {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100% , 23rem), 1fr));
+}
+
+.pageMain h1 {
+    color: var(--color03);
+    text-align: center;
+}
+
+.pageMain section {
+    color: var(--colorBase02);
+    background-color: var(--colorBase04);
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.pagePhone {
+    background-color: var(--colorBase04);
+    display: grid;
+    justify-content: center;
+}
+
+.pagePhone a {
+    text-align: center;
+    padding: 1rem;
+}
+
+/* -- celular ------------------------------------------ */
+/* ----------------------------------------------------- */
+.phone {
+    background-color: var(--colorBase01);
+    border-radius: 40px;
+    width: 320px;
+    height: 600px;
+    Display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 30px 50px 100px var(--colorBase03);
+}
+.content {
+    border: 1px solid var(--colorBase02);
+    border-radius: 20px;
+    width: 94%;
+    height: 91%;
+    background-color: var(--colorBase02);
+    overflow: hidden;
+}
+
+/* ----------------------------------------------------- */
+/* ----------------------------------------------------- */
+
