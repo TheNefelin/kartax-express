@@ -730,14 +730,8 @@ main {
 
 /* ---Index -------------------------------------------- */
 /* ----------------------------------------------------- */
-.pageHeader {
-    background-color: var(--colorBase01);
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-}
-
 .pageMain {
+    padding-top: 4rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100% , 23rem), 1fr));
 }
@@ -787,6 +781,76 @@ main {
     overflow: hidden;
 }
 
+/* -- fx ----------------------------------------------- */
 /* ----------------------------------------------------- */
-/* ----------------------------------------------------- */
+.fx-linterna {
+    background-color: red;
+}
 
+.fx-hexa {
+    position: relative;
+    margin-left: 0.3rem;
+    margin-top: 0.3rem;
+    width: 100px;
+    height: 110px;
+    background: #111;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: 2s;
+}
+
+.fx-hexa::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: rgba(255,255,255,0.02);
+    z-index: 1000;
+}
+
+.fx-hexa::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    background: #111;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.fx-hexa:hover {
+    background: #0f0;
+    transition: 0s;
+}
+
+.fx-container {
+    animation: anime 2.5s linear infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.stringOrRow {
+    display: inline-flex;
+    margin-top: -32px;
+    margin-left: -50px;
+}
+
+.stringOrRow:nth-child(even) {
+    margin-left: 1px;
+}
+
+@keyframes anime {
+
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* ----------------------------------------------------- */
+/* ----------------------------------------------------- */
