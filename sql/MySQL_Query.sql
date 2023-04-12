@@ -1,5 +1,7 @@
+-- crear base de datos -----------------------------------------------------------------------
 CREATE SCHEMA `kartax`;
 
+-- usuarios ----------------------------------------------------------------------------------
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombres` varchar(100) NOT NULL,
@@ -10,24 +12,8 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id`)
 );
 
-INSERT INTO usuario
-	(nombres, apellidos, usuario, clave, isActive)
-VALUES
-	("FRANCISCO", "SLIFER", "NEFELIN", "123456", TRUE);
-
-SELECT * FROM usuario;
-TRUNCATE TABLE usuario;
-CALL sp_usuario_get("NEFELIN", "123456");
-CALL sp_usuario_get("NEFELIN", "1234561");
-CALL sp_usuario_set("PRUEBA", "NO", "NEFELIN", 123456);
-CALL sp_usuario_set("PRUEBA", "NO", "FRANCISCO", 123456);
-
-SELECT SHA1('123456') AS Pass;
-SELECT SHA1(123456) AS Pass;
-
-------------------------------------------------------------------
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_get`(
-	txtUsuario VARCHAR(50), 
+	txtUsuario VARCHAR(50),
     txtClave VARCHAR(255)
 )
 BEGIN
@@ -35,13 +21,15 @@ BEGIN
     SET @isActive = FALSE;
     SET @msge = "";
     
+    SET txtClave = SHA1(txtClave);
+    
     SET @cont := 
 	(SELECT 
 		COUNT(id) 
 	FROM usuario 
 	WHERE 
 		usuario = txtUsuario AND 
-		clave = txtClave AND
+        clave = txtClave AND
 		isActive = 1);
 		
 	IF  @cont > 0 THEN
@@ -51,7 +39,7 @@ BEGIN
 	END IF;
     
     SELECT @isActive AS isActive, @msge AS msge;
-END
+END;
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usuario_set`(
 	nombres VARCHAR(50),
@@ -63,6 +51,8 @@ BEGIN
 	SET @cont = 0;
     SET @isActive = FALSE;
     SET @msge = "";
+    
+    SET clave = SHA1(clave);
     
     SET @cont := 
     (SELECT 
@@ -84,12 +74,19 @@ BEGIN
     END IF;
     
     SELECT @isActive AS isActive, @msge AS msge;
-END
+END;
 
+SELECT * FROM usuario;
+-- TRUNCATE TABLE usuario;
+CALL sp_usuario_get("NEFELIN", "123456");
+CALL sp_usuario_set("FRANCISCO", "CARMONA", "NEFELIN", 123456);
+CALL sp_usuario_get("NEFELIN", "1234561");
 
+SELECT SHA1('123456') AS Pass;
+SELECT SHA1(123456) AS Pass;
 
-
-
-
-
-
+-- -------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------

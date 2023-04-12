@@ -1,8 +1,8 @@
 import express from "express";
-import hbs from "hbs"
+import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import routes from "./routes/routes.js"
+import routes from "./routes/routes.js";
 import bodyParser from 'body-parser';
 import session from "express-session";
 
@@ -14,12 +14,13 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
-    secret: 'Esmerilemelo',
+    secret: 'esmerilemelo',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
 }));
-app
 app.use(routes);
-app.listen(3000);
+app.listen(3000, (req, res) => {
+    console.log("SERVER UP!!!");
+});
 
