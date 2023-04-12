@@ -51,7 +51,7 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
 myRoutes.get("/registrarse", async (req, res) => {
     try {
-        const nav = await fn.dataNav()
+        const nav = await fn.dataNav();
         res.render("registrarse", {nav: nav});
     } catch (err) {
         console.log(err);
@@ -64,10 +64,10 @@ myRoutes.post("/registrarse", async (req, res) => {
 
     try {
         if (inputs.btn1 == "registrar") {
-            const nav = await fn.dataNav()
-            const resU = await fn.registrarUsuario(inputs)
-            console.log(resU)
-            res.render("registrarse", {nav: nav, resU: resU})
+            const nav = await fn.dataNav();
+            const resU = await fn.registrarUsuario(inputs);
+            console.log(resU);
+            res.render("registrarse", {nav: nav, resU: resU});
         } else {
             res.redirect("/kartax");
         };
@@ -99,8 +99,13 @@ myRoutes.get("/kartax/:id", async (req, res) => {
     };
 });
 
-myRoutes.get("/admin", (req, res) => {
-    res.render("admin");
+myRoutes.get("/admin", async (req, res) => {
+    if (req.session.logeado) {
+        res.render("admin");
+    } else {
+        const nav = await fn.dataNav();
+        res.render("registrarse", {nav: nav});
+    }
 });
 
 myRoutes.post("/admin", (req, res) => {

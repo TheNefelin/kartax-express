@@ -1,5 +1,5 @@
 import express from "express";
-import hbs from "hbs"
+import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import routes from "./routes/routes.js"
