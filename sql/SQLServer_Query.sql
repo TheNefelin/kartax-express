@@ -1,10 +1,12 @@
+CREATE DATABASE [bd_kartax]
+
 CREATE TABLE [demo_Color](
 	[id] INT NOT NULL,
-	[nombre] VARCHAR NULL,
+	[nombre] VARCHAR(50) NULL,
 	[R] INT NULL,
 	[G] INT NULL,
 	[B] INT NULL,
-	[idNegocio] INT NULL
+	[id_Negocio] INT NULL
 )
 
 CREATE TABLE [demo_Comanda](
@@ -96,7 +98,7 @@ CREATE TABLE [dbo].[demo_Usuario_Negocio](
 	[fecha] [datetime] NULL,
 )
 	
-INSERT demo_Color (id, nombre, R, G, B, idNegocio) 
+INSERT demo_Color (id, nombre, R, G, B, id_Negocio) 
 VALUES 
 	(1, N'colorBase01', 0, 0, 0, 1),
 	(2, N'colorBase02', 255, 255, 255, 1),
@@ -228,7 +230,6 @@ BEGIN
 END
 
 CREATE PROCEDURE [dbo].[pa_ItemCateg_GetAll]
-
 AS
 BEGIN
 	SET NOCOUNT ON;
