@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
+import PGSQL from "./classPostgre.js";
 
 export async function kartax(id) {
     const api = new Api();
@@ -58,3 +59,9 @@ export async function registrarUsuario(obj) {
     const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
     return res[0];
 };
+
+export async function testing() {
+    const pgObj = new PGSQL()
+    const res = await pgObj.getUsuario();
+    console.log(res)
+}

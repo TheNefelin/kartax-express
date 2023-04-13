@@ -1,3 +1,12 @@
 {{#> appKartax}}
-
+    <form action="testing" method="post">
+        <button id="btnTest">Prueba</button>
+    </form>
 {{/appKartax}}
+
+<script>
+    const btn = document.querySelector("#btnTest");
+    btn.addEventListener("click", () => {
+        console.log("CLICK Y WEA")
+    });
+</script>

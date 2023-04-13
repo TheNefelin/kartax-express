@@ -6,7 +6,8 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "i": "^0.3.7",
-    "mysql2": "^3.2.0"
+    "mysql2": "^3.2.0",
+    "pg": "^8.10.0"
   },
   "name": "kartax-express",
   "description": "> Install packages\r ```\r npm install express\r npm install hbs\r ```",

@@ -3,93 +3,93 @@
 BEGIN;
 
 
-DROP TABLE IF EXISTS public."Caja";
+DROP TABLE IF EXISTS public."caja";
 
-CREATE TABLE IF NOT EXISTS public."Caja"
+CREATE TABLE IF NOT EXISTS public."caja"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     monto integer NOT NULL,
     "fechaIni" date NOT NULL,
     "fechaFin" date NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_Usuario" integer NOT NULL,
+    "is_active" boolean NOT NULL,
+    "id_usuario" integer NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Color";
+DROP TABLE IF EXISTS public."color";
 
-CREATE TABLE IF NOT EXISTS public."Color"
+CREATE TABLE IF NOT EXISTS public."color"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
     "R" integer NOT NULL,
     "G" integer NOT NULL,
     "B" integer NOT NULL,
-    "id_Negocio" integer NOT NULL,
-    CONSTRAINT "Color_pkey" PRIMARY KEY (id)
+    "id_negocio" integer NOT NULL,
+    CONSTRAINT "color_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Comanda";
+DROP TABLE IF EXISTS public."comanda";
 
-CREATE TABLE IF NOT EXISTS public."Comanda"
+CREATE TABLE IF NOT EXISTS public."comanda"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     fecha date NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_Mesa" integer NOT NULL,
-    CONSTRAINT "Comanda_pkey" PRIMARY KEY (id)
+    "is_active" boolean NOT NULL,
+    "id_mesa" integer NOT NULL,
+    CONSTRAINT "comanda_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."ComandaDeta";
+DROP TABLE IF EXISTS public."comanda_deta";
 
-CREATE TABLE IF NOT EXISTS public."ComandaDeta"
+CREATE TABLE IF NOT EXISTS public."comanda_deta"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     fecha date NOT NULL,
-    "id_Item" integer NOT NULL,
-    "id_Comanda" integer NOT NULL,
+    "id_item" integer NOT NULL,
+    "id_comanda" integer NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Item";
+DROP TABLE IF EXISTS public."item";
 
-CREATE TABLE IF NOT EXISTS public."Item"
+CREATE TABLE IF NOT EXISTS public."item"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
     descripcion character varying(255) COLLATE pg_catalog."default" NOT NULL,
     precio integer NOT NULL,
     img character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_ItemCateg" integer NOT NULL,
+    "is_active" boolean NOT NULL,
+    "id_item_categ" integer NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."ItemCateg";
+DROP TABLE IF EXISTS public."item_categ";
 
-CREATE TABLE IF NOT EXISTS public."ItemCateg"
+CREATE TABLE IF NOT EXISTS public."item_categ"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    "id_TipoAlimento" integer NOT NULL,
-    CONSTRAINT "ItemCateg_pkey" PRIMARY KEY (id)
+    "id_tipo_alimento" integer NOT NULL,
+    CONSTRAINT "item_categ_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Mesa";
+DROP TABLE IF EXISTS public."mesa";
 
-CREATE TABLE IF NOT EXISTS public."Mesa"
+CREATE TABLE IF NOT EXISTS public."mesa"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
     descripcion character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_Negocio" integer NOT NULL,
-    CONSTRAINT "Mesa_pkey" PRIMARY KEY (id)
+    "is_active" boolean NOT NULL,
+    "id_negocio" integer NOT NULL,
+    CONSTRAINT "mesa_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Negocio";
+DROP TABLE IF EXISTS public."negocio";
 
-CREATE TABLE IF NOT EXISTS public."Negocio"
+CREATE TABLE IF NOT EXISTS public."negocio"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
@@ -97,48 +97,48 @@ CREATE TABLE IF NOT EXISTS public."Negocio"
     direccion character varying(255) COLLATE pg_catalog."default" NOT NULL,
     descripcion character varying(255) COLLATE pg_catalog."default",
     logo character varying(255) COLLATE pg_catalog."default",
-    "isActive" boolean NOT NULL,
-    CONSTRAINT "Negocio_pkey" PRIMARY KEY (id)
+    "is_active" boolean NOT NULL,
+    CONSTRAINT "negocio_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Salida";
+DROP TABLE IF EXISTS public."salida";
 
-CREATE TABLE IF NOT EXISTS public."Salida"
+CREATE TABLE IF NOT EXISTS public."salida"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     fecha date NOT NULL,
-    "id_Caja" integer NOT NULL,
-    CONSTRAINT "Salida_pkey" PRIMARY KEY (id)
+    "id_caja" integer NOT NULL,
+    CONSTRAINT "salida_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."SalidaDeta";
+DROP TABLE IF EXISTS public."salida_deta";
 
-CREATE TABLE IF NOT EXISTS public."SalidaDeta"
+CREATE TABLE IF NOT EXISTS public."salida_deta"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    "id_Item" integer NOT NULL,
-    "nom_Item" character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    "precio_Item" integer NOT NULL,
+    "id_item" integer NOT NULL,
+    "nom_item" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    "precio_item" integer NOT NULL,
     cant integer NOT NULL,
-    "id_Salida" integer NOT NULL,
+    "id_salida" integer NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."TipoAlimento";
+DROP TABLE IF EXISTS public."tipo_alimento";
 
-CREATE TABLE IF NOT EXISTS public."TipoAlimento"
+CREATE TABLE IF NOT EXISTS public."tipo_alimento"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombre character varying(50) COLLATE pg_catalog."default" NOT NULL,
     img character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_Negocio" integer NOT NULL,
-    CONSTRAINT "TipoAlimento_pkey" PRIMARY KEY (id)
+    "is_active" boolean NOT NULL,
+    "id_negocio" integer NOT NULL,
+    CONSTRAINT "tipo_alimento_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Usuario";
+DROP TABLE IF EXISTS public."usuario";
 
-CREATE TABLE IF NOT EXISTS public."Usuario"
+CREATE TABLE IF NOT EXISTS public."usuario"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     nombres character varying(100) COLLATE pg_catalog."default" NOT NULL,
@@ -146,112 +146,112 @@ CREATE TABLE IF NOT EXISTS public."Usuario"
     correo character varying(100) COLLATE pg_catalog."default",
     usuario character varying(100) COLLATE pg_catalog."default" NOT NULL,
     clave character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    "isActive" boolean NOT NULL,
-    "id_Rol" integer NOT NULL,
-    "id_Negocio" integer NOT NULL,
-    CONSTRAINT "Usuario_pkey" PRIMARY KEY (id)
+    "is_active" boolean NOT NULL,
+    "id_rol" integer NOT NULL,
+    "id_negocio" integer NOT NULL,
+    CONSTRAINT "usuario_pkey" PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public."Rol";
+DROP TABLE IF EXISTS public."rol";
 
-CREATE TABLE IF NOT EXISTS public."Rol"
+CREATE TABLE IF NOT EXISTS public."rol"
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     nombre character varying(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public."Caja"
-    ADD FOREIGN KEY ("id_Usuario")
-    REFERENCES public."Usuario" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."caja"
+    ADD FOREIGN KEY ("id_usuario")
+    REFERENCES public."usuario" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Color"
-    ADD FOREIGN KEY ("id_Negocio")
-    REFERENCES public."Negocio" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."color"
+    ADD FOREIGN KEY ("id_negocio")
+    REFERENCES public."negocio" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Comanda"
-    ADD FOREIGN KEY ("id_Mesa")
-    REFERENCES public."Mesa" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."comanda"
+    ADD FOREIGN KEY ("id_mesa")
+    REFERENCES public."mesa" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."ComandaDeta"
-    ADD FOREIGN KEY ("id_Comanda")
-    REFERENCES public."Comanda" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."comanda_deta"
+    ADD FOREIGN KEY ("id_comanda")
+    REFERENCES public."comanda" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Item"
-    ADD FOREIGN KEY ("id_ItemCateg")
-    REFERENCES public."ItemCateg" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."item"
+    ADD FOREIGN KEY ("id_item_categ")
+    REFERENCES public."item_categ" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."ItemCateg"
-    ADD FOREIGN KEY ("id_TipoAlimento")
-    REFERENCES public."TipoAlimento" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."item_categ"
+    ADD FOREIGN KEY ("id_tipo_alimento")
+    REFERENCES public."tipo_alimento" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Mesa"
-    ADD FOREIGN KEY ("id_Negocio")
-    REFERENCES public."Negocio" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."mesa"
+    ADD FOREIGN KEY ("id_negocio")
+    REFERENCES public."negocio" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Salida"
-    ADD FOREIGN KEY ("id_Caja")
-    REFERENCES public."Caja" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."salida"
+    ADD FOREIGN KEY ("id_caja")
+    REFERENCES public."caja" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."SalidaDeta"
-    ADD FOREIGN KEY ("id_Salida")
-    REFERENCES public."Salida" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."salida_deta"
+    ADD FOREIGN KEY ("id_salida")
+    REFERENCES public."salida" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."TipoAlimento"
-    ADD FOREIGN KEY ("id_Negocio")
-    REFERENCES public."Negocio" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."tipo_alimento"
+    ADD FOREIGN KEY ("id_negocio")
+    REFERENCES public."negocio" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Usuario"
-    ADD FOREIGN KEY ("id_Negocio")
-    REFERENCES public."Negocio" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."usuario"
+    ADD FOREIGN KEY ("id_negocio")
+    REFERENCES public."negocio" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public."Usuario"
-    ADD FOREIGN KEY ("id_Rol")
-    REFERENCES public."Rol" (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public."usuario"
+    ADD FOREIGN KEY ("id_rol")
+    REFERENCES public."rol" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;

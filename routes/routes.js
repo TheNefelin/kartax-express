@@ -120,6 +120,12 @@ myRoutes.get("/testing", (req, res) => {
     res.render("testing");
 });
 
+myRoutes.post("/testing", async (req, res) => {
+    await fn.testing();
+    res.render("testing");
+});
+
+
 myRoutes.get("*", (req, res) => {
     res.redirect("/error");
 });
