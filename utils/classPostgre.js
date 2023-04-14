@@ -5,12 +5,12 @@ const conexion = {
     user: "postgres",
     host: "localhost",
     database: "kartax",
-    password: "!nfra48x",
-    // password: "123456",
+    //password: "!nfra48x",
+    password: "123456",
     port: 5432,
-    // max: 20, 
     connectionTimeoutMillis: 5000,
-    idleTimeoutMillis: 3000
+    idleTimeoutMillis: 3000,
+    // max: 20
 };
 
 export default class PGSQL {
@@ -79,13 +79,17 @@ async function transSetUsuario(idNegocio, values) {
 
         await pool.query("COMMIT");
         resultado = res2.rows
+        console.log("COMMINT")
     } catch (err) {
         await pool.query("ROLLBACK");
         console.log(err);
         resultado = [];
+        console.log("ROLLBACK")
     } finally {
-        await pool.end()
+        console.log("PREFIN")
         await pool.release;
+        pool.end;
+        console.log("FIN")
     };
 
     console.log(resultado)
