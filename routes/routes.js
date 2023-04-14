@@ -4,6 +4,8 @@ import * as fn from "../utils/funciones.js";
 const myRoutes = Router();
 export default myRoutes;
 
+const mySession = { isActive: false, usuario: "", rol: 1, idNegocio: 1 }
+
 myRoutes.get("/", async (req, res) => {
     try {
         const nav = await fn.dataNav();
@@ -31,11 +33,12 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     try {
         if (inputs.btn1 == "iniciar") {
             const nav = await fn.dataNav();
-            const resIS = await fn.iniciarSesion(inputs);
+            const resIS = await fn.pgIniciarSesion(inputs);
 
             if (resIS.isActive) {
-                req.session.logeado = true;
-                req.session.usuario = inputs.txtUser;
+                mySession.isActive = true;
+                mySession.usuario = inputs.txtUser;
+
                 res.redirect("/admin");
             } else {
                 res.render("iniciarSesion", {nav: nav, resIS: resIS})
@@ -66,7 +69,6 @@ myRoutes.post("/registrarse", async (req, res) => {
         if (inputs.btn1 == "registrar") {
             const nav = await fn.dataNav();
             const resU = await fn.registrarUsuario(inputs);
-            console.log(resU);
             res.render("registrarse", {nav: nav, resU: resU});
         } else {
             res.redirect("/kartax");
@@ -100,7 +102,7 @@ myRoutes.get("/kartax/:id", async (req, res) => {
 });
 
 myRoutes.get("/admin", async (req, res) => {
-    if (req.session.logeado) {
+    if (mySession.isActive) {
         res.render("admin");
     } else {
         const nav = await fn.dataNav();
@@ -116,15 +118,17 @@ myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
 
-myRoutes.get("/testing", (req, res) => {
-    res.render("testing");
+myRoutes.get("/testing", async (req, res) => {
+    const usuarios = await fn.testing();
+    res.render("testing", {usuarios: usuarios});
 });
 
 myRoutes.post("/testing", async (req, res) => {
-    await fn.testing();
+    const inputs = req.body;
+    const resultado = await fn.nuevoUsuario(inputs);
+    console.log(resultado);
     res.render("testing");
 });
-
 
 myRoutes.get("*", (req, res) => {
     res.redirect("/error");

@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
 import PGSQL from "./classPostgre.js";
@@ -60,8 +59,38 @@ export async function registrarUsuario(obj) {
     return res[0];
 };
 
+// postgre functions -------------------------------------------------------------
+export async function pgIniciarSesion(obj) {
+    const pgSql = new PGSQL()
+    
+    if (!obj.txtUser || !obj.txtPass) {
+        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+    };
+    
+    const res = await pgSql.iniciarSesion(obj.txtUser, obj.txtPass);
+
+    if (res.length == 0) {
+        return { isActive: 0, msge: "El Usuario no Existe" };
+    };
+
+    if (parseInt(res[0].cant) > 0) {
+        return { isActive: 1, msge: "" };
+    } else {
+        return { isActive: 0, msge: "Usuario o Contraseña Incorrecta" };
+    };
+};
+
+export async function nuevoUsuario(obj) {
+    const pgSql = new PGSQL();
+
+    if (!obj.txtNombres || !obj.txtApellidos || !obj.txtEmail || !obj.txtUser || !obj.txtPass) {
+        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+    };
+
+    return await pgSql.setUsuarioXNegocio(1, obj.txtNombres, obj.txtApellidos, obj.txtEmail, obj.txtUser, obj.txtPass);
+};
+
 export async function testing() {
-    const pgObj = new PGSQL()
-    const res = await pgObj.getUsuario();
-    console.log(res)
+    const pgSql = new PGSQL()
+    return await pgSql.getUsuariosXNegocio(1)
 }

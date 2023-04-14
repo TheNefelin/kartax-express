@@ -1,12 +1,40 @@
 {{#> appKartax}}
-    <form action="testing" method="post">
-        <button id="btnTest">Prueba</button>
-    </form>
-{{/appKartax}}
+<button>Nuevo Usuario</button>
 
-<script>
-    const btn = document.querySelector("#btnTest");
-    btn.addEventListener("click", () => {
-        console.log("CLICK Y WEA")
-    });
-</script>
+<table id="myTable">
+    <tr class="header">
+        <th>Rol</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+        <th>Usuario</th>
+        <th>Activo</th>
+        <th></th>
+    </tr>
+    {{#each usuarios}}
+    <tr>
+        <td>{{rol}}</td>
+        <td>{{nombres}}</td>
+        <td>{{apellidos}}</td>
+        <td>{{correo}}</td>
+        <td>{{usuario}}</td>
+        <td>{{activo}}</td>
+        <td><button>Editar</button> <button>Eliminar</button></td>
+    </tr>
+    {{/each}}
+</table>
+
+<section class="sesion-contenedor">
+    <form class="sesion" action="/testing" method="post">
+        <h2>Nuevo Usuario</h2>
+        <input type="text" name="txtId" placeholder="id" readonly>
+        <input type="text" name="txtNombres" onkeyup="this.value=this.value.toUpperCase();" placeholder="Nombres">
+        <input type="text" name="txtApellidos" onkeyup="this.value=this.value.toUpperCase();" placeholder="Apellidos">
+        <input type="email" name="txtEmail" onkeyup="this.value=this.value.toUpperCase();" placeholder="Correo">
+        <input type="text" name="txtUser" onkeyup="this.value=this.value.toUpperCase();" placeholder="Usuario">
+        <input type="password" name="txtPass" placeholder="Contraseña">
+
+        <button class="btn animacion" name="btn1" onclick="this.value='agregar'"><span>Agregar</span></button>
+    </form>
+</section>
+{{/appKartax}}

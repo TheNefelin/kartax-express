@@ -2,7 +2,6 @@
 -- Please log an issue at https://redmine.postgresql.org/projects/pgadmin4/issues/new if you find any bugs, including reproduction steps.
 BEGIN;
 
-
 DROP TABLE IF EXISTS public."caja";
 
 CREATE TABLE IF NOT EXISTS public."caja"
@@ -256,4 +255,38 @@ ALTER TABLE IF EXISTS public."usuario"
     ON DELETE NO ACTION
     NOT VALID;
 
+
+CREATE EXTENSION pgcrypto;
+-- SELECT crypt('123456', gen_salt('bf'));
+-- SELECT * FROM usuario 
+-- WHERE 
+-- 	usuario = 'NEFELIN' AND
+-- 	clave = crypt('123456', clave);
+
+INSERT INTO rol
+	(nombre)
+VALUES
+	('System Admin'),
+	('Admin'),
+	('Usuario');
+
+INSERT INTO usuario 
+	(nombres, apellidos, correo, usuario, clave, is_active, id_rol) 
+VALUES 
+	('FRANCISCO', 'CARMONA', 'flcarmonac@yahoo.com', 'NEFELIN', crypt('123456', gen_salt('bf')), TRUE, 1) RETURNING id
+
+INSERT INTO negocio
+	(nombre, rut, direccion, descripcion, logo, is_active)
+VALUES
+	('Kartax', '00.000.000-0', 'Viña del Mar', 'Demo', '/img/logo.ico', TRUE)
+
+INSERT INTO usuario_negocio 
+	(id_usuario, id_negocio, fecha)
+VALUES
+	(1, 1, NOW());
+
 END;
+
+SELECT * FROM rol;
+SELECT * FROM usuario;
+SELECT * FROM negocio;
