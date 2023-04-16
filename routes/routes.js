@@ -6,11 +6,39 @@ export default myRoutes;
 
 const mySession = { isActive: false, usuario: "", rol: 1, idNegocio: 1 }
 
+// publico ------------------------------------------------------
+// --------------------------------------------------------------
+myRoutes.get("/kartax", async (req, res) => {
+    try {
+        const negocio = await fn.data_negocio(1);
+        const tipoAlim = await fn.data_tipo_alim(1)
+        const footer = await fn.data_footer();
+        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
+
+myRoutes.get("/kartax/:id", async (req, res) => {
+    const id = isNaN(req.params.id) ? 1 : req.params.id;
+
+    try {
+        const negocio = await fn.data_negocio(id);
+        const tipoAlim = await fn.data_tipo_alim(id)
+        const footer = await fn.data_footer();
+        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
+
 myRoutes.get("/", async (req, res) => {
     try {
-        const nav = await fn.dataNav();
-        const footer = await fn.dataFooter();
-        res.render("index", {nav: nav, footer: footer});
+        const negocio = await fn.data_negocio(1);
+        const footer = await fn.data_footer();
+        res.render("index", { negocio: negocio, footer: footer });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -19,8 +47,8 @@ myRoutes.get("/", async (req, res) => {
 
 myRoutes.get("/iniciarSesion", async (req, res) => {
     try {
-        const nav = await fn.dataNav();
-        res.render("iniciarSesion", {nav: nav});
+        const negocio = await fn.data_negocio(1);
+        res.render("iniciarSesion", { negocio: negocio });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -32,7 +60,7 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
     try {
         if (inputs.btn1 == "iniciar") {
-            const nav = await fn.dataNav();
+            const negocio = await fn.data_negocio(1);
             const resIS = await fn.pgIniciarSesion(inputs);
 
             if (resIS.isActive) {
@@ -41,7 +69,7 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
                 res.redirect("/admin");
             } else {
-                res.render("iniciarSesion", {nav: nav, resIS: resIS})
+                res.render("iniciarSesion", { negocio: negocio, resIS: resIS })
             };
         } else {
             res.redirect("/kartax");
@@ -54,8 +82,8 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 
 myRoutes.get("/registrarse", async (req, res) => {
     try {
-        const nav = await fn.dataNav();
-        res.render("registrarse", {nav: nav});
+        const negocio = await fn.data_negocio(1);
+        res.render("registrarse", { negocio: negocio });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -67,9 +95,9 @@ myRoutes.post("/registrarse", async (req, res) => {
 
     try {
         if (inputs.btn1 == "registrar") {
-            const nav = await fn.dataNav();
+            const negocio = await fn.data_negocio(1);
             const resU = await fn.registrarUsuario(inputs);
-            res.render("registrarse", {nav: nav, resU: resU});
+            res.render("registrarse", { negocio: negocio, resU: resU });
         } else {
             res.redirect("/kartax");
         };
@@ -79,28 +107,8 @@ myRoutes.post("/registrarse", async (req, res) => {
     };
 });
 
-myRoutes.get("/kartax", async (req, res) => {
-    try {
-        const data = await fn.kartax(1);
-        res.render("kartax", data);
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
-    };
-});
-
-myRoutes.get("/kartax/:id", async (req, res) => {
-    const id = isNaN() ? 1 : req.params.id;
-
-    try {
-        const data = await fn.kartax(id);
-        res.render("kartax", data);
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
-    };
-});
-
+// privado ------------------------------------------------------
+// --------------------------------------------------------------
 myRoutes.get("/admin", async (req, res) => {
     if (mySession.isActive) {
         res.render("admin");
@@ -114,8 +122,14 @@ myRoutes.post("/admin", (req, res) => {
     res.render("admin");
 });
 
+// otros --------------------------------------------------------
+// --------------------------------------------------------------
 myRoutes.get("/error", (req, res) => {
     res.render("error");
+});
+
+myRoutes.get("*", (req, res) => {
+    res.redirect("/error");
 });
 
 myRoutes.get("/testing", async (req, res) => {
@@ -128,8 +142,4 @@ myRoutes.post("/testing", async (req, res) => {
     const resultado = await fn.nuevoUsuario(inputs);
     console.log(resultado);
     res.redirect("/testing");
-});
-
-myRoutes.get("*", (req, res) => {
-    res.redirect("/error");
 });

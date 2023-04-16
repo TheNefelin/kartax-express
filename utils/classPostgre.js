@@ -5,8 +5,8 @@ const conexion = {
     user: "postgres",
     host: "localhost",
     database: "kartax",
-    //password: "!nfra48x",
-    password: "123456",
+    password: "!nfra48x",
+    //password: "123456",
     port: 5432,
     connectionTimeoutMillis: 5000,
     idleTimeoutMillis: 3000,
@@ -57,8 +57,8 @@ async function myQuery(sql, values) {
         console.log(err);
         resultado = [];
     } finally {
-        await client.end()
         await client.release;
+        client.end;
     };
 
     return resultado;
@@ -79,19 +79,14 @@ async function transSetUsuario(idNegocio, values) {
 
         await pool.query("COMMIT");
         resultado = res2.rows
-        console.log("COMMINT")
     } catch (err) {
         await pool.query("ROLLBACK");
         console.log(err);
         resultado = [];
-        console.log("ROLLBACK")
     } finally {
-        console.log("PREFIN")
         await pool.release;
         pool.end;
-        console.log("FIN")
     };
 
-    console.log(resultado)
     return resultado;
 };

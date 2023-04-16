@@ -1,49 +1,36 @@
 import Sql from "../utils/classMySql.js";
 import Api from "../utils/classApi.js";
 import PGSQL from "./classPostgre.js";
+import ApiPostgreSQL from "./ApiPostgreSQL.js";
 
-export async function kartax(id) {
-    const api = new Api();
+const apiPostgreSQL = new ApiPostgreSQL();
 
-    const negocio = await api.getNegocioById(id);
-    const tipoAlim = await api.getTipoAlimByIdNegocio(id);
-    const nav = await dataNav();
-    const footer = await dataFooter();
-
-    return {negocio, tipoAlim, nav, footer};
+// publico ----------------------------------------------------------------
+// ------------------------------------------------------------------------
+export async function data_negocio(id) {
+    const respuesta = await apiPostgreSQL.getNegocioBy_Id(id);
+    return respuesta;
 };
 
-export async function dataNav() {
-    const api = new Api();
-    const negocio = await api.getNegocioById(1);
-    return negocio;
-};
+export async function data_footer() {
+    const linksGrp = await apiPostgreSQL.getLinksCateg_All();
+    const links = await apiPostgreSQL.getLinks_All();
 
-export async function dataFooter() {
-    const api = new Api();
-
-    const linksGrp = await api.getLinksGrpAll();
-    const links = await api.getLinksAll();
-    
     const footer = linksGrp.map(lg => {
         lg.links = links.filter(l => l.idLinkGrupo == lg.id);
         return lg;
     });
 
     return footer;
-}
-
-export async function iniciarSesion(obj) {
-    const sql = new Sql();
-
-    if (!obj.txtUser || !obj.txtPass) {
-        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-    };
-
-    const res = await sql.getIniciarSesion(obj.txtUser, obj.txtPass)
-    return res[0];
 };
 
+export async function data_tipo_alim(id) {
+    const respuesta = await apiPostgreSQL.getTipoAlimBy_IdNegocio(id);
+    return respuesta;
+};
+
+// privado ----------------------------------------------------------------
+// ------------------------------------------------------------------------
 export async function registrarUsuario(obj) {
     const sql = new Sql();
 
@@ -59,15 +46,15 @@ export async function registrarUsuario(obj) {
     return res[0];
 };
 
-// postgre functions -------------------------------------------------------------
-export async function pgIniciarSesion(obj) {
-    const pgSql = new PGSQL()
-    
+// postgre functions ------------------------------------------------------
+// ------------------------------------------------------------------------
+export async function pgIniciarSesion(obj) {  
     if (!obj.txtUser || !obj.txtPass) {
         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };
     
-    const res = await pgSql.iniciarSesion(obj.txtUser, obj.txtPass);
+    const res = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
+    console.log(res[0].cant)
 
     if (res.length == 0) {
         return { isActive: 0, msge: "El Usuario no Existe" };
