@@ -133,12 +133,21 @@ myRoutes.get("*", (req, res) => {
 });
 
 myRoutes.get("/testing", async (req, res) => {
-    const usuarios = await fn.testing();
-    res.render("testing", {usuarios: usuarios});
-});
-
-myRoutes.post("/testing", async (req, res) => {
-    const inputs = req.body;
-    console.log(inputs);
-    res.redirect("/testing");
+     try {
+        let resultado = await fetch("http://localhost:3001/testing", {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({"usuario": "Prueba", "clave": "francisco"})
+        });
+        
+        resultado = await resultado.json();
+        consoleo.log(resultado);
+    } catch(e) {
+        console.log(`Error: ${e}`)
+    };
+    
+    res.render("testing");
 });
