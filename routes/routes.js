@@ -132,7 +132,7 @@ myRoutes.get("*", (req, res) => {
     res.redirect("/error");
 });
 
-myRoutes.get("/testing", async (req, res) => {
+myRoutes.post("/testing", async (req, res) => {
      try {
         let resultado = await fetch("http://localhost:3001/testing", {
             method: "GET",
@@ -140,7 +140,7 @@ myRoutes.get("/testing", async (req, res) => {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({"usuario": "Prueba", "clave": "francisco"})
+            body: JSON.stringify({usuario: "Prueba", clave: "francisco"})
         });
         
         resultado = await resultado.json();
