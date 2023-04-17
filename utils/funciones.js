@@ -76,8 +76,3 @@ export async function nuevoUsuario(obj) {
 
     return await pgSql.setUsuarioXNegocio(1, obj.txtNombres, obj.txtApellidos, obj.txtEmail, obj.txtUser, obj.txtPass);
 };
-
-export async function testing() {
-    const pgSql = new PGSQL()
-    return await pgSql.getUsuariosXNegocio(1)
-}

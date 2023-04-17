@@ -139,7 +139,6 @@ myRoutes.get("/testing", async (req, res) => {
 
 myRoutes.post("/testing", async (req, res) => {
     const inputs = req.body;
-    const resultado = await fn.nuevoUsuario(inputs);
-    console.log(resultado);
+    console.log(inputs);
     res.redirect("/testing");
 });

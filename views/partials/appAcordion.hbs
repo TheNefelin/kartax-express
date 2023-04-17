@@ -11,15 +11,26 @@
         const acordionList = document.querySelector(".acordion-list");
         acordionList.innerHTML = "";
         acordionList.appendChild(renderLoading())
-  
+
         const arrSlide = document.querySelectorAll(".slide");
         const IdTipoAlimento = arrSlide[index].id;
 
-        const dataItemCateg = await fetch(`https://bsite.net/metalflap/demo-item-categ/IdTipoAlimento/${IdTipoAlimento}`);
+        //const objHeader = {
+        //    method: "GET",
+        //    mode: "no-cors",
+        //    headers: {
+        //        "Accept": "application/json",
+        //        "Content-Type": "application/json"
+        //    }
+        //};
+
+        const dataItemCateg = await fetch(`http://localhost:3001/item-categ/${IdTipoAlimento}`);
+        //const dataItemCateg = await fetch(`https://bsite.net/metalflap/demo-item-categ/IdTipoAlimento/${IdTipoAlimento}`);
         const itemCateg = await dataItemCateg.json();
-  
+
         const aux = await itemCateg.map(async (eIC) => {
-            const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/IdCateg/${eIC.id}`);
+            const dataItem = await fetch(`http://localhost:3001/item/${eIC.id}`);
+            //const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/IdCateg/${eIC.id}`);
             const item = await dataItem.json();
 
             html += `<div class="acordion-list-titulo">${eIC.nombre}</div>`
@@ -28,7 +39,7 @@
                 html += `
                     <button class="acordion">${eI.nombre}</button>
                     <div class="acordion-contenido">
-                        <img class="acordion-contenido-img" src=${eI.link}>
+                        <img class="acordion-contenido-img" src=${eI.img}>
                         <p>${eI.descripcion}</p>
                         <p>$ <strong>${eI.precio}</strong> .-</p>
                         <button value=${eI.id} class="btn animacion">
@@ -44,15 +55,15 @@
                 e.addEventListener("click", () => {
                     acordion_click(e);
                 });
-            }); 
+            });
 
-            const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button"); 
+            const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button");
             arrBtnAgregar.forEach(e => {
                 e.addEventListener("click", () => {
                     addItemCarrito(e.value);
                 });
             });
-        });      
+        });
     };
 
     function acordion_click(obj) {
