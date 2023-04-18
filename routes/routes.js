@@ -4,7 +4,7 @@ import * as fn from "../utils/funciones.js";
 const myRoutes = Router();
 export default myRoutes;
 
-const mySession = { isActive: false, usuario: "", rol: 1, idNegocio: 1 }
+const mySession = { isActive: false, token: "" }
 
 // publico ------------------------------------------------------
 // --------------------------------------------------------------
@@ -61,11 +61,11 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     try {
         if (inputs.btn1 == "iniciar") {
             const negocio = await fn.data_negocio(1);
-            const resIS = await fn.pgIniciarSesion(inputs);
+            const resIS = await fn.iniciar_sesion(inputs);
 
             if (resIS.isActive) {
                 mySession.isActive = true;
-                mySession.usuario = inputs.txtUser;
+                mySession.token = resIS.token;
 
                 res.redirect("/admin");
             } else {
@@ -80,32 +80,32 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     };
 });
 
-myRoutes.get("/registrarse", async (req, res) => {
-    try {
-        const negocio = await fn.data_negocio(1);
-        res.render("registrarse", { negocio: negocio });
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
-    };
-});
+// myRoutes.get("/registrarse", async (req, res) => {
+//     try {
+//         const negocio = await fn.data_negocio(1);
+//         res.render("registrarse", { negocio: negocio });
+//     } catch (err) {
+//         console.log(err);
+//         res.redirect("/error");
+//     };
+// });
 
-myRoutes.post("/registrarse", async (req, res) => {
-    const inputs = req.body;
+// myRoutes.post("/registrarse", async (req, res) => {
+//     const inputs = req.body;
 
-    try {
-        if (inputs.btn1 == "registrar") {
-            const negocio = await fn.data_negocio(1);
-            const resU = await fn.registrarUsuario(inputs);
-            res.render("registrarse", { negocio: negocio, resU: resU });
-        } else {
-            res.redirect("/kartax");
-        };
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
-    };
-});
+//     try {
+//         if (inputs.btn1 == "registrar") {
+//             const negocio = await fn.data_negocio(1);
+//             const resU = await fn.registrarUsuario(inputs);
+//             res.render("registrarse", { negocio: negocio, resU: resU });
+//         } else {
+//             res.redirect("/kartax");
+//         };
+//     } catch (err) {
+//         console.log(err);
+//         res.redirect("/error");
+//     };
+// });
 
 // privado ------------------------------------------------------
 // --------------------------------------------------------------

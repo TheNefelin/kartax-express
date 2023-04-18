@@ -1,5 +1,4 @@
 import Sql from "../utils/classMySql.js";
-import Api from "../utils/classApi.js";
 import PGSQL from "./classPostgre.js";
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
 
@@ -27,6 +26,24 @@ export async function data_footer() {
 export async function data_tipo_alim(id) {
     const respuesta = await apiPostgreSQL.getTipoAlimBy_IdNegocio(id);
     return respuesta;
+};
+
+export async function iniciar_sesion(obj) {  
+    if (!obj.txtUser || !obj.txtPass) {
+        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+    };
+    
+    const res = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
+
+    if (res.length == 0) {
+        return { isActive: 0, msge: "El Usuario no Existe" };
+    };
+
+    if (res[0].estado) {
+        return { isActive: 1, token: res[0].token };
+    } else {
+        return { isActive: 0, msge: "Usuario o Contraseña Incorrecta" };
+    };
 };
 
 // privado ----------------------------------------------------------------
