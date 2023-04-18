@@ -35,6 +35,8 @@ myRoutes.get("/kartax/:id", async (req, res) => {
 });
 
 myRoutes.get("/", async (req, res) => {
+    console.log(req.headers.host);
+
     try {
         const negocio = await fn.data_negocio(1);
         const footer = await fn.data_footer();
