@@ -82,15 +82,15 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     };
 });
 
-// myRoutes.get("/registrarse", async (req, res) => {
-//     try {
-//         const negocio = await fn.data_negocio(1);
-//         res.render("registrarse", { negocio: negocio });
-//     } catch (err) {
-//         console.log(err);
-//         res.redirect("/error");
-//     };
-// });
+myRoutes.get("/registrarse", async (req, res) => {
+    try {
+        const negocio = await fn.data_negocio(1);
+        res.render("registrarse", { negocio: negocio });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
 
 // myRoutes.post("/registrarse", async (req, res) => {
 //     const inputs = req.body;
@@ -115,8 +115,7 @@ myRoutes.get("/admin", async (req, res) => {
     if (mySession.isActive) {
         res.render("admin");
     } else {
-        const nav = await fn.dataNav();
-        res.render("registrarse", {nav: nav});
+        res.redirect("/iniciarSesion");
     }
 });
 
@@ -126,6 +125,26 @@ myRoutes.post("/admin", (req, res) => {
 
 // otros --------------------------------------------------------
 // --------------------------------------------------------------
+myRoutes.get("/testing", async (req, res) => {
+    //  try {
+    //     let resultado = await fetch("http://localhost:3001/testing", {
+    //         method: "GET",
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({usuario: "Prueba", clave: "francisco"})
+    //     });
+        
+    //     resultado = await resultado.json();
+    //     consoleo.log(resultado);
+    // } catch(e) {
+    //     console.log(`Error: ${e}`)
+    // };
+    
+    res.render("testing");
+});
+
 myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
@@ -134,22 +153,3 @@ myRoutes.get("*", (req, res) => {
     res.redirect("/error");
 });
 
-myRoutes.post("/testing", async (req, res) => {
-     try {
-        let resultado = await fetch("http://localhost:3001/testing", {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({usuario: "Prueba", clave: "francisco"})
-        });
-        
-        resultado = await resultado.json();
-        consoleo.log(resultado);
-    } catch(e) {
-        console.log(`Error: ${e}`)
-    };
-    
-    res.render("testing");
-});
