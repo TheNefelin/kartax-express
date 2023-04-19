@@ -84,6 +84,12 @@
 
     const pedir = document.querySelector(".comanda-total > button");
     pedir.addEventListener("click", () => {
-        console.log(arrItemCarrito)
+        confirmarPedido();
     });
+
+    function confirmarPedido() {
+        if (arrItemCarrito.length > 0) {
+            console.log(arrItemCarrito)
+        }
+    };
 </script>
