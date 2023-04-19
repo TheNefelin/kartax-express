@@ -1,5 +1,3 @@
-import Sql from "../utils/classMySql.js";
-import PGSQL from "./classPostgre.js";
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
 
 const apiPostgreSQL = new ApiPostgreSQL();
@@ -48,20 +46,20 @@ export async function iniciar_sesion(obj) {
 
 // privado ----------------------------------------------------------------
 // ------------------------------------------------------------------------
-export async function registrarUsuario(obj) {
-    const sql = new Sql();
+// export async function registrarUsuario(obj) {
+//     const sql = new Sql();
 
-    if (obj.txtPass1 !== obj.txtPass2) {
-        return { isActive: 0, msge: "Contraseña no Coinciden" };
-    };
+//     if (obj.txtPass1 !== obj.txtPass2) {
+//         return { isActive: 0, msge: "Contraseña no Coinciden" };
+//     };
 
-    if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
-        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-    };
+//     if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
+//         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+//     };
 
-    const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
-    return res[0];
-};
+//     const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
+//     return res[0];
+// };
 
 // postgre functions ------------------------------------------------------
 // ------------------------------------------------------------------------
@@ -84,12 +82,12 @@ export async function pgIniciarSesion(obj) {
     };
 };
 
-export async function nuevoUsuario(obj) {
-    const pgSql = new PGSQL();
+// export async function nuevoUsuario(obj) {
+//     const pgSql = new PGSQL();
 
-    if (!obj.txtNombres || !obj.txtApellidos || !obj.txtEmail || !obj.txtUser || !obj.txtPass) {
-        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-    };
+//     if (!obj.txtNombres || !obj.txtApellidos || !obj.txtEmail || !obj.txtUser || !obj.txtPass) {
+//         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+//     };
 
-    return await pgSql.setUsuarioXNegocio(1, obj.txtNombres, obj.txtApellidos, obj.txtEmail, obj.txtUser, obj.txtPass);
-};
+//     return await pgSql.setUsuarioXNegocio(1, obj.txtNombres, obj.txtApellidos, obj.txtEmail, obj.txtUser, obj.txtPass);
+// };
