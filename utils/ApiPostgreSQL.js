@@ -6,16 +6,19 @@ export default class ApiPostgreSQL {
     async iniciarSesion(usuario, clave) {
         return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`, {method: "GET"});
     };
-    async getNegocioBy_Id(id) {
+    async getNegocio_ById(id) {
         return await get(`${this.#url}/negocio/${id}`, {method: "GET"});
     };
-    async getTipoAlimBy_IdNegocio(id) {
+    async getNegocio_ByIdMesa(id) {
+        return await get(`${this.#url}/negocio/idMesa/${id}`, {method: "GET"});
+    };
+    async getTipoAlim_ByIdNegocio(id) {
         return await get(`${this.#url}/tipo-alimento/${id}`, {method: "GET"});
     };
-    async getItemCategBy_IdAlim(id) {
+    async getItemCateg_ByIdAlim(id) {
         return await get(`${this.#url}/item-categ/${id}`, {method: "GET"});
     };
-    async getItemBy_IdItemCateg(id) {
+    async getItem_ByIdItemCateg(id) {
         return await get(`${this.#url}/item/${id}`, {method: "GET"});
     };
     async getLinksCateg_All() {

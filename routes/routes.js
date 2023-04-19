@@ -13,7 +13,8 @@ myRoutes.get("/kartax", async (req, res) => {
         const negocio = await fn.data_negocio(1);
         const tipoAlim = await fn.data_tipo_alim(1)
         const footer = await fn.data_footer();
-        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
+        const idMesa = 0;
+        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer, mesa: idMesa });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -21,11 +22,11 @@ myRoutes.get("/kartax", async (req, res) => {
 });
 
 myRoutes.get("/kartax/:id", async (req, res) => {
-    const id = isNaN(req.params.id) ? 1 : req.params.id;
+    const idMesa = isNaN(req.params.id) ? 1 : req.params.id;
 
     try {
-        const negocio = await fn.data_negocio(id);
-        const tipoAlim = await fn.data_tipo_alim(id)
+        const negocio = await fn.data_negocio(idMesa);
+        const tipoAlim = await fn.data_tipo_alim(idMesa)
         const footer = await fn.data_footer();
         res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
     } catch (err) {
@@ -37,7 +38,7 @@ myRoutes.get("/kartax/:id", async (req, res) => {
 // myRoutes.get("/kartax/:idNegocio&:idMesa", (req, res) => {
 //     const  { idNegocio, idMesa } = req.params;
 //     console.log(req.params)
-//     res.send("OK")
+//     res.send({ idNegocio, idMesa })
 // });
 
 myRoutes.get("/", async (req, res) => {

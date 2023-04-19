@@ -1,40 +1,28 @@
 export default class Api {
     #url;
-    #urlNegocio;
-    #urlTipoAlim;
-    #urlItemCateg;
-    #urlItem;
-    #urlLinksGrp;
-    #urlLinks;
     constructor() {
         this.#url = "https://bsite.net/metalflap";
-        this.#urlNegocio = `${this.#url}/demo-negocio`
-        this.#urlTipoAlim = `${this.#url}/demo-tipo-alimento`
-        this.#urlItemCateg = `${this.#url}/demo-item-categ`
-        this.#urlItem = `${this.#url}/demo-item`
-        this.#urlLinksGrp = `${this.#url}/links-group`
-        this.#urlLinks = `${this.#url}/links`
     };
     getNegocioById(id){
-        return getById(id, this.#urlNegocio);
-    };
-    getLinksGrpAll(){
-        return get(this.#urlLinksGrp);
-    };
-    getLinksAll(){
-        return get(this.#urlLinks);
+        return getById(id, `${this.#url}/demo-negocio`);
     };
     getTipoAlimByIdNegocio(id){
-        return getById(id, `${this.#urlTipoAlim}/IdNegocio`);
+        return getById(id, `${this.#url}/demo-tipo-alimento/IdNegocio`);
     };
     getItemCategByIdNegocio(id){
-        return getById(id, `${this.#urlItemCateg}/IdNegocio`);
+        return getById(id, `${this.#url}/demo-item-categ/IdNegocio`);
     };
     getItemByIdCateg(id){
-        return getById(id, `${this.#urlItem}/IdCateg`);
+        return getById(id, `${this.#url}/demo-item-categ/IdCateg`);
     };
     getItemByIdNegocio(id){
-        return getById(id, `${this.#urlItem}/IdNegocio`);
+        return getById(id, `${this.#url}/demo-item/IdNegocio`);
+    };
+    getLinksGrpAll(){
+        return get(`${this.#url}/links-group`);
+    };
+    getLinksAll(){
+        return get(`${this.#url}/links`);
     };
 };
 

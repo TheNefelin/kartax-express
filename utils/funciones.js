@@ -7,7 +7,7 @@ const apiPostgreSQL = new ApiPostgreSQL();
 // publico ----------------------------------------------------------------
 // ------------------------------------------------------------------------
 export async function data_negocio(id) {
-    const respuesta = await apiPostgreSQL.getNegocioBy_Id(id);
+    const respuesta = await apiPostgreSQL.getNegocio_ByIdMesa(id);
     return respuesta;
 };
 
@@ -24,7 +24,7 @@ export async function data_footer() {
 };
 
 export async function data_tipo_alim(id) {
-    const respuesta = await apiPostgreSQL.getTipoAlimBy_IdNegocio(id);
+    const respuesta = await apiPostgreSQL.getTipoAlim_ByIdNegocio(id);
     return respuesta;
 };
 

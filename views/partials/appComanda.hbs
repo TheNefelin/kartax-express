@@ -1,8 +1,10 @@
 <section class="comanda">
     <div>
         <div class="comanda-cabecera">
-            <img src="/img/logo.png">
-            <label class="comanda-titulo">COMANDA</label>
+            {{#each negocio}}
+            <img src={{logo}}>
+            <label class="comanda-titulo">COMANDA (mesa: {{id_mesa}})</label>
+            {{/each}}
             <span class="comanda-btn2">&#x2715;</span>
         </div>
         <ul class="comanda-item">
@@ -10,7 +12,7 @@
     </div>
     <div class="comanda-total">
         <span><strong>TOTAL: 0</strong></span>
-        <span class="comanda-btn2">Hacer Pedido</span>
+        <button class="comanda-btn2">Hacer Pedido</button>
     </div>
 </section>
 
@@ -20,7 +22,6 @@
     async function addItemCarrito(idItem) {
         const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
         const item = await dataItem.json();
-
 
         arrItemCarrito.push(
             {
@@ -61,25 +62,28 @@
             });
         });
 
-        console.log(comandaBtn)
-
         const carritoCont = document.querySelector(".carrito-cont");
         carritoCont.textContent = arrItemCarrito.length;
 
         const comandaTotal = document.querySelector(".comanda-total strong");
         comandaTotal.textContent = `TOTAL: ${arrItemCarrito.reduce((cont, valor) => cont + valor.precio, 0)}`;
-    }
+    };
 
     function removeItemCarrito(idItem) {
         const index = arrItemCarrito.findIndex(e => e.idItem == idItem);
         arrItemCarrito.splice(index, 1);
 
         renderItemCarrito(arrItemCarrito);
-    }
+    };
 
-    const btnCerrarComanda =  document.querySelector(".comanda-cabecera span");
+    const btnCerrarComanda = document.querySelector(".comanda-cabecera span");
     btnCerrarComanda.addEventListener("click", () => {
         const comanda =  document.querySelector(".comanda");
         comanda.classList.remove("comanda-visible");
+    });
+
+    const pedir = document.querySelector(".comanda-total > button");
+    pedir.addEventListener("click", () => {
+        console.log(arrItemCarrito)
     });
 </script>
