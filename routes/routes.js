@@ -13,8 +13,7 @@ myRoutes.get("/kartax", async (req, res) => {
         const negocio = await fn.data_negocio(1);
         const tipoAlim = await fn.data_tipo_alim(1)
         const footer = await fn.data_footer();
-        const idMesa = 0;
-        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer, mesa: idMesa });
+        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
