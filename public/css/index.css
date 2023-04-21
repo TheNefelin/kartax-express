@@ -435,10 +435,24 @@ main {
 /* -- carrito ------------------------------------------ */
 /* ----------------------------------------------------- */
 .carrito {
+    bottom: 100px;
+}
+
+.pedidosCarrito {
+    bottom: 180px;
+}
+
+.carrito {
+    background-color: var(--color03);
+}
+
+.pedidosCarrito {
+    background-color: var(--colorBase01);
+}
+
+.carrito, .pedidosCarrito {
     position: fixed;
     right: -2px;
-    bottom: 100px;
-    background-color: var(--color03);
     border: 2px solid var(--colorBase02);
     border-radius: 25% 0 0 25%;
     cursor: pointer;
@@ -450,11 +464,11 @@ main {
     display: none;
 }
 
-.carrito:hover {
+.carrito:hover, .pedidosCarrito:hover {
     transform: scale(1.2);
 }
 
-.carrito-cont {
+.carrito-cont, .pedidosCarrito-cont {
     position:absolute;
     left: 0;
     bottom: 0;
@@ -473,6 +487,12 @@ main {
 .carrito img {
     width: 50px;
     height: 50px;
+}
+
+.pedidosCarrito img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 /* -- comanda ------------------------------------------ */

@@ -9,6 +9,7 @@ const mySession = { isActive: false, token: "" }
 // publico ------------------------------------------------------
 // --------------------------------------------------------------
 myRoutes.get("/kartax", async (req, res) => {
+    // renderiza la demo de Kartax
     try {
         const negocio = await fn.data_negocio(1);
         const tipoAlim = await fn.data_tipo_alim(1)
@@ -21,6 +22,7 @@ myRoutes.get("/kartax", async (req, res) => {
 });
 
 myRoutes.get("/kartax/:id", async (req, res) => {
+    // renderiza Kartax segun mesa de cliente
     const idMesa = isNaN(req.params.id) ? 1 : req.params.id;
 
     try {

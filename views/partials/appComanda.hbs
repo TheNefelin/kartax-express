@@ -3,7 +3,7 @@
         <div class="comanda-cabecera">
             {{#each negocio}}
             <img src={{logo}}>
-            <label class="comanda-titulo">COMANDA (mesa: {{id_mesa}})</label>
+            <label id={{id_mesa}} class="comanda-titulo">COMANDA (mesa: {{id_mesa}})</label>
             {{/each}}
             <span class="comanda-btn2">&#x2715;</span>
         </div>
@@ -19,23 +19,35 @@
 <script>
     const arrItemCarrito = [];
 
+    // agrega items al carrito y comanda
+    // la constante api se inicializa cuando se ejecuta la aplicacion por primera vez en el partial appAcordion.hbs
     async function addItemCarrito(idItem) {
-        const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
+        const dataItem = await fetch(`${api}/item/${idItem}`);
+        //const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
         const item = await dataItem.json();
 
+        // se guarda de forma temporal todos los items de pedidos antes de enviarlos al back
         arrItemCarrito.push(
             {
-                id: arrItemCarrito.length +1, 
+                id: arrItemCarrito.length + 1, 
                 idItem: item[0].id, 
                 nomItem: item[0].nombre, 
                 precio: item[0].precio, 
-                idNegocio: item[0].id_Negocio
             }
         );
 
         renderItemCarrito();
     };
 
+    // elimina items del carrito y comanda
+    function removeItemCarrito(idItem) {
+        const index = arrItemCarrito.findIndex(e => e.idItem == idItem);
+        arrItemCarrito.splice(index, 1);
+
+        renderItemCarrito(arrItemCarrito);
+    };
+
+    // se renderiza la comanda con todos los items y el contador de item del carrito
     function renderItemCarrito(){
         let html = "";
         const comandaItem = document.querySelector(".comanda-item");
@@ -58,7 +70,6 @@
         comandaBtn.forEach(e => {
             e.addEventListener("click", () => {
                 removeItemCarrito(e.id);
-                console.log(e.id)
             });
         });
 
@@ -69,27 +80,57 @@
         comandaTotal.textContent = `TOTAL: ${arrItemCarrito.reduce((cont, valor) => cont + valor.precio, 0)}`;
     };
 
-    function removeItemCarrito(idItem) {
-        const index = arrItemCarrito.findIndex(e => e.idItem == idItem);
-        arrItemCarrito.splice(index, 1);
-
-        renderItemCarrito(arrItemCarrito);
-    };
-
+    // boton para cerrar la comanda
     const btnCerrarComanda = document.querySelector(".comanda-cabecera span");
     btnCerrarComanda.addEventListener("click", () => {
         const comanda =  document.querySelector(".comanda");
         comanda.classList.remove("comanda-visible");
     });
 
+    // boton para realizar el pedido de la comanda y enviarlo al back
     const pedir = document.querySelector(".comanda-total > button");
     pedir.addEventListener("click", () => {
+        const comanda =  document.querySelector(".comanda");
+        comanda.classList.remove("comanda-visible");
         confirmarPedido();
     });
 
-    function confirmarPedido() {
+    // prepara la insercion de items al back
+    async function confirmarPedido() {
         if (arrItemCarrito.length > 0) {
-            console.log(arrItemCarrito)
-        }
+            const idMesa =  document.querySelector(".comanda-titulo").id;
+
+            try {
+                const dataMesa = await fetch(`${api}/mesa/${idMesa}`);
+                const mesa = await dataMesa.json();
+
+                if (mesa.estado) {
+                    const promesas = [];
+
+                    arrItemCarrito.forEach(e => {
+                        const obj = {id_item: e.idItem, id_comanda: mesa.idComanda};
+                        promesas.push(insertarItem(obj).then(() => {}));
+                        consol.log()
+                    });
+
+                    //console.log(arrItemCarrito)
+                    //console.log(mesa);
+                };
+            } catch (err) {
+                console.log("Error en la conexion a la API,")
+            };
+        };
+    };
+
+    // inserta item al back
+    async function insertarItem(obj) {
+        await fetch(`${api}/comanda-deta`, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj),
+        });  
     };
 </script>
