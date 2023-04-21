@@ -102,11 +102,14 @@
             const idMesa =  document.querySelector(".comanda-titulo").id;
 
             try {
+                // por medio del idMesa obtengo el idComanda
                 const dataMesa = await fetch(`${API_LINK}/mesa/${idMesa}`);
                 const mesa = await dataMesa.json();
 
-                if (mesa.estado) {
-                    insertarItems(arrItemCarrito).then(() => {});
+                if (mesa[0].estado) {
+                    await insertarItems({ items: arrItemCarrito, idComanda: mesa[0].idComanda}).then(() => {});
+                    // esta funcion actualiza los pedidos de la comanda activa esta en el partial appPedidosComanda
+                    await getPedidosActivos();
                 };
             } catch (err) {
                 console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);

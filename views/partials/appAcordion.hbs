@@ -20,48 +20,52 @@
         const arrSlide = document.querySelectorAll(".slide");
         const IdTipoAlimento = arrSlide[index].id;
 
-        // se obtiene la lista de Categorias de Items que pertenencen al Tipo Alimento seleccionado
-        const dataItemCateg = await fetch(`${API_LINK}/item-categ/IdTipoAlimento/${IdTipoAlimento}`);
-        const itemCateg = await dataItemCateg.json();
+        try {
+            // se obtiene la lista de Categorias de Items que pertenencen al Tipo Alimento seleccionado
+            const dataItemCateg = await fetch(`${API_LINK}/item-categ/IdTipoAlimento/${IdTipoAlimento}`);
+            const itemCateg = await dataItemCateg.json();
 
-        const aux = await itemCateg.map(async (eIC) => {
-            // se obtienen todos los Items que pertenencen a cada Categoria de Item
-            const dataItem = await fetch(`${API_LINK}/item/IdCateg/${eIC.id}`);
-            const item = await dataItem.json();
- 
-            html += `<div class="acordion-list-titulo">${eIC.nombre}</div>`
+            const aux = await itemCateg.map(async (eIC) => {
+                // se obtienen todos los Items que pertenencen a cada Categoria de Item
+                const dataItem = await fetch(`${API_LINK}/item/IdCateg/${eIC.id}`);
+                const item = await dataItem.json();
+    
+                html += `<div class="acordion-list-titulo">${eIC.nombre}</div>`
 
-            item.forEach((eI) => {
-                html += `
-                    <button class="acordion">${eI.nombre}</button>
-                    <div class="acordion-contenido">
-                        <img class="acordion-contenido-img" src=${eI.img}>
-                        <p>${eI.descripcion}</p>
-                        <p>$ <strong>${eI.precio}</strong> .-</p>
-                        <button value=${eI.id} class="btn animacion">
-                            <span>Agregar</span>
-                        </button>
-                    </div>`;
-            });
+                item.forEach((eI) => {
+                    html += `
+                        <button class="acordion">${eI.nombre}</button>
+                        <div class="acordion-contenido">
+                            <img class="acordion-contenido-img" src=${eI.img}>
+                            <p>${eI.descripcion}</p>
+                            <p>$ <strong>${eI.precio}</strong> .-</p>
+                            <button value=${eI.id} class="btn animacion">
+                                <span>Agregar</span>
+                            </button>
+                        </div>`;
+                });
 
-            // se reemplaza la animacion de "cargando" por la lista de itemns dentro de sus categorias
-            acordionList.innerHTML = "";
-            acordionList.innerHTML = html;
-            const arrAcordion = document.querySelectorAll(".acordion");
-            arrAcordion.forEach(e => {
-                e.addEventListener("click", () => {
-                    acordion_click(e);
+                // se reemplaza la animacion de "cargando" por la lista de itemns dentro de sus categorias
+                acordionList.innerHTML = "";
+                acordionList.innerHTML = html;
+                const arrAcordion = document.querySelectorAll(".acordion");
+                arrAcordion.forEach(e => {
+                    e.addEventListener("click", () => {
+                        acordion_click(e);
+                    });
+                });
+
+                // la funcion addItemCarrito se encuentra en el partial appComanda.hbs
+                const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button");
+                arrBtnAgregar.forEach(e => {
+                    e.addEventListener("click", () => {
+                        addItemCarrito(e.value);
+                    });
                 });
             });
-
-            // la funcion addItemCarrito se encuentra en el partial appComanda.hbs
-            const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button");
-            arrBtnAgregar.forEach(e => {
-                e.addEventListener("click", () => {
-                    addItemCarrito(e.value);
-                });
-            });
-        });
+        } catch (err) {
+            console.log(`Error: en la conexion a la API (Acordion linea 26), Detalle: ${err}`);
+        };
     };
 
     // gatilla la animacion de apertura y cierre del acordion

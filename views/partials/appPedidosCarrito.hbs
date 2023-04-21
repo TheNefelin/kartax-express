@@ -4,6 +4,32 @@
 </button>
 
 <script>
+    //la funcion se ejecuta cuando la app se carga por primera vez
+    getPedidosActivos();
+
+    //carga los items de la comanda activa en la comanda del front
+    async function getPedidosActivos() {
+        //obtiene idMesa del componente que se encuentra en el partial appComanda
+        const idMesa =  document.querySelector(".comanda-titulo").id;
+
+        if (idMesa) {
+            try {
+                const itemComanda = await getFetch(`comanda-deta/idMesa/${idMesa}`);
+
+                const pedidosCarritoCont = document.querySelector(".pedidosCarrito-cont");
+                pedidosCarritoCont.textContent = itemComanda.length;
+            } catch (err) {
+                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 15), Detalle: ${err}`);
+            };
+        };
+    };
+
+    async function getFetch(semiUrl) {
+        const url = `${API_LINK}/${semiUrl}`
+
+        const res = await fetch(url);
+        return res.json();
+    };
     //const pedidosCarrito =  document.querySelector(".carrito");
     //pedidosCarrito.addEventListener("click", () => {
     //    const comanda =  document.querySelector(".comanda");
