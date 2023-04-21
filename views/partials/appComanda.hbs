@@ -17,12 +17,14 @@
 </section>
 
 <script>
+    // la constante API_LINK esta declarada en index.js en la carpeta publica
+
     const arrItemCarrito = [];
 
     // agrega items al carrito y comanda
     // la constante api se inicializa cuando se ejecuta la aplicacion por primera vez en el partial appAcordion.hbs
     async function addItemCarrito(idItem) {
-        const dataItem = await fetch(`${api}/item/${idItem}`);
+        const dataItem = await fetch(`${API_LINK}/item/${idItem}`);
         //const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
         const item = await dataItem.json();
 
@@ -101,7 +103,7 @@
             const idMesa =  document.querySelector(".comanda-titulo").id;
 
             try {
-                const dataMesa = await fetch(`${api}/mesa/${idMesa}`);
+                const dataMesa = await fetch(`${API_LINK}/mesa/${idMesa}`);
                 const mesa = await dataMesa.json();
 
                 if (mesa.estado) {
@@ -124,7 +126,7 @@
 
     // inserta item al back
     async function insertarItem(obj) {
-        await fetch(`${api}/comanda-deta`, {
+        await fetch(`${API_LINK}/comanda-deta`, {
             method: "POST",
             headers: {
                 "Accept": "application/json",

@@ -4,8 +4,7 @@
 </main>
 
 <script>
-    //const api = "http://localhost:3001";
-    const api = "https://kartax-api-production.up.railway.app";
+    // la constante API_LINK esta declarada en index.js en la carpeta publica
     
     // inicializa el acordion al cargarse por primera vez la pagina las (categorias Tipo Alimento)
     setAcordion(0);
@@ -22,13 +21,13 @@
         const IdTipoAlimento = arrSlide[index].id;
 
         // se obtiene la lista de Categorias de Items que pertenencen al Tipo Alimento seleccionado
-        const dataItemCateg = await fetch(`${api}/item-categ/IdTipoAlimento/${IdTipoAlimento}`);
+        const dataItemCateg = await fetch(`${API_LINK}/item-categ/IdTipoAlimento/${IdTipoAlimento}`);
         //const dataItemCateg = await fetch(`https://bsite.net/metalflap/demo-item-categ/IdTipoAlimento/${IdTipoAlimento}`);
         const itemCateg = await dataItemCateg.json();
 
         const aux = await itemCateg.map(async (eIC) => {
             // se obtienen todos los Items que pertenencen a cada Categoria de Item
-            const dataItem = await fetch(`${api}/item/IdCateg/${eIC.id}`);
+            const dataItem = await fetch(`${API_LINK}/item/IdCateg/${eIC.id}`);
             //const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/IdCateg/${eIC.id}`);
             const item = await dataItem.json();
  
