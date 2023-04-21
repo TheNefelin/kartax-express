@@ -25,7 +25,6 @@
     // la constante api se inicializa cuando se ejecuta la aplicacion por primera vez en el partial appAcordion.hbs
     async function addItemCarrito(idItem) {
         const dataItem = await fetch(`${API_LINK}/item/${idItem}`);
-        //const dataItem = await fetch(`https://bsite.net/metalflap/demo-item/${idItem}`);
         const item = await dataItem.json();
 
         // se guarda de forma temporal todos los items de pedidos antes de enviarlos al back
@@ -107,32 +106,28 @@
                 const mesa = await dataMesa.json();
 
                 if (mesa.estado) {
-                    const promesas = [];
-
-                    arrItemCarrito.forEach(e => {
-                        const obj = {id_item: e.idItem, id_comanda: mesa.idComanda};
-                        promesas.push(insertarItem(obj).then(() => {}));
-                        consol.log()
-                    });
-
-                    //console.log(arrItemCarrito)
-                    //console.log(mesa);
+                    insertarItems(arrItemCarrito).then(() => {});
                 };
             } catch (err) {
-                console.log("Error en la conexion a la API,")
+                console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);
             };
         };
     };
 
-    // inserta item al back
-    async function insertarItem(obj) {
-        await fetch(`${API_LINK}/comanda-deta`, {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(obj),
-        });  
+    // inserta los items al back
+    async function insertarItems(obj) {
+        try { 
+            console.log(obj)
+            await fetch(`${API_LINK}/comanda-deta`, {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(obj),
+            });  
+        } catch (err) {
+            console.log(`Error: en la conexion a la API (comanda linea 130), Detalle: ${err}`);
+        };
     };
 </script>
