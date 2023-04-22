@@ -20,7 +20,7 @@ npm install express-session
 
 ## Rúbrica
 * Consulta a la Base de Datos
-```diff
+```
 1. Selecciona las columnas requeridas para presentar la información solicitada.
     - (Kartax Api) archivo /utils/PGSQL.js "todas las funciones"
 
