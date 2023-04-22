@@ -34,7 +34,7 @@ npm install express-session
     - (Kartax Api) archivo /utils/PGSQL.js "linea 144, etc.."
 
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
-    - (Kartax Api) archivo /utils/PGSQL.js - asdasd
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=TheNefelin&layout=compact&text_color=daf7dc&bg_color=151515)]
 ```
 * Algoritmo de cálculo y manipulación de archivos de texto
 ```
