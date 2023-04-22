@@ -30,47 +30,47 @@ npm install express-session
 4. Utiliza cláusulas de ordenamiento para presentar la información.
     - (Kartax Api) archivo /utils/PGSQL.js "linea 144, etc.."
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
-    - () ------------------------------------------------
+    - () -- SIN REVISAR AUN -----------------------------------
 ```
 * Algoritmo de cálculo y manipulación de archivos de texto
 ```
 6. Utilización general del lenguaje, sintaxis, selección de tipos de datos, sentencias lógicas, expresiones, operaciones, comparaciones.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 7. Utilización de sentencias repetitivas.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 8. Convenciones y estilos de programación.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 9. Utilización correcta de estructuras de datos
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 10. Manipulación de archivos.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 ```
 * Página web y html
 ```
 11. Utilización de tags html, estilos y responsividad.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 12. Utilización de Bootstrap.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 ```
 * Lenguaje Node
 ```
 13. Inclusión de paquetes y librerías de usuario.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 14. Agrupación del código y separación por funcionalidad.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 15. Utilización de funciones asíncronas.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 16. Lectura de parámetros de entrada.
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 17. Funcionamiento general del aplicativo
-    - ()
+    - () -- SIN REVISAR AUN -----------------------------------
 ```
 * Conexión a Base de Datos
 ```
 18. Manejo de conexión a base de datos desde Node
-    -(Kartax Api) /utils/SecretData.js
+    - (Kartax Api) /utils/SecretData.js
 19. Manejo y ejecución de consultas desde Node
-    -(Kartax Api) /utils/PGSQL.js
+    - (Kartax Api) /utils/PGSQL.js
 20. Uso de Express
-    -(Kartax Express y Kartax Api) index.js y server.js
+    - (Kartax Express y Kartax Api) index.js y server.js
 ```
