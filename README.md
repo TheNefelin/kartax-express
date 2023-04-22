@@ -17,3 +17,10 @@ npm install mysql2
 npm install pg
 npm install express-session
 ```
+
+## Rúbrica ------
+* Consulta a la Base de Datos
+
+1. Selecciona las columas requeridas para presentar la informacion solicitada
+    - asdasd
+
