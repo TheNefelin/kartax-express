@@ -22,19 +22,19 @@ npm install express-session
 * Consulta a la Base de Datos
 ```
 1. Selecciona las columnas requeridas para presentar la información solicitada.
-    - (Kartax Api) archivo /utils/PGSQL.js
+    - (Kartax Api) archivo /utils/PGSQL.js "todas las funciones"
 
 2. Utiliza JOIN para relacionar la información de distintas tablas.
-    - ()
+    - (Kartax Api) archivo /utils/PGSQL.js "linea 43, 138, etc.."
 
 3. Utiliza WHERE para filtrar la información requerida.
-    - ()
+    - (Kartax Api) archivo /utils/PGSQL.js "linea 16, 29, etc.."
 
 4. Utiliza cláusulas de ordenamiento para presentar la información.
-    - ()
+    - (Kartax Api) archivo /utils/PGSQL.js "linea 144, etc.."
 
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
-    - ()
+    - (Kartax Api) archivo /utils/PGSQL.js `#ffffff` NO IMPLEMENTADO `#000000`
 ```
 * Algoritmo de cálculo y manipulación de archivos de texto
 ```
