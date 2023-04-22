@@ -20,7 +20,7 @@ npm install express-session
 
 ## Rúbrica
 * Consulta a la Base de Datos
-
+```
 1. Selecciona las columnas requeridas para presentar la información solicitada.
     - (Kartax Api) archivo /utils/PGSQL.js
 
@@ -35,7 +35,7 @@ npm install express-session
 
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
     - ()
-
+```
 * Algoritmo de cálculo y manipulación de archivos de texto
 
 6. Utilización general del lenguaje, sintaxis, selección de tipos de datos, sentencias lógicas, expresiones, operaciones, comparaciones.
