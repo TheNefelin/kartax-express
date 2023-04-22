@@ -36,44 +36,41 @@ npm install express-session
 ```
 6. Utilización general del lenguaje, sintaxis, selección de tipos de datos, sentencias lógicas, expresiones, operaciones, comparaciones.
     - ()
-
 7. Utilización de sentencias repetitivas.
     - ()
-
 8. Convenciones y estilos de programación.
     - ()
-
 9. Utilización correcta de estructuras de datos
     - ()
-
 10. Manipulación de archivos.
     - ()
 ```
 * Página web y html
 ```
 11. Utilización de tags html, estilos y responsividad.
-
+    - ()
 12. Utilización de Bootstrap.
+    - ()
 ```
 * Lenguaje Node
 ```
 13. Inclusión de paquetes y librerías de usuario.
-    -()
+    - ()
 14. Agrupación del código y separación por funcionalidad.
-    -()
+    - ()
 15. Utilización de funciones asíncronas.
-    -()
+    - ()
 16. Lectura de parámetros de entrada.
-    -()
+    - ()
 17. Funcionamiento general del aplicativo
-    -()
+    - ()
 ```
 * Conexión a Base de Datos
 ```
 18. Manejo de conexión a base de datos desde Node
-    -()
+    -(Kartax Api) /utils/SecretData.js
 19. Manejo y ejecución de consultas desde Node
-    -()
+    -(Kartax Api) /utils/PGSQL.js
 20. Uso de Express
-    -()
+    -(Kartax Express y Kartax Api) index.js y server.js
 ```
