@@ -381,6 +381,23 @@ main {
     animation: animColor 10s linear infinite;
 }
 
+.loading-contenedor2 {
+    position: fixed;
+    z-index: 3;
+    background-color: var(--colorBase01);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -100%;
+    transition: 0.3s;
+}
+
+.loading-contenedor2_visible {
+    left: 0;
+}
+
 @keyframes animColor {
     0% {
         filter: hue-rotate(0deg);

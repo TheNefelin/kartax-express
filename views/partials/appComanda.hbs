@@ -99,6 +99,9 @@
     // prepara la insercion de items al back
     async function confirmarPedido() {
         if (arrItemCarrito.length > 0) {
+            // visibiliza el Loader
+            renderLoading2.classList.add("loading-contenedor2_visible");
+
             const idMesa =  document.querySelector(".comanda-titulo").id;
 
             try {
@@ -115,6 +118,8 @@
                             arrItemCarrito.length = 0;
                             renderItemCarrito();
                         });
+                    // oculta el Loader
+                    renderLoading2.classList.remove("loading-contenedor2_visible");
                 };
             } catch (err) {
                 console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);

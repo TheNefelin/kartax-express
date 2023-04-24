@@ -1,4 +1,10 @@
+<div class="loading-contenedor2">
+</div>
+
 <script>
+    const renderLoading2 = document.querySelector(".loading-contenedor2");
+    renderLoading2.appendChild(renderLoading());
+
     function renderLoading() {
         const contenedor = document.createElement("section");
         contenedor.classList.add("loading-contenedor");

@@ -23,7 +23,7 @@
 
 <script>
     // la funcion se ejecuta cuando la app se carga por primera vez
-    //getPedidosActivos();
+    getPedidosActivos();
 
     // carga los items de la comanda activa en la comanda del front
     async function getPedidosActivos() {
@@ -54,7 +54,8 @@
                 // se prepara el total a los pedidos activos para cargarlos con el sub total
                 const pedidosTotal = document.querySelector(".pedidos-total strong");
                 const total = `TOTAL: ${itemComanda.reduce((cont, valor) => cont + valor.precio, 0)}`;
-            
+                pedidosTotal.textContent = total 
+
                 // se renderiza todos los pedidos activos de la mesa
                 const listaPedidosItem = document.querySelector(".pedidos-item");
                 listaPedidosItem.innerHTML = html;
@@ -106,25 +107,37 @@
     // se pagan los pedidos activos parcialmente o totales
     const pedidosTotal = document.querySelector(".pedidos-total");
     pedidosTotal.addEventListener("click", async () => {
+        // oculta el contenedor de pedidos
+        const pedidos = document.querySelector(".pedidos");
+        pedidos.classList.remove("comanda-visible");
+        
         const arrPagarItems = []
         const listaPedidosItem = document.querySelector(".pedidos-item").childNodes;
-        listaPedidosItem.forEach(li => {
-            if (li.className === "pedidos-item-li_check") {
-                arrPagarItems.push({
-                    id: li.id,
-                    id_item: li.children[0].id,
-                });
-            };
-        });
+        
+        if (listaPedidosItem.length > 0) {
+            // visibiliza el Loader
+            renderLoading2.classList.add("loading-contenedor2_visible");
 
-        try {
-            console.log(arrPagarItems)
-            const obj = { arrItem: arrPagarItems };
-            const res = await updateFetch("comanda-deta", obj);
-            console.log(res);
-            getPedidosActivos();
-        } catch (err) {
-            console.log(`Error: en la conexion a la API (Pedidos Carrito linea 120), Detalle: ${err}`);
+            listaPedidosItem.forEach(li => {
+                if (li.className === "pedidos-item-li_check") {
+                    arrPagarItems.push({
+                        id: li.id,
+                        id_item: li.children[0].id,
+                    });
+                };
+            });
+
+            try {
+                console.log(arrPagarItems)
+                const obj = { arrItem: arrPagarItems };
+                const res = await updateFetch("comanda-deta", obj);
+                console.log(res);
+                await getPedidosActivos();
+                // oculta el Loader
+                renderLoading2.classList.remove("loading-contenedor2_visible");
+            } catch (err) {
+                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 120), Detalle: ${err}`);
+            };
         };
     });
 
