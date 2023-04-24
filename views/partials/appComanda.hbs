@@ -17,15 +17,12 @@
 </section>
 
 <script>
-    // la constante API_LINK esta declarada en index.js en la carpeta publica
-
     const arrItemCarrito = [];
 
     // agrega items al carrito y comanda
-    // la constante api se inicializa cuando se ejecuta la aplicacion por primera vez en el partial appAcordion.hbs
     async function addItemCarrito(idItem) {
-        const dataItem = await fetch(`${API_LINK}/item/${idItem}`);
-        const item = await dataItem.json();
+        // la funcion getFectch esta en index.js
+        const item = await getFetch(`item/${idItem}`);
 
         // se guarda de forma temporal todos los items de pedidos antes de enviarlos al back
         arrItemCarrito.push(
@@ -54,6 +51,7 @@
         const comandaItem = document.querySelector(".comanda-item");
         comandaItem.innerHTML = html;
 
+        // renderiza todos los items en la comanda temporal
         arrItemCarrito.forEach(e => {
             html += `
                 <li>
@@ -74,9 +72,11 @@
             });
         });
 
+        // se agrega la cantidad al carrito temporal
         const carritoCont = document.querySelector(".carrito-cont");
         carritoCont.textContent = arrItemCarrito.length;
 
+        // se agrega el total al la comanda temporta
         const comandaTotal = document.querySelector(".comanda-total strong");
         comandaTotal.textContent = `TOTAL: ${arrItemCarrito.reduce((cont, valor) => cont + valor.precio, 0)}`;
     };
@@ -102,35 +102,23 @@
             const idMesa =  document.querySelector(".comanda-titulo").id;
 
             try {
-                // por medio del idMesa obtengo el idComanda
-                const dataMesa = await fetch(`${API_LINK}/mesa/${idMesa}`);
-                const mesa = await dataMesa.json();
+                // por medio del idMesa obtengo el idComanda, la funcion getFectch esta en index.js
+                const mesa = await getFetch(`mesa/${idMesa}`);
 
                 if (mesa[0].estado) {
-                    await insertarItems({ items: arrItemCarrito, idComanda: mesa[0].idComanda}).then(() => {});
-                    // esta funcion actualiza los pedidos de la comanda activa esta en el partial appPedidosComanda
-                    await getPedidosActivos();
+                    await setFetch("comanda-deta", { items: arrItemCarrito, idComanda: mesa[0].idComanda})
+                        .then( async () => { 
+                            // esta funcion actualiza los pedidos de la comanda activa esta en el partial appPedidosComanda
+                            await getPedidosActivos();
+
+                            // se vacia el carrito de la comanda temportal y se renderiza de nuevo
+                            arrItemCarrito.length = 0;
+                            renderItemCarrito();
+                        });
                 };
             } catch (err) {
                 console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);
             };
-        };
-    };
-
-    // inserta los items al back
-    async function insertarItems(obj) {
-        try { 
-            console.log(obj)
-            await fetch(`${API_LINK}/comanda-deta`, {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(obj),
-            });  
-        } catch (err) {
-            console.log(`Error: en la conexion a la API (comanda linea 130), Detalle: ${err}`);
         };
     };
 </script>

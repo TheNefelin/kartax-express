@@ -3,36 +3,121 @@
     <span class="pedidosCarrito-cont">0</span>
 </button>
 
+<section class="pedidos">
+    <div>
+        <div class="pedidos-cabecera">
+            {{#each negocio}}
+            <img src={{logo}}>
+            <label id={{id_mesa}} class="comanda-titulo">PEDIDOS (mesa: {{id_mesa}})</label>
+            {{/each}}
+            <span class="comanda-btn2">&#x2715;</span>
+        </div>
+        <ul class="pedidos-item">
+        </ul>
+    </div>
+    <div class="pedidos-total">
+        <span><strong>TOTAL: 0</strong></span>
+        <button class="comanda-btn2">Pagar</button>
+    </div>
+</section>
+
 <script>
-    //la funcion se ejecuta cuando la app se carga por primera vez
+    // la funcion se ejecuta cuando la app se carga por primera vez
     getPedidosActivos();
 
-    //carga los items de la comanda activa en la comanda del front
+    // carga los items de la comanda activa en la comanda del front
     async function getPedidosActivos() {
         //obtiene idMesa del componente que se encuentra en el partial appComanda
         const idMesa =  document.querySelector(".comanda-titulo").id;
 
         if (idMesa) {
             try {
+                let html = "";
+                // la funcion getFectch esta en index.js obtiene todos los pedidos activos
                 const itemComanda = await getFetch(`comanda-deta/idMesa/${idMesa}`);
 
+                itemComanda.forEach(e => {
+                    html += `
+                    <li id=${e.id}>
+                        <span id=${e.id_item}>
+                            <span hidden>&#x2713;</span>
+                            <label>${e.nombre}</label>
+                        </span>
+                        <label>${e.precio}</label>
+                    </li>`;
+                }); 
+
+                // se agrega la cantidad de pedidos activos en el carrito pedidos
                 const pedidosCarritoCont = document.querySelector(".pedidosCarrito-cont");
                 pedidosCarritoCont.textContent = itemComanda.length;
+
+                // se prepara el total a los pedidos activos para cargarlos con el sub total
+                const pedidosTotal = document.querySelector(".pedidos-total strong");
+                const total = `TOTAL: ${itemComanda.reduce((cont, valor) => cont + valor.precio, 0)}`;
+            
+                // se renderiza todos los pedidos activos de la mesa
+                const listaPedidosItem = document.querySelector(".pedidos-item");
+                listaPedidosItem.innerHTML = html;
+
+                listaPedidosItem.childNodes.forEach(li => {
+                    li.addEventListener("click", () => {
+                        const check = li.childNodes[0].nextElementSibling.children[0];
+                        check.hidden ? check.hidden = false : check.hidden = true;
+          
+                        li.classList.toggle("pedidos-item-li_check");
+
+                        // se carga el Total y el SubTotal
+                        pedidosTotal.textContent = `${total} - SUBTOTAL: ${subtotal()}`; 
+                    });
+                });
             } catch (err) {
-                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 15), Detalle: ${err}`);
+                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 16), Detalle: ${err}`);
             };
         };
     };
 
-    async function getFetch(semiUrl) {
-        const url = `${API_LINK}/${semiUrl}`
+    // obtiene el sub total de lo que se va a pagar 
+    function subtotal(total) {
+        let subT = 0;
+        const listaPedidosItem = document.querySelector(".pedidos-item");
+        listaPedidosItem.childNodes.forEach(li => {
+            if (li.className === "pedidos-item-li_check") {
+                subT += parseInt(li.children[1].textContent);
+            };
+        });
 
-        const res = await fetch(url);
-        return res.json();
+       return parseInt(subT);
     };
-    //const pedidosCarrito =  document.querySelector(".carrito");
-    //pedidosCarrito.addEventListener("click", () => {
-    //    const comanda =  document.querySelector(".comanda");
-    //    comanda.classList.add("comanda-visible");
-    //});
+
+    // hacer visible contendio del los pedidos activos con el btn pedidosCarrito
+    const pedidosCarrito = document.querySelector(".pedidosCarrito");
+    pedidosCarrito.addEventListener("click", () => {
+        const pedidos = document.querySelector(".pedidos");
+        pedidos.classList.add("comanda-visible");
+    });
+
+    // boton para ocultar los pedidos activos
+    const btnCerrarPedidos = document.querySelector(".pedidos-cabecera span");
+    btnCerrarPedidos.addEventListener("click", () => {
+        const pedidos = document.querySelector(".pedidos");
+        pedidos.classList.remove("comanda-visible");
+    });
+
+    // 
+    const pedidosTotal = document.querySelector(".pedidos-total");
+    pedidosTotal.addEventListener("click", () => {
+        const arrPagarItems = []
+        const listaPedidosItem = document.querySelector(".pedidos-item").childNodes;
+        listaPedidosItem.forEach(li => {
+            if (li.className === "pedidos-item-li_check") {
+                arrPagarItems.push({
+                    id: li.id,
+                    id_item: li.children[0].id,
+                });
+            };
+        });
+
+        console.log(arrPagarItems);
+    });
+
 </script>

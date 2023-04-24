@@ -22,14 +22,12 @@
 
         try {
             // se obtiene la lista de Categorias de Items que pertenencen al Tipo Alimento seleccionado
-            const dataItemCateg = await fetch(`${API_LINK}/item-categ/IdTipoAlimento/${IdTipoAlimento}`);
-            const itemCateg = await dataItemCateg.json();
+            const itemCateg = await getFetch(`item-categ/IdTipoAlimento/${IdTipoAlimento}`);
 
             const aux = await itemCateg.map(async (eIC) => {
                 // se obtienen todos los Items que pertenencen a cada Categoria de Item
-                const dataItem = await fetch(`${API_LINK}/item/IdCateg/${eIC.id}`);
-                const item = await dataItem.json();
-    
+                const item = await getFetch(`item/IdCateg/${eIC.id}`);
+
                 html += `<div class="acordion-list-titulo">${eIC.nombre}</div>`
 
                 item.forEach((eI) => {

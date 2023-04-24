@@ -432,21 +432,15 @@ main {
     }
 }
 
-/* -- carrito ------------------------------------------ */
+/* -- carrito y pedidosCarrito ------------------------- */
 /* ----------------------------------------------------- */
 .carrito {
     bottom: 100px;
-}
-
-.pedidosCarrito {
-    bottom: 180px;
-}
-
-.carrito {
     background-color: var(--color03);
 }
 
 .pedidosCarrito {
+    bottom: 180px;
     background-color: var(--colorBase01);
 }
 
@@ -495,9 +489,9 @@ main {
     border-radius: 50%;
 }
 
-/* -- comanda ------------------------------------------ */
+/* -- comanda y pedidos -------------------------------- */
 /* ----------------------------------------------------- */
-.comanda {
+.comanda, .pedidos {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -512,14 +506,18 @@ main {
     transition: 0.3s;
 }
 
-.comanda-visible {
+.comanda-visible, .pedidos-visible {
     left: 0;
 }
 
-.comanda-cabecera {
+.comanda-cabecera, .pedidos-cabecera {
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+}
+
+.comanda-cabecera > img, .pedidos-cabecera > img {
+    height: 2rem;
 }
 
 .comanda-btn {
@@ -544,7 +542,7 @@ main {
     cursor: pointer;
 }
 
-.comanda-item {
+.comanda-item, .pedidos-item {
     list-style-type: none;
     padding: 0;
     margin: 1rem;
@@ -552,7 +550,11 @@ main {
     max-height: 60vh;
 }
 
-.comanda-item li {
+.pedidos-item-li_check {
+    background-color: var(--color02);
+}
+
+.comanda-item li, .pedidos-item li {
     display: flex;
     justify-content: space-between;
     border: 1px solid var(--colorBase03);
@@ -563,19 +565,23 @@ main {
     /* padding: 10px 70px 0 10px; */
 }
 
-.comanda-item li:hover{
+.comanda-item li:hover, .pedidos-item li:hover {
     background-color: var(--color02);
+}
+
+.pedidos-item input {
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    transform: scale(1.5);
 }
 
 .comanda-titulo {
     color: var(--color03);
 } 
 
-.comanda-cabecera > img {
-    height: 2rem;
-}
-
-.comanda-total {
+.comanda-total, .pedidos-total {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -583,7 +589,7 @@ main {
     padding: 1rem;
 }
 
-.comanda-total strong {
+.comanda-total strong, .pedidos-total strong {
     color: var(--color03);
 }
 
