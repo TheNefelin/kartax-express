@@ -3,33 +3,34 @@ export default class ApiPostgreSQL {
     constructor() {
         //this.#url = "http://localhost:3001";
         this.#url = "https://kartax-api-production.up.railway.app";
+        this.#url = "https://kartax-api-production.up.railway.app"
     };
     getUrl() {
         return this.#url
     }
     async iniciarSesion(usuario, clave) {
-        return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`, {method: "GET"});
+        return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`);
     };
     async getNegocio_ById(id) {
-        return await get(`${this.#url}/negocio/${id}`, {method: "GET"});
+        return await get(`${this.#url}/negocio/${id}`);
     };
     async getNegocio_ByIdMesa(id) {
-        return await get(`${this.#url}/negocio/idMesa/${id}`, {method: "GET"});
+        return await get(`${this.#url}/negocio/idMesa/${id}`);
     };
     async getTipoAlim_ByIdNegocio(id) {
-        return await get(`${this.#url}/tipo-alimento/${id}`, {method: "GET"});
+        return await get(`${this.#url}/tipo-alimento/${id}`);
     };
     async getItemCateg_ByIdAlim(id) {
-        return await get(`${this.#url}/item-categ/${id}`, {method: "GET"});
+        return await get(`${this.#url}/item-categ/${id}`);
     };
     async getItem_ByIdItemCateg(id) {
-        return await get(`${this.#url}/item/${id}`, {method: "GET"});
+        return await get(`${this.#url}/item/${id}`);
     };
     async getLinksCateg_All() {
-        return await get("https://bsite.net/metalflap/links-group", {method: "GET"})
+        return await get("https://bsite.net/metalflap/links-group")
     };
     async getLinks_All() {
-        return await get("https://bsite.net/metalflap/links", {method: "GET"})
+        return await get("https://bsite.net/metalflap/links")
     };
 };
 
