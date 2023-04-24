@@ -1,9 +1,12 @@
 export default class ApiPostgreSQL {
     #url;
     constructor() {
-        this.#url = "http://localhost:3001";
-        //this.#url = "https://kartax-api-production.up.railway.app";
+        //this.#url = "http://localhost:3001";
+        this.#url = "https://kartax-api-production.up.railway.app";
     };
+    getUrl() {
+        return this.#url
+    }
     async iniciarSesion(usuario, clave) {
         return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`, {method: "GET"});
     };
