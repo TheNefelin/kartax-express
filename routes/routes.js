@@ -36,13 +36,8 @@ myRoutes.get("/kartax/:id", async (req, res) => {
     };
 });
 
-// myRoutes.get("/kartax/:idNegocio&:idMesa", (req, res) => {
-//     const  { idNegocio, idMesa } = req.params;
-//     console.log(req.params)
-//     res.send({ idNegocio, idMesa })
-// });
-
 myRoutes.get("/", async (req, res) => {
+    // renderiza pagina principal
     console.log(req.headers.host);
 
     try {
