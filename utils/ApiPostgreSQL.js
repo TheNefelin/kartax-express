@@ -3,7 +3,6 @@ export default class ApiPostgreSQL {
     constructor() {
         //this.#url = "http://localhost:3001";
         this.#url = "https://kartax-api-production.up.railway.app";
-        this.#url = "https://kartax-api-production.up.railway.app"
     };
     getUrl() {
         return this.#url
