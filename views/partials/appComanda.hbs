@@ -106,23 +106,25 @@
 
             try {
                 // por medio del idMesa obtengo el idComanda, la funcion getFectch esta en index.js
-                const mesa = await getFetch(`mesa/${idMesa}`);
+                const comanda = await getFetch(`mesa/${idMesa}`);
 
-                if (mesa[0].estado) {
-                    await setFetch("comanda-deta", { items: arrItemCarrito, idComanda: mesa[0].idComanda})
+                if (comanda.length > 0) {
+                    await setFetch("comanda-deta", { items: arrItemCarrito, idComanda: comanda[0].id_comanda})
                         .then( async () => { 
                             // esta funcion actualiza los pedidos de la comanda activa esta en el partial appPedidosComanda
                             await getPedidosActivos();
 
                             // se vacia el carrito de la comanda temportal y se renderiza de nuevo
                             arrItemCarrito.length = 0;
-                            renderItemCarrito();
-                        });
-                    // oculta el Loader
-                    renderLoading2.classList.remove("loading-contenedor2_visible");
+                            renderItemCarrito()
+                        }
+                    );
                 };
             } catch (err) {
                 console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);
+            } finally {
+                // oculta el Loader
+                renderLoading2.classList.remove("loading-contenedor2_visible");
             };
         };
     };

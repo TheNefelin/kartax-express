@@ -6,6 +6,7 @@ const apiPostgreSQL = new ApiPostgreSQL();
 // ------------------------------------------------------------------------
 export async function data_negocio(id) {
     const respuesta = await apiPostgreSQL.getNegocio_ByIdMesa(id);
+    console.log(respuesta)
     return respuesta;
 };
 

@@ -128,10 +128,8 @@
             });
 
             try {
-                console.log(arrPagarItems)
                 const obj = { arrItem: arrPagarItems };
                 const res = await updateFetch("comanda-deta", obj);
-                console.log(res);
                 await getPedidosActivos();
                 // oculta el Loader
                 renderLoading2.classList.remove("loading-contenedor2_visible");

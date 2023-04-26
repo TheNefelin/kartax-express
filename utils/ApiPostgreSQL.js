@@ -1,5 +1,4 @@
 import dotenv from 'dotenv'
-
 dotenv.config();
 
 export default class ApiPostgreSQL {
@@ -14,9 +13,6 @@ export default class ApiPostgreSQL {
     }
     async iniciarSesion(usuario, clave) {
         return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`);
-    };
-    async getNegocio_ById(id) {
-        return await get(`${this.#url}/negocio/${id}`);
     };
     async getNegocio_ByIdMesa(id) {
         return await get(`${this.#url}/negocio/idMesa/${id}`);

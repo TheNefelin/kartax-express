@@ -21,44 +21,42 @@
         const IdTipoAlimento = arrSlide[index].id;
 
         try {
-            // se obtiene la lista de Categorias de Items que pertenencen al Tipo Alimento seleccionado
-            const itemCateg = await getFetch(`item-categ/IdTipoAlimento/${IdTipoAlimento}`);
+            const resultado = await getFetch(`item-categ-e-items/${IdTipoAlimento}`);
 
-            const aux = await itemCateg.map(async (eIC) => {
-                // se obtienen todos los Items que pertenencen a cada Categoria de Item
-                const item = await getFetch(`item/IdCateg/${eIC.id}`);
+            if (resultado.length > 0) {
+                resultado.forEach(categ => {
+                    html += `<div class="acordion-list-titulo">${categ.nombre}</div>`
 
-                html += `<div class="acordion-list-titulo">${eIC.nombre}</div>`
-
-                item.forEach((eI) => {
-                    html += `
-                        <button class="acordion">${eI.nombre}</button>
+                    categ.items.forEach(item => {
+                        html += `
+                        <button class="acordion">${item.nombre}</button>
                         <div class="acordion-contenido">
-                            <img class="acordion-contenido-img" src=${eI.img}>
-                            <p>${eI.descripcion}</p>
-                            <p>$ <strong>${eI.precio}</strong> .-</p>
-                            <button value=${eI.id} class="btn animacion">
+                            <img class="acordion-contenido-img" src=${item.img}>
+                            <p>${item.descripcion}</p>
+                            <p>$ <strong>${item.precio}</strong> .-</p>
+                            <button value=${item.id} class="btn animacion">
                                 <span>Agregar</span>
                             </button>
                         </div>`;
-                });
-
-                // se reemplaza la animacion de "cargando" por la lista de itemns dentro de sus categorias
-                acordionList.innerHTML = "";
-                acordionList.innerHTML = html;
-                const arrAcordion = document.querySelectorAll(".acordion");
-                arrAcordion.forEach(e => {
-                    e.addEventListener("click", () => {
-                        acordion_click(e);
                     });
                 });
+            };
 
-                // la funcion addItemCarrito se encuentra en el partial appComanda.hbs
-                const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button");
-                arrBtnAgregar.forEach(e => {
-                    e.addEventListener("click", () => {
-                        addItemCarrito(e.value);
-                    });
+            // se reemplaza la animacion de "cargando" por la lista de itemns dentro de sus categorias
+            acordionList.innerHTML = "";
+            acordionList.innerHTML = html;
+            // evento click al btn del acordion para que se abra y cierre
+            const arrAcordion = document.querySelectorAll(".acordion");
+            arrAcordion.forEach(e => {
+                e.addEventListener("click", () => {
+                    acordion_click(e);
+                });
+            });
+            // la funcion addItemCarrito se encuentra en el partial appComanda.hbs
+            const arrBtnAgregar = document.querySelectorAll(".acordion-contenido button");
+            arrBtnAgregar.forEach(e => {
+                e.addEventListener("click", () => {
+                    addItemCarrito(e.value);
                 });
             });
         } catch (err) {

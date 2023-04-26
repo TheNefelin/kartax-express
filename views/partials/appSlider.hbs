@@ -92,17 +92,20 @@
  
     let indexFinal = 0;
 
+    function centrarImgExt() {
+        const contenedor = document.querySelector(".slider-contenedor");
+
+        if (contenedor) {
+            contenedor.style.transform = `translateX(${-window.innerWidth * (indexFinal)}px)` 
+        };
+    }
+
     window.addEventListener("resize", (e) => {
-        moverImg();
+        centrarImgExt();
     });
 
     function moverImg() {
-        const contenedor = document.querySelector(".slider-contenedor");
-        
-        if (contenedor) {
-            contenedor.style.transform = `translateX(${-window.innerWidth * (indexFinal)}px)`
-
-            setAcordion(indexFinal);
-        };
+        centrarImgExt();
+        setAcordion(indexFinal);
     };
 </script>
