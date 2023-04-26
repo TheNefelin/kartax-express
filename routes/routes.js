@@ -16,18 +16,12 @@ myRoutes.get("/kartax", async (req, res) => {
 
 // renderiza la app segun mesa de cliente
 myRoutes.get("/kartax/:id", async (req, res) => {
-    try {
-        const kartax = await fn.kartax(req.params.id);
+    const {estado, negocio, tipoAlim, footer} = await fn.kartax(req.params.id);
 
-        if (kartax.estado) {
-            const {negocio, tipoAlim, footer} = kartax
-            res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
-        } else {
-            res.redirect("/");
-        };
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
+    if (estado) {
+        res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
+    } else {
+        res.redirect("/error")
     };
 });
 
@@ -45,7 +39,7 @@ myRoutes.get("/", async (req, res) => {
 //renderiza el inicio de sesion
 myRoutes.get("/iniciarSesion", async (req, res) => {
     try {
-        const negocio = await fn.principal();
+        const { negocio } = await fn.principal();
         res.render("iniciarSesion", { negocio: negocio });
     } catch (err) {
         console.log(err);

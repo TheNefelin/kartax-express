@@ -12,7 +12,7 @@ export async function kartax(id_mesa) {
     const negocio = await data_negocio(id_mesa);
     
     if (negocio.length == 0) {
-        return { estado: false }
+        return { estado: false };
     };
 
     const tipoAlim = await data_tipo_alim(id_mesa);
@@ -27,10 +27,28 @@ export async function principal() {
     const footer = await data_footer();
 
     return { negocio, footer };
-}
+};
 
 // funcion para iniciar sesion
+export async function iniciar_sesion2(obj) {
+    const negocio = await data_negocio(id_mesa_demo);
+    const resultado = { negocio, estado: false, msge: "" };
+
+    if (!obj.txtUser || !obj.txtPass) {
+        return resultado.msge = "Debe Ingresar Todos los Datos Requeridos";
+    };
+
+    const token = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
+    console.log(token)
+    if (token.length == 0) {
+        return resultado.msge = "El Usuario no Existe" ;
+    };
+};
+
 export async function iniciar_sesion(obj) {  
+
+console.log(await iniciar_sesion2(obj))
+
     if (!obj.txtUser || !obj.txtPass) {
         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
     };

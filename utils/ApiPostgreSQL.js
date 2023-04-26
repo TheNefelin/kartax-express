@@ -12,19 +12,13 @@ export default class ApiPostgreSQL {
         return this.#url
     }
     async iniciarSesion(usuario, clave) {
-        return await get(`${this.#url}/iniciar-sesion/${usuario}&${clave}`);
+        return await post(`${this.#url}/iniciar-sesion`, {usuario, clave});
     };
     async getNegocio_ByIdMesa(id) {
         return await get(`${this.#url}/negocio/idMesa/${id}`);
     };
     async getTipoAlim_ByIdNegocio(id) {
         return await get(`${this.#url}/tipo-alimento/${id}`);
-    };
-    async getItemCateg_ByIdAlim(id) {
-        return await get(`${this.#url}/item-categ/${id}`);
-    };
-    async getItem_ByIdItemCateg(id) {
-        return await get(`${this.#url}/item/${id}`);
     };
     async getLinksCateg_All() {
         return await get("https://bsite.net/metalflap/links-group")
@@ -34,12 +28,31 @@ export default class ApiPostgreSQL {
     };
 };
 
-async function get(url, obj) {
+async function get(url) {
     try {
-        const res = await fetch(url, obj);
+        const res = await fetch(url);
         return await res.json();
-    } catch(e) {
-        console.log(`Error: ${e}`)
+    } catch(err) {
+        console.log(`Error: en la conexion a la API (ApiPostgreSQL) Detalle: ${err}`)
         return [];
     };
 };
+
+async function post(url, obj) {
+    try { 
+        const res = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj),
+        }); 
+
+        return res.json();
+    } catch (err) {
+        console.log(`Error: en la conexion a la API (ApiPostgreSQL), Detalle: ${err}`);
+        return [];
+    };
+};
+

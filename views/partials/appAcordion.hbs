@@ -21,7 +21,8 @@
         const IdTipoAlimento = arrSlide[index].id;
 
         try {
-            const resultado = await getFetch(`item-categ-e-items/${IdTipoAlimento}`);
+            // esta funcion llama a fetch desde index
+            const resultado = await get_ItemsYCateg_ByIdAlim(IdTipoAlimento);
 
             if (resultado.length > 0) {
                 resultado.forEach(categ => {

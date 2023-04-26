@@ -21,20 +21,24 @@
 
     // agrega items al carrito y comanda
     async function addItemCarrito(idItem) {
-        // la funcion getFectch esta en index.js
-        const item = await getFetch(`item/${idItem}`);
+        try {
+            // la funcion llama a fetch y esta en index
+            const item = await get_Item_ById(idItem);
 
-        // se guarda de forma temporal todos los items de pedidos antes de enviarlos al back
-        arrItemCarrito.push(
-            {
-                id: arrItemCarrito.length + 1, 
-                idItem: item[0].id, 
-                nomItem: item[0].nombre, 
-                precio: item[0].precio, 
-            }
-        );
+            // se guarda de forma temporal todos los items de pedidos antes de enviarlos al back
+            arrItemCarrito.push(
+                {
+                    id: arrItemCarrito.length + 1, 
+                    idItem: item[0].id, 
+                    nomItem: item[0].nombre, 
+                    precio: item[0].precio, 
+                }
+            );
 
-        renderItemCarrito();
+            renderItemCarrito();
+        } catch (err) {
+            console.log(`Error en la conexion a la API (comanda linea 24), Detalle: ${err}`);
+        }
     };
 
     // elimina items del carrito y comanda
@@ -106,10 +110,11 @@
 
             try {
                 // por medio del idMesa obtengo el idComanda, la funcion getFectch esta en index.js
-                const comanda = await getFetch(`mesa/${idMesa}`);
+                const comanda = await get_Comanda_ByIdMesa(idMesa);
 
                 if (comanda.length > 0) {
-                    await setFetch("comanda-deta", { items: arrItemCarrito, idComanda: comanda[0].id_comanda})
+                    // esta funcion llama a fetch desde index
+                    await post_AgregarItemAComanda({ items: arrItemCarrito, idComanda: comanda[0].id_comanda })
                         .then( async () => { 
                             // esta funcion actualiza los pedidos de la comanda activa esta en el partial appPedidosComanda
                             await getPedidosActivos();
@@ -121,7 +126,7 @@
                     );
                 };
             } catch (err) {
-                console.log(`Error en la conexion a la API (comanda linea 112), Detalle: ${err}`);
+                console.log(`Error en la conexion a la API (comanda linea 111), Detalle: ${err}`);
             } finally {
                 // oculta el Loader
                 renderLoading2.classList.remove("loading-contenedor2_visible");

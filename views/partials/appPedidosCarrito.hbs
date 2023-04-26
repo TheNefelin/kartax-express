@@ -33,8 +33,8 @@
         if (idMesa) {
             try {
                 let html = "";
-                // la funcion getFectch esta en index.js obtiene todos los pedidos activos
-                const itemComanda = await getFetch(`comanda-deta/idMesa/${idMesa}`);
+                // la funcion llama a fetch desde index
+                const itemComanda = await get_Pedidos_ByIdMesa(idMesa);
     
                 itemComanda.forEach(e => {
                     html += `
@@ -72,7 +72,7 @@
                     });
                 });
             } catch (err) {
-                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 16), Detalle: ${err}`);
+                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 34), Detalle: ${err}`);
             };
         };
     };
@@ -129,12 +129,13 @@
 
             try {
                 const obj = { arrItem: arrPagarItems };
-                const res = await updateFetch("comanda-deta", obj);
+                //esta funcion llama al fetch desde index
+                const res = await put_HacerPedido( obj);
                 await getPedidosActivos();
                 // oculta el Loader
                 renderLoading2.classList.remove("loading-contenedor2_visible");
             } catch (err) {
-                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 120), Detalle: ${err}`);
+                console.log(`Error: en la conexion a la API (Pedidos Carrito linea 130), Detalle: ${err}`);
             };
         };
     });

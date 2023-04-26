@@ -1,28 +1,40 @@
 const API_LINK = "http://localhost:3001"
 //const API_LINK = "https://kartax-api-production.up.railway.app";
 
-// obtiene datos del la API
-async function getFetch(semiUrl) {
-    const url = `${API_LINK}/${semiUrl}`
-    console.log(url);
+async function get_ItemsYCateg_ByIdAlim(id) {  
+    return await get(`${API_LINK}/item-categ-e-items/${id}`);
+};
+async function get_Pedidos_ByIdMesa(id) {  
+    return await get(`${API_LINK}/comanda-deta/idMesa/${id}`);
+};
+async function get_Item_ById(id) {  
+    return await get(`${API_LINK}/item/${id}`);
+};
+async function get_Comanda_ByIdMesa(id) {  
+    return await get(`${API_LINK}/mesa/${id}`);
+};
+async function post_AgregarItemAComanda(obj) {  
+    return await post(`${API_LINK}/comanda-deta`, obj);
+};
+async function put_HacerPedido(obj) {  
+    return await put(`${API_LINK}/comanda-deta`, obj);
+};
 
+// obtiene datos del la API
+async function get(url) {
     try {
         const res = await fetch(url);
-        return res.json();
-    } catch (err) {
-        console.log(`Error: en la conexion a la API (index linea 9), Detalle: ${err}`);
+        return await res.json();
+    } catch(err) {
+        console.log(`Error: en la conexion a la API (index) Detalle: ${err}`)
         return [];
     };
 };
 
 // inserta datos en la API
-async function setFetch(semiUrl, obj) {
-    const url = `${API_LINK}/${semiUrl}`
-    console.log(url);
-    console.log(obj);
-
+async function post(url, obj) {
     try { 
-        const res = await fetch(`${API_LINK}/${semiUrl}`, {
+        const res = await fetch(url, {
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -33,19 +45,15 @@ async function setFetch(semiUrl, obj) {
 
         return res.json();
     } catch (err) {
-        console.log(`Error: en la conexion a la API (index linea 19), Detalle: ${err}`);
+        console.log(`Error: en la conexion a la API (index), Detalle: ${err}`);
         return [];
     };
 };
 
 // actualiza datos en la API
-async function updateFetch(semiUrl, obj) {
-    const url = `${API_LINK}/${semiUrl}`
-    console.log(url);
-    console.log(obj);
-
+async function put(url, obj) {
     try {
-        const res = await fetch(`${API_LINK}/${semiUrl}`, {
+        const res = await fetch(url, {
             method: "PUT",
             headers: {
                 "Accept": "application/json",
@@ -56,7 +64,7 @@ async function updateFetch(semiUrl, obj) {
 
         return res.json();
     } catch (err) {
-        console.log(`Error: en la conexion a la API (index linea 42), Detalle: ${err}`);
+        console.log(`Error: en la conexion a la API (index), Detalle: ${err}`);
         return [];
     };
 };
