@@ -223,7 +223,7 @@ nav {
 /* -- paralax ------------------------------------------ */
 /* ----------------------------------------------------- */
 .paralax {
-    background-image: url("../img/fondo.jpg");
+    background-image: url("../img/kartax/fondo.jpg");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;

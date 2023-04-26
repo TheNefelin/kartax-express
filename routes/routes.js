@@ -21,6 +21,7 @@ myRoutes.get("/kartax/:id", async (req, res) => {
         const negocio = await fn.data_negocio(idMesa);
         if (negocio.length > 0) {
             const tipoAlim = await fn.data_tipo_alim(idMesa)
+            console.log(tipoAlim)
             const footer = await fn.data_footer();
             res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
         } else {
