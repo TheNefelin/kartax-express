@@ -10,22 +10,21 @@ const mySession = { isActive: false, token: "" }
 // --------------------------------------------------------------
 // renderiza la demo de Kartax
 myRoutes.get("/kartax", async (req, res) => {
+    console.log(req.headers.host);
     res.redirect("/kartax/1");
 });
 
-// renderiza Kartax segun mesa de cliente
+// renderiza la app segun mesa de cliente
 myRoutes.get("/kartax/:id", async (req, res) => {
-    const idMesa = isNaN(req.params.id) ? 1 : req.params.id;
-
     try {
-        const negocio = await fn.data_negocio(idMesa);
-        if (negocio.length > 0) {
-            const tipoAlim = await fn.data_tipo_alim(idMesa)
-            const footer = await fn.data_footer();
+        const kartax = await fn.kartax(req.params.id);
+
+        if (kartax.estado) {
+            const {negocio, tipoAlim, footer} = kartax
             res.render("kartax", { negocio: negocio, tipoAlim: tipoAlim, footer: footer });
         } else {
-            res.redirect("/")
-        }
+            res.redirect("/");
+        };
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -34,11 +33,8 @@ myRoutes.get("/kartax/:id", async (req, res) => {
 
 // renderiza pagina principal
 myRoutes.get("/", async (req, res) => {
-    console.log(req.headers.host);
-
     try {
-        const negocio = await fn.data_negocio(1);
-        const footer = await fn.data_footer();
+        const { negocio, footer } = await fn.principal();
         res.render("index", { negocio: negocio, footer: footer });
     } catch (err) {
         console.log(err);
@@ -46,9 +42,10 @@ myRoutes.get("/", async (req, res) => {
     };
 });
 
+//renderiza el inicio de sesion
 myRoutes.get("/iniciarSesion", async (req, res) => {
     try {
-        const negocio = await fn.data_negocio(1);
+        const negocio = await fn.principal();
         res.render("iniciarSesion", { negocio: negocio });
     } catch (err) {
         console.log(err);
@@ -56,6 +53,7 @@ myRoutes.get("/iniciarSesion", async (req, res) => {
     };
 });
 
+// envia los datos de iniciar sesion a la API y recibe un token
 myRoutes.post("/iniciarSesion", async (req, res) => {
     const inputs = req.body;
 
