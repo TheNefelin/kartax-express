@@ -48,7 +48,9 @@ npm install pg
 11. Utilización de tags html, estilos y responsividad.
     - () -- SIN REVISAR AUN -----------------------------------
 12. Utilización de Bootstrap.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express) 
+    /views/partials/appKartax.hbs "CDN links"
+    /views/partials/appIndex.hbs "linea 25, 63"
 ```
 * Lenguaje Node
 ```

@@ -23,10 +23,12 @@
 
     <section class="pagePhone">
         <h1>Demo</h1>
-        <a target="_blank" href="/kartax">&centerdot; Link Ver Demo</a>
+        {{!-- <a target="_blank" href="/kartax">&centerdot; Link Ver Demo</a> --}}
+
+        <a href="#" data-bs-toggle="tooltip" data-bs-title="Este Link Abrira una Nueva Pestaña">&centerdot; Link Ver Demo</a>
+
         <div class="phone">
             <iframe class="content" src="/kartax">
-
             </iframe>
         </div>
     </section>
@@ -57,3 +59,8 @@
         </div>
     </section>
 </main>
+
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+</script>
