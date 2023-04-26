@@ -73,8 +73,10 @@ npm install pg
     - () -- SIN REVISAR AUN -----------------------------------
 
 15. Utilización de funciones asíncronas.
-    - (Kartax Express) /utils/funciones.js y ApiPostgreSQL.js
-    - (Kartax Api) /utils/PGSQL.js, etc...
+    - (Kartax Express) 
+    /utils/funciones.js y ApiPostgreSQL.js
+    - (Kartax Api) 
+    /utils/PGSQL.js, etc...
 
 16. Lectura de parámetros de entrada.
     - () -- SIN REVISAR AUN -----------------------------------
