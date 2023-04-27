@@ -32,7 +32,7 @@ npm install pg
     - (Kartax Api) /utils/PGSQL.js "linea 144, etc.."
 
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
-    - () -- SIN REVISAR AUN -----------------------------------
+    - () -- SIN REVISAR AUN "Grup By" -------------------------
 ```
 * Algoritmo de cálculo y manipulación de archivos de texto
 ```
@@ -40,13 +40,17 @@ npm install pg
     - (Kartax Express y Kartax Api) /utils/funciones.js
 
 7. Utilización de sentencias repetitivas.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express) 
+    /views/partials/appIndex.hbs ".map" "linea 65"
+    /views/partials/appAcordion.hbs ".forEach" "linea 28, 31, etc..."
     
 8. Convenciones y estilos de programación.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express y Kartax Api) "codigo comentado, calses en mayusculas, etc.."
 
 9. Utilización correcta de estructuras de datos
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Api) 
+    /sql/PostgreSQL_query.sql "estructura para construir la BD"
+    /sql/PostgreSQL_diag.pgerd "Modelo relacional de la BD"
 
 10. Manipulación de archivos.
     - (Kartax Express) /utils/funciones.js
@@ -55,7 +59,9 @@ npm install pg
 * Página web y html
 ```
 11. Utilización de tags html, estilos y responsividad.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express) 
+    /views/partials/appKartax.hbs "tags html"
+    /public/css/index.css "estilos y responsividad de la app"
 
 12. Utilización de Bootstrap.
     - (Kartax Express) 
@@ -68,17 +74,17 @@ npm install pg
     - (Kartax Express y Kartax Api) /package.json "linea 2"
 
 14. Agrupación del código y separación por funcionalidad.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express y Kartax Api) en la raiz de ambos proyectos
 
 15. Utilización de funciones asíncronas.
     - (Kartax Express)  /utils/funciones.js y ApiPostgreSQL.js
     - (Kartax Api)      /utils/PGSQL.js, etc...
 
 16. Lectura de parámetros de entrada.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express y Kartax Api) /utils/funciones.js "en ambas app"
 
 17. Funcionamiento general del aplicativo
-    - () -- SIN REVISAR AUN -----------------------------------
+    - () -- AUN FALTA FUNCIONALIDAD -------------------------------
 ```
 * Conexión a Base de Datos
 ```
