@@ -50,8 +50,6 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     const { negocio, estado, msge } = await fn.iniciar_sesion(req.body);
 
     if (estado) {
-        const asdasdasdasd = await fn.validarToken();
-        console.log(asdasdasdasd)
         res.redirect("/admin");
     } else {
         res.render("iniciarSesion", { negocio: negocio, msge: msge })
@@ -89,17 +87,14 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 // privado ------------------------------------------------------
 // --------------------------------------------------------------
 myRoutes.get("/admin", async (req, res) => {
-    // const resultado = await fn.validarToken();
-    // console.log(resultado)
-    if (false) {
+    const { negocio } = await fn.principal();
+    const { estado, msge } = await fn.validarToken();
+
+    if (estado) {
         res.render("admin");
     } else {
-        res.redirect("/iniciarSesion");
+        res.render("iniciarSesion", { negocio: negocio, msge: msge })
     }
-});
-
-myRoutes.post("/admin", (req, res) => {
-    res.render("admin");
 });
 
 // otros --------------------------------------------------------

@@ -86,10 +86,15 @@ async function guardarToken(token) {
 };
 
 export async function validarToken() {
-    const resultado = await fs.promises.readFile("./data/token.json");
-    const objToken = JSON.parse(resultado);
+    const jsonToken = await fs.promises.readFile("./data/token.json");
+    const objToken = JSON.parse(jsonToken);
+    const serverToken = await apiPostgreSQL.validarToken(objToken.token);
 
-    return await apiPostgreSQL.validarToken(objToken.token);
+    if (serverToken.length > 0) {
+        return serverToken[0];
+    } else {
+        return { estado: false, msge: "La API no pudo validar su Usuario" };
+    };
 };
 
 // privado ----------------------------------------------------------------
