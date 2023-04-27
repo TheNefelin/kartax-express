@@ -1,5 +1,5 @@
-const API_LINK = "http://localhost:3001"
-// const API_LINK = "https://kartax-api-production.up.railway.app";
+//const API_LINK = "http://localhost:3001"
+const API_LINK = "https://kartax-api-production.up.railway.app";
 
 async function get_ItemsYCateg_ByIdAlim(id) {  
     return await get(`${API_LINK}/item-categ-e-items/${id}`);

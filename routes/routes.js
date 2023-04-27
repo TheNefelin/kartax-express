@@ -6,6 +6,7 @@ export default myRoutes;
 
 // publico ------------------------------------------------------
 // --------------------------------------------------------------
+
 // renderiza la demo de Kartax
 myRoutes.get("/kartax", async (req, res) => {
     console.log(req.headers.host);
@@ -99,6 +100,10 @@ myRoutes.get("/admin", async (req, res) => {
 
 // otros --------------------------------------------------------
 // --------------------------------------------------------------
+myRoutes.get("/testing", (req, res) => {
+    res.render("testing");
+});
+
 myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
