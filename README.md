@@ -20,20 +20,16 @@ npm install pg
 * Consulta a la Base de Datos
 ```
 1. Selecciona las columnas requeridas para presentar la información solicitada.
-    - (Kartax Api)  
-    /utils/PGSQL.js "todas las funciones"
+    - (Kartax Api)  /utils/PGSQL.js "todas las funciones"
 
 2. Utiliza JOIN para relacionar la información de distintas tablas.
-    - (Kartax Api) 
-    /utils/PGSQL.js "linea 43, 138, etc.."
+    - (Kartax Api) /utils/PGSQL.js "linea 43, 138, etc.."
 
 3. Utiliza WHERE para filtrar la información requerida.
-    - (Kartax Api) 
-    /utils/PGSQL.js "linea 16, 29, etc.."
+    - (Kartax Api) /utils/PGSQL.js "linea 16, 29, etc.."
 
 4. Utiliza cláusulas de ordenamiento para presentar la información.
-    - (Kartax Api) 
-    /utils/PGSQL.js "linea 144, etc.."
+    - (Kartax Api) /utils/PGSQL.js "linea 144, etc.."
 
 5. Utiliza cláusulas de agrupación de información para obtener datos agregados
     - () -- SIN REVISAR AUN -----------------------------------
@@ -41,17 +37,20 @@ npm install pg
 * Algoritmo de cálculo y manipulación de archivos de texto
 ```
 6. Utilización general del lenguaje, sintaxis, selección de tipos de datos, sentencias lógicas, expresiones, operaciones, comparaciones.
-    - (Kartax Express y Kartax Api) 
-    /utils/funciones.js
+    - (Kartax Express y Kartax Api) /utils/funciones.js
 
 7. Utilización de sentencias repetitivas.
     - () -- SIN REVISAR AUN -----------------------------------
+    
 8. Convenciones y estilos de programación.
     - () -- SIN REVISAR AUN -----------------------------------
+
 9. Utilización correcta de estructuras de datos
     - () -- SIN REVISAR AUN -----------------------------------
+
 10. Manipulación de archivos.
-    - () -- SIN REVISAR AUN -----------------------------------
+    - (Kartax Express) /utils/funciones.js
+    guardarToken() y validarToken()
 ```
 * Página web y html
 ```
@@ -66,17 +65,14 @@ npm install pg
 * Lenguaje Node
 ```
 13. Inclusión de paquetes y librerías de usuario.
-    - (Kartax Express y Kartax Api) 
-    /package.json "linea 2"
+    - (Kartax Express y Kartax Api) /package.json "linea 2"
 
 14. Agrupación del código y separación por funcionalidad.
     - () -- SIN REVISAR AUN -----------------------------------
 
 15. Utilización de funciones asíncronas.
-    - (Kartax Express) 
-    /utils/funciones.js y ApiPostgreSQL.js
-    - (Kartax Api) 
-    /utils/PGSQL.js, etc...
+    - (Kartax Express)  /utils/funciones.js y ApiPostgreSQL.js
+    - (Kartax Api)      /utils/PGSQL.js, etc...
 
 16. Lectura de parámetros de entrada.
     - () -- SIN REVISAR AUN -----------------------------------
@@ -87,14 +83,11 @@ npm install pg
 * Conexión a Base de Datos
 ```
 18. Manejo de conexión a base de datos desde Node
-    - (Kartax Api) 
-    /utils/SecretData.js
+    - (Kartax Api) /utils/SecretData.js
 
 19. Manejo y ejecución de consultas desde Node
-    - (Kartax Api) 
-    /utils/PGSQL.js
+    - (Kartax Api) /utils/PGSQL.js
 
 20. Uso de Express
-    - (Kartax Express y Kartax Api) 
-    /app.js y /server.js
+    - (Kartax Express y Kartax Api) /app.js y /server.js
 ```

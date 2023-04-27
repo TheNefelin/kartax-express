@@ -4,8 +4,6 @@ import * as fn from "../utils/funciones.js";
 const myRoutes = Router();
 export default myRoutes;
 
-const mySession = { isActive: false, token: "" }
-
 // publico ------------------------------------------------------
 // --------------------------------------------------------------
 // renderiza la demo de Kartax
@@ -49,39 +47,27 @@ myRoutes.get("/iniciarSesion", async (req, res) => {
 
 // envia los datos de iniciar sesion a la API y recibe un token
 myRoutes.post("/iniciarSesion", async (req, res) => {
-    const inputs = req.body;
+    const { negocio, estado, msge } = await fn.iniciar_sesion(req.body);
 
-    try {
-        if (inputs.btn1 == "iniciar") {
-            const negocio = await fn.data_negocio(1);
-            const resIS = await fn.iniciar_sesion(inputs);
-
-            if (resIS.isActive) {
-                mySession.isActive = true;
-                mySession.token = resIS.token;
-
-                res.redirect("/admin");
-            } else {
-                res.render("iniciarSesion", { negocio: negocio, resIS: resIS })
-            };
-        } else {
-            res.redirect("/kartax");
-        };
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
+    if (estado) {
+        // res.redirect("/admin");
+        const asdasdasdasd = await fn.validarToken()
+        res.send(asdasdasdasd);
+    } else {
+        res.render("iniciarSesion", { negocio: negocio, msge: msge })
     };
 });
 
-myRoutes.get("/registrarse", async (req, res) => {
-    try {
-        const negocio = await fn.data_negocio(1);
-        res.render("registrarse", { negocio: negocio });
-    } catch (err) {
-        console.log(err);
-        res.redirect("/error");
-    };
-});
+// en construccion
+// myRoutes.get("/registrarse", async (req, res) => {
+//     try {
+//         const negocio = await fn.data_negocio(1);
+//         res.render("registrarse", { negocio: negocio });
+//     } catch (err) {
+//         console.log(err);
+//         res.redirect("/error");
+//     };
+// });
 
 // myRoutes.post("/registrarse", async (req, res) => {
 //     const inputs = req.body;
@@ -103,7 +89,9 @@ myRoutes.get("/registrarse", async (req, res) => {
 // privado ------------------------------------------------------
 // --------------------------------------------------------------
 myRoutes.get("/admin", async (req, res) => {
-    if (mySession.isActive) {
+    // const resultado = await fn.validarToken();
+    // console.log(resultado)
+    if (false) {
         res.render("admin");
     } else {
         res.redirect("/iniciarSesion");
@@ -116,26 +104,6 @@ myRoutes.post("/admin", (req, res) => {
 
 // otros --------------------------------------------------------
 // --------------------------------------------------------------
-myRoutes.get("/testing", async (req, res) => {
-    //  try {
-    //     let resultado = await fetch("http://localhost:3001/testing", {
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({usuario: "Prueba", clave: "francisco"})
-    //     });
-        
-    //     resultado = await resultado.json();
-    //     consoleo.log(resultado);
-    // } catch(e) {
-    //     console.log(`Error: ${e}`)
-    // };
-    
-    res.render("testing");
-});
-
 myRoutes.get("/error", (req, res) => {
     res.render("error");
 });

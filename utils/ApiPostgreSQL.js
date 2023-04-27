@@ -14,6 +14,9 @@ export default class ApiPostgreSQL {
     async iniciarSesion(usuario, clave) {
         return await post(`${this.#url}/iniciar-sesion`, {usuario, clave});
     };
+    async validarToken(token) {
+        return await get(`${this.#url}/token/${token}`);
+    }
     async getNegocio_ByIdMesa(id) {
         return await get(`${this.#url}/negocio/idMesa/${id}`);
     };

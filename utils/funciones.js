@@ -1,10 +1,12 @@
+import * as fs from "fs"
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
 
 const apiPostgreSQL = new ApiPostgreSQL();
 const id_mesa_demo = 1;
 
-// funciones que van responden a las rutas --------------------------------
+// funciones que responden a las rutas ------------------------------------
 // ------------------------------------------------------------------------
+
 // funcion para cargar la app
 export async function kartax(id_mesa) {
     id_mesa = isNaN(id_mesa) ? id_mesa_demo : id_mesa;
@@ -30,50 +32,36 @@ export async function principal() {
 };
 
 // funcion para iniciar sesion
-export async function iniciar_sesion2(obj) {
+export async function iniciar_sesion(obj) {
     const negocio = await data_negocio(id_mesa_demo);
     const resultado = { negocio, estado: false, msge: "" };
 
     if (!obj.txtUser || !obj.txtPass) {
-        return resultado.msge = "Debe Ingresar Todos los Datos Requeridos";
+        resultado.msge = "Debe Ingresar Todos los Datos Requeridos";
+        return resultado;
     };
 
     const token = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
-    console.log(token)
+
     if (token.length == 0) {
-        return resultado.msge = "El Usuario no Existe" ;
-    };
-};
-
-export async function iniciar_sesion(obj) {  
-
-console.log(await iniciar_sesion2(obj))
-
-    if (!obj.txtUser || !obj.txtPass) {
-        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-    };
-    
-    const res = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
-
-    if (res.length == 0) {
-        return { isActive: 0, msge: "El Usuario no Existe" };
-    };
-
-    if (res[0].estado) {
-        return { isActive: 1, token: res[0].token };
-    } else {
-        return { isActive: 0, msge: "Usuario o Contraseña Incorrecta" };
+        resultado.msge = "Usuario o Contraseña Incorrecta";
+        return resultado;
+    } else {   
+        await guardarToken(token[0]);
+        resultado.estado = true;  
+        return resultado;
     };
 };
 
 // funciones que extraen informacion desde la API -------------------------
 // ------------------------------------------------------------------------
-export async function data_negocio(id) {
+
+async function data_negocio(id) {
     const respuesta = await apiPostgreSQL.getNegocio_ByIdMesa(id);
     return respuesta;
 };
 
-export async function data_footer() {
+async function data_footer() {
     const linksGrp = await apiPostgreSQL.getLinksCateg_All();
     const links = await apiPostgreSQL.getLinks_All();
 
@@ -85,9 +73,25 @@ export async function data_footer() {
     return footer;
 };
 
-export async function data_tipo_alim(id) {
+async function data_tipo_alim(id) {
     const respuesta = await apiPostgreSQL.getTipoAlim_ByIdNegocio(id);
     return respuesta;
+};
+
+// funciones --------------------------------------------------------------
+// ------------------------------------------------------------------------
+
+async function guardarToken(token) {
+    await fs.promises.writeFile("./data/token.json", JSON.stringify(token), err => {
+        if (err) throw err;
+    });
+};
+
+export async function validarToken() {
+    const resultado = await fs.promises.readFile("./data/token.json");
+    const objToken = JSON.parse(resultado);
+
+    return await apiPostgreSQL.validarToken(objToken.token);
 };
 
 // privado ----------------------------------------------------------------
@@ -109,24 +113,24 @@ export async function data_tipo_alim(id) {
 
 // postgre functions ------------------------------------------------------
 // ------------------------------------------------------------------------
-export async function pgIniciarSesion(obj) {  
-    if (!obj.txtUser || !obj.txtPass) {
-        return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-    };
+// export async function pgIniciarSesion(obj) {  
+//     if (!obj.txtUser || !obj.txtPass) {
+//         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
+//     };
     
-    const res = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
-    console.log(res[0].cant)
+//     const res = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
+//     console.log(res[0].cant)
 
-    if (res.length == 0) {
-        return { isActive: 0, msge: "El Usuario no Existe" };
-    };
+//     if (res.length == 0) {
+//         return { isActive: 0, msge: "El Usuario no Existe" };
+//     };
 
-    if (parseInt(res[0].cant) > 0) {
-        return { isActive: 1, msge: "" };
-    } else {
-        return { isActive: 0, msge: "Usuario o Contraseña Incorrecta" };
-    };
-};
+//     if (parseInt(res[0].cant) > 0) {
+//         return { isActive: 1, msge: "" };
+//     } else {
+//         return { isActive: 0, msge: "Usuario o Contraseña Incorrecta" };
+//     };
+// };
 
 // export async function nuevoUsuario(obj) {
 //     const pgSql = new PGSQL();
