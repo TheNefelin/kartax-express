@@ -82,9 +82,7 @@ async function data_tipo_alim(id) {
 // ------------------------------------------------------------------------
 
 async function guardarToken(token) {
-    await fs.promises.writeFile("./data/token.json", JSON.stringify(token), err => {
-        if (err) throw err;
-    });
+    await fs.promises.writeFile("./data/token.json", JSON.stringify(token));
 };
 
 export async function validarToken() {

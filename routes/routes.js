@@ -50,9 +50,9 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     const { negocio, estado, msge } = await fn.iniciar_sesion(req.body);
 
     if (estado) {
-        // res.redirect("/admin");
-        const asdasdasdasd = await fn.validarToken()
-        res.send(asdasdasdasd);
+        const asdasdasdasd = await fn.validarToken();
+        console.log(asdasdasdasd)
+        res.redirect("/admin");
     } else {
         res.render("iniciarSesion", { negocio: negocio, msge: msge })
     };
