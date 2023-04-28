@@ -733,6 +733,11 @@ main {
 
 /* -- admin 2 ------------------------------------------ */
 /* ----------------------------------------------------- */
+.admin2-btn-contenedor {
+    background-color: var(--colorBase01);
+    height: 4rem;
+}
+
 .admin2-navegacion {
     position: fixed;
     width: 4rem;
@@ -766,6 +771,10 @@ main {
     position: relative;
     width: 18rem;
     list-style: none;
+}
+
+.admin2-navegacion li:hover {
+    background-color: var(--colorBase03);
 }
 
 .admin2-navegacion a {
@@ -803,6 +812,10 @@ main {
     height: 4rem;
     background-color: var(--colorBase01);
     cursor: pointer;
+}
+
+.admin2-btn:hover {
+    background-color: var(--colorBase03);
 }
 
 .admin2-btn:before {
