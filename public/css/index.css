@@ -218,6 +218,19 @@ nav {
     .navBar-links a {
         padding: 1rem;
     }
+
+    .admin2-navegacion {
+        left: -4rem;
+    }
+
+    .admin2-navegacion.admin2-navegacion_activo {
+        left: 0;
+        width: 4rem;
+    }
+
+    .admin2-navegacion:hover.admin2-navegacion_activo {
+        width: 100%;
+    }
 }
 
 /* -- paralax ------------------------------------------ */
@@ -730,33 +743,29 @@ main {
 }
 
 .admin2-img {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 .admin2-img img {
     width: 3rem;
 }
 
-.admin2-navegacion:hover {
+.admin2-navegacion:hover, .admin2-navegacion_activo {
     width: 18rem;
 }
 
 .admin2-navegacion ul {
     position: absolute;
     padding: 0;
-    width: 300px;
+    width: 18rem;
 }
 
 .admin2-navegacion li {
     position: relative;
-    width: 300px;
+    width: 18rem;
     list-style: none;
-}
-
-.admin2-navegacion li:hover {
-    background-color: var(--colorBase03);
 }
 
 .admin2-navegacion a {
@@ -785,6 +794,36 @@ main {
     text-align: start;
     white-space: nowrap;
 }
+
+.admin2-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--colorBase01);
+    cursor: pointer;
+}
+
+.admin2-btn:before {
+    content: "\f0c9";
+    font-family: fontAwesome;
+    position: absolute;
+    font-size: 2rem;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    line-height: 4rem;
+    text-align: center;
+    color: var(--colorBase02);
+}
+
+.admin2-btn_active:before {
+    content: "\f00d";
+    color: var(--color03);
+}
+
+/* @medias relacionados*/
 
 /* -- rrss --------------------------------------------- */
 /* ----------------------------------------------------- */

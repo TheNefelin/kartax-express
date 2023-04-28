@@ -41,5 +41,17 @@
             </li>
         </ul>
     </div>
+    <div class="admin2-btn"></div>
 
 {{/appKartax}}
+
+<script>
+    
+    const admin2Btn =  document.querySelector(".admin2-btn");
+    admin2Btn.addEventListener("click", () => {
+        const admin2Navegacion = document.querySelector(".admin2-navegacion");
+        admin2Navegacion.classList.toggle("admin2-navegacion_activo");
+        admin2Btn.classList.toggle("admin2-btn_active");
+    });
+
+</script>
