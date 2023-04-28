@@ -1,82 +1,45 @@
 {{#> appKartax}}
-    <section class="menu-panel">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
+    {{!-- https://fontawesome.com/v4/icons/ --}}
+
+    <div class="admin2-navegacion">
+        <div class="admin2-img">
+            <img class="fa" src="/img/kartax/logo.png" alt="">
+        </div>
+                
         <ul>
             <li>
                 <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Inicio</span>
+                    <span class="admin2-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                    <span class="admin2-titulo">Inicio</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Negocio</span>
+                    <span class="admin2-icon"><i class="fa fa-laptop" aria-hidden="true"></i></span>
+                    <span class="admin2-titulo">Negocios</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Usuarios</span>
+                    <span class="admin2-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <span class="admin2-titulo">Usuarios</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Ayuda</span>
+                    <span class="admin2-icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                    <span class="admin2-titulo">Configuración</span>
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Configuración</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon"></span>
-                    <span class="title">Cerrar Sesión</span>
+                    <span class="admin2-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
+                    <span class="admin2-titulo">Salir</span>
                 </a>
             </li>
         </ul>
-    </section>
+    </div>
 
-
-{{!-- <button>Nuevo Usuario</button>
-
-<table id="myTable">
-    <tr class="header">
-        <th>Rol</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Correo</th>
-        <th>Usuario</th>
-        <th>Activo</th>
-        <th></th>
-    </tr>
-    {{#each usuarios}}
-    <tr>
-        <td>{{rol}}</td>
-        <td>{{nombres}}</td>
-        <td>{{apellidos}}</td>
-        <td>{{correo}}</td>
-        <td>{{usuario}}</td>
-        <td>{{activo}}</td>
-        <td><button>Editar</button> <button>Eliminar</button></td>
-    </tr>
-    {{/each}}
-</table>
-
-<section class="sesion-contenedor">
-    <form class="sesion" action="/testing" method="post">
-        <h2>Nuevo Usuario</h2>
-        <input type="text" name="txtId" placeholder="id" readonly>
-        <input type="text" name="txtNombres" onkeyup="this.value=this.value.toUpperCase();" placeholder="Nombres">
-        <input type="text" name="txtApellidos" onkeyup="this.value=this.value.toUpperCase();" placeholder="Apellidos">
-        <input type="email" name="txtEmail" onkeyup="this.value=this.value.toUpperCase();" placeholder="Correo">
-        <input type="text" name="txtUser" onkeyup="this.value=this.value.toUpperCase();" placeholder="Usuario">
-        <input type="password" name="txtPass" placeholder="Contraseña">
-
-        <button class="btn animacion" name="btn1" onclick="this.value='agregar'"><span>Agregar</span></button>
-    </form>
-</section> --}}
 {{/appKartax}}

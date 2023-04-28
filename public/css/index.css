@@ -718,6 +718,74 @@ main {
     scale: calc(1.1);
 }
 
+/* -- admin 2 ------------------------------------------ */
+/* ----------------------------------------------------- */
+.admin2-navegacion {
+    position: fixed;
+    width: 4rem;
+    height: 100%;
+    background-color: var(--colorBase01);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.admin2-img {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.admin2-img img {
+    width: 3rem;
+}
+
+.admin2-navegacion:hover {
+    width: 18rem;
+}
+
+.admin2-navegacion ul {
+    position: absolute;
+    padding: 0;
+    width: 300px;
+}
+
+.admin2-navegacion li {
+    position: relative;
+    width: 300px;
+    list-style: none;
+}
+
+.admin2-navegacion li:hover {
+    background-color: var(--colorBase03);
+}
+
+.admin2-navegacion a {
+    display: flex;
+}
+
+.admin2-icon {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    display: block;
+    line-height: 4rem;
+    text-align: center;
+}
+
+.admin2-icon .fa {
+    font-size: 2rem;
+}
+
+.admin2-titulo {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    padding: 0 1rem;
+    line-height: 4rem;
+    text-align: start;
+    white-space: nowrap;
+}
+
 /* -- rrss --------------------------------------------- */
 /* ----------------------------------------------------- */
 .rrss-contenedor {
