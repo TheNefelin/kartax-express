@@ -5,23 +5,52 @@
     </div>
 </section>
 
+{{#each negocios}}
 <section class="adminNegocio-frm">
-    <img src="/img/kartax/logo.png" alt="">
+    <img src={{logo}} alt="">
     <form>
-        <label for="">Nombre del Negocio</label>
-        <input type="text" name="nombre" id="nombre" placeholder="Kartax" readonly>
+        <span>id: <label>{{id}}</label></span>
         <br>
-        <label for="">Rut del Negocio</label>
-        <input type="text" name="rut" id="rut" placeholder="00.000.000-0" readonly>
+        <label>Nombre del Negocio</label>
+        <input value={{nombre}} type="text" name="nombre" id="nombre" readonly>
         <br>
-        <label for="">Dirección</label>
-        <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar..." readonly>
+        <label>Rut del Negocio</label>
+        <input value={{rut}} type="text" name="rut" id="rut" readonly>
         <br>
-        <label for="">Logo</label>
-        <input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg" readonly>
+        <label>Dirección</label>
+        <input value={{direccion}} type="text" name="direccion" id="direccion" readonly>
         <br>
-        <label for="">Activo: <input type="checkbox" name="check" id="check" checked disabled></label>
+        <label>Descripción</label>
+        <input value={{descripcion}} type="text" name="descripcion" id="descripcion" readonly>
+        <br>
+        <label>Activo: <input type="checkbox" name="check" id="check" {{#if is_active}} checked {{/if}} disabled></label>
         <div><hr></div>
         <button class="btn animacion"><span>Entrar a la Caja</span></button>
     </form>
 </section>
+{{/each}}
+
+<section class="adminNegocio-frm">
+    <img src="" alt="">
+    <form>
+        <label>Nombre del Negocio</label>
+        <input type="text" name="nombre" id="nombre" placeholder="Kartax">
+        <br>
+        <label>Rut del Negocio</label>
+        <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
+        <br>
+        <label>Dirección</label>
+        <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
+        <br>
+        <label>Descripción</label>
+        <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
+        <br>       
+        <label>Logo</label>
+        <input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
+        <br> 
+        <label>Activo: <input type="checkbox" name="check" id="check"></label>
+        <div><hr></div>
+        <button class="btn animacion"><span>Guardar</span></button>
+    </form>
+</section>
+

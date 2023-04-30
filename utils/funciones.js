@@ -1,6 +1,5 @@
 import * as fs from "fs"
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
-import { log } from "console";
 
 const apiPostgreSQL = new ApiPostgreSQL();
 const id_mesa_demo = 1;
@@ -60,6 +59,12 @@ export async function iniciar_sesion(obj) {
 // acede a la seccion negocio del administrador
 export async function admin() {
     const { usuario, token } = await recuperarToken();
+ 
+    if (usuario == "" || token == "") {
+        const arrAdmin = await apiPostgreSQL.getAdmin("-", "-");
+        return arrAdmin[0];
+    };
+    
     const arrAdmin = await apiPostgreSQL.getAdmin(usuario, token);
     return arrAdmin[0];
 };
@@ -67,8 +72,14 @@ export async function admin() {
 // acede a la seccion negocio del administrador
 export async function admin_negocio() {
     const { usuario, token } = await recuperarToken();
-    const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios(usuario, token);
-    return arrAdminNegocios[0];
+
+    if (usuario == "" || token == "") {
+        const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios("-", "-");
+        return arrAdminNegocios[0];
+    };
+    
+    const arrAdmin = await apiPostgreSQL.getAdminNegocios(usuario, token);
+    return arrAdmin[0];    
 };
 
 // funciones que extraen informacion desde la API -------------------------

@@ -48,7 +48,9 @@
     </ul>
 </div>
 
-{{> appAdmin_negocios}}
+{{#myIf menu "negocios" }}
+    {{> appAdmin_negocios}}
+{{/myIf}}
 
 <script>
 

@@ -3,6 +3,7 @@ import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import routes from "./routes/routes.js";
+import * as helpers from "./utils/helpers.js"
 
 const app = express();
 
