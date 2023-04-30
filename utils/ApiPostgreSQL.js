@@ -11,6 +11,7 @@ export default class ApiPostgreSQL {
     getUrl() {
         return this.#url
     }
+    // publico --------------------------------------------------------
     async iniciarSesion(usuario, clave) {
         return await post(`${this.#url}/iniciar-sesion`, {usuario, clave});
     };
@@ -23,6 +24,14 @@ export default class ApiPostgreSQL {
     async getTipoAlim_ByIdNegocio(id) {
         return await get(`${this.#url}/tipo-alimento/${id}`);
     };
+    // privado --------------------------------------------------------
+    async getAdmin(usuario, token) {
+        return await get(`${this.#url}/admin/${usuario}&${token}`);
+    };
+    async getAdminNegocios(usuario, token) {
+        return await get(`${this.#url}/admin/negocios/${usuario}&${token}`);
+    };
+    // ----------------------------------------------------------------
     async getLinksCateg_All() {
         return await get("https://bsite.net/metalflap/links-group")
     };

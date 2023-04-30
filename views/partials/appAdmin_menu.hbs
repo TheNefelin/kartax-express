@@ -1,55 +1,58 @@
-{{#> appKartax}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
+{{!-- https://fontawesome.com/v4/icons/ --}}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
-    {{!-- https://fontawesome.com/v4/icons/ --}}
+{{#each usuario}}
+<div class="admin2-btn-contenedor">
+    <span>{{nombres}} {{apellidos}}</span>
+    <span>{{usuario}}: {{rol}}</span>
+    <div class="admin2-btn"></div>
+</div>
+{{/each}}
 
-    <div class="admin2-navegacion">
-        <div class="admin2-img">
-            <img class="fa" src="/img/kartax/logo.png" alt="">
-        </div>
-                
-        <ul>
-            <li>
-                <a href="#">
-                    <span class="admin2-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-                    <span class="admin2-titulo">Inicio</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="admin2-icon"><i class="fa fa-laptop" aria-hidden="true"></i></span>
-                    <span class="admin2-titulo">Negocios</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="admin2-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                    <span class="admin2-titulo">Usuarios</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="admin2-icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-                    <span class="admin2-titulo">Configuración</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="admin2-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
-                    <span class="admin2-titulo">Salir</span>
-                </a>
-            </li>
-        </ul>
+<div class="admin2-navegacion">
+    <div class="admin2-img">
+        <img class="fa" src="/img/kartax/logo.png" alt="">
     </div>
-    <div class="admin2-btn-contenedor">
-        <div class="admin2-btn"></div>
-    </div>   
 
-{{/appKartax}}
+    <ul>
+        <li>
+            <a href="/admin">
+                <span class="admin2-icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                <span class="admin2-titulo">Inicio</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/negocios">
+                <span class="admin2-icon"><i class="fa fa-laptop" aria-hidden="true"></i></span>
+                <span class="admin2-titulo">Negocios</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="admin2-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <span class="admin2-titulo">Usuarios</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="admin2-icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                <span class="admin2-titulo">Configuración</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="admin2-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
+                <span class="admin2-titulo">Salir</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+{{> appAdmin_negocios}}
 
 <script>
-    
-    const admin2Btn =  document.querySelector(".admin2-btn");
+
+    const admin2Btn = document.querySelector(".admin2-btn");
     admin2Btn.addEventListener("click", () => {
         const admin2Navegacion = document.querySelector(".admin2-navegacion");
         admin2Navegacion.classList.toggle("admin2-navegacion_activo");

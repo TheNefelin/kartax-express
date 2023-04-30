@@ -734,8 +734,13 @@ main {
 /* -- admin 2 ------------------------------------------ */
 /* ----------------------------------------------------- */
 .admin2-btn-contenedor {
+    color: var(--colorBase02);
     background-color: var(--colorBase01);
     height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .admin2-navegacion {
@@ -745,6 +750,7 @@ main {
     background-color: var(--colorBase01);
     transition: 0.5s;
     overflow: hidden;
+    z-index: 3;
 }
 
 .admin2-img {
@@ -837,6 +843,51 @@ main {
 }
 
 /* @medias relacionados*/
+
+/* -- admin 2 - negocios ------------------------------- */
+/* ----------------------------------------------------- */
+.adminNegocio-frm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--colorBase04);
+    color: var(--colorBase02);
+    margin: 1rem;
+    padding: 1rem;
+    gap: 1rem; 
+    border-radius: 8px;
+}
+
+.adminNegocio-frm form {
+    color: var(--colorBase02);
+    display: flex;
+    flex-direction: column;
+}
+
+.adminNegocio-frm input {
+    width: 100%;
+}
+
+.adminNegocio-frm img {
+    width: 100%; 
+    height: 100%;
+    max-width: 15rem;
+    max-height: 15rem;
+    background-color: var(--colorBase01);
+    padding: 1rem;
+}
+
+.adminNegocio-negocio {
+    color: var(--color03);
+}
+    
+.adminNegocio-negocio > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
 
 /* -- rrss --------------------------------------------- */
 /* ----------------------------------------------------- */

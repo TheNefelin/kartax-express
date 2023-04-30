@@ -1,10 +1,11 @@
 import * as fs from "fs"
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
+import { log } from "console";
 
 const apiPostgreSQL = new ApiPostgreSQL();
 const id_mesa_demo = 1;
 
-// funciones que responden a las rutas ------------------------------------
+// funciones que responden a las rutas publicas ---------------------------
 // ------------------------------------------------------------------------
 
 // funcion para cargar la app
@@ -47,10 +48,27 @@ export async function iniciar_sesion(obj) {
         resultado.msge = "Usuario o Contraseña Incorrecta";
         return resultado;
     } else {   
-        await guardarToken(token[0]);
+        await guardarToken({usuario: obj.txtUser, fecha: Date(), token: token[0].token});
         resultado.estado = true;  
         return resultado;
     };
+};
+
+// funciones que responden a las rutas privadas ---------------------------
+// ------------------------------------------------------------------------
+
+// acede a la seccion negocio del administrador
+export async function admin() {
+    const { usuario, token } = await recuperarToken();
+    const arrAdmin = await apiPostgreSQL.getAdmin(usuario, token);
+    return arrAdmin[0];
+};
+
+// acede a la seccion negocio del administrador
+export async function admin_negocio() {
+    const { usuario, token } = await recuperarToken();
+    const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios(usuario, token);
+    return arrAdminNegocios[0];
 };
 
 // funciones que extraen informacion desde la API -------------------------
@@ -81,14 +99,18 @@ async function data_tipo_alim(id) {
 // funciones --------------------------------------------------------------
 // ------------------------------------------------------------------------
 
-async function guardarToken(token) {
-    await fs.promises.writeFile("./data/token.json", JSON.stringify(token));
+async function guardarToken(obj) {
+    await fs.promises.writeFile("./data/login.json", JSON.stringify(obj));
+};
+
+async function recuperarToken() {
+    const jsonLogin = await fs.promises.readFile("./data/login.json");
+    return await JSON.parse(jsonLogin);
 };
 
 export async function validarToken() {
-    const jsonToken = await fs.promises.readFile("./data/token.json");
-    const objToken = JSON.parse(jsonToken);
-    const serverToken = await apiPostgreSQL.validarToken(objToken.token);
+    const objLogin = await recuperarToken();
+    const serverToken = await apiPostgreSQL.validarToken(objLogin.token);
 
     if (serverToken.length > 0) {
         return serverToken[0];

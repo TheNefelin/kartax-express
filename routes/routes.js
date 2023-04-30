@@ -88,14 +88,25 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
 // privado ------------------------------------------------------
 // --------------------------------------------------------------
 myRoutes.get("/admin", async (req, res) => {
-    const { negocio } = await fn.principal();
-    const { estado, msge } = await fn.validarToken();
+    const { token, usuario } = await fn.admin();
 
-    if (estado) {
-        res.render("admin");
+    if (token.estado) {
+        res.render("admin", { usuario: usuario });
     } else {
+        const { negocio } = await fn.principal();
+        res.render("iniciarSesion", { negocio: negocio, msge: msge });
+    };
+});
+
+myRoutes.get("/admin/negocios", async (req, res) => {
+    const { token, usuario, negocios } = await fn.admin_negocio();
+
+    if (token.estado) {
+        res.render("admin", { usuario: usuario, negocios: negocios });
+    } else {
+        const { negocio } = await fn.principal();
         res.render("iniciarSesion", { negocio: negocio, msge: msge })
-    }
+    };
 });
 
 // otros --------------------------------------------------------
@@ -111,4 +122,3 @@ myRoutes.get("/error", (req, res) => {
 myRoutes.get("*", (req, res) => {
     res.redirect("/error");
 });
-
