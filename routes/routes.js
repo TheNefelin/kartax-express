@@ -109,6 +109,12 @@ myRoutes.get("/admin/negocios", async (req, res) => {
     };
 });
 
+myRoutes.post("/admin/negocios", async (req, res) => {
+    console.log(req.body);
+
+    res.redirect("/admin/negocios")
+});
+
 myRoutes.get("/admin/usuarios", async (req, res) => {
     const { token, usuario, usuarios } = await fn.admin_usuarios();
 

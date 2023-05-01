@@ -5,41 +5,126 @@
     </div>
 </section>
 
-
 <section class="admin2-mantenedor">
     <table>
         <tr>
             <th>id</th>
             <th hidden>img</th>
             <th>Negocio</th>
+            <th>rut</th>
             <th>Dirección</th>
             <th>Descripción</th>
             <th>Activo</th>
             <th></th>
         </tr>
         {{#each negocios}}
-        <tr>   
+        <tr id="filaNegocio_{{id}}">   
             <td>{{id}}</td>
-            <td hidden><img src={{logo}}></td>
+            <td hidden>{{logo}}</td>
             <td>{{nombre}}</td>
+            <td>{{rut}}</td>
             <td>{{direccion}}</td>
             <td>{{descripcion}}</td>
             <td>{{is_active}}</td>
-            <td class="admin2-mantenedor-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+            <td id={{id}} class="admin2-mantenedor-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
         </tr>
         {{/each}}
     </table>
 </section>
 
 <div class="admin2-modal">
-    {{!-- <img src="/img/menu/tiempo.svg"> --}}
-    <span class="close">&times;</span>
+    <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+
+    <h2>Nuevo Negocio</h2>
+
+    <section class="admin2-modal-contenedor">
+        <img id="imgNegocioVisible" src="">
+        <form action="/admin/negocios" method="post">
+            <label>Nombre del Negocio</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Kartax">
+            <br>
+            <label>Rut del Negocio</label>
+            <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
+            <br>
+            <label>Dirección</label>
+            <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
+            <br>
+            <label>Descripción</label>
+            <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
+            <br>       
+            <label>Logo</label>
+            <input id="imgNegocio" type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
+            <br> 
+            <label>Activo: <input type="checkbox" name="check" id="check"></label>
+            <div><hr></div>
+            <button class="btn animacion"><span></span></button>
+        </form>
+    </section>
 </div>
 
 <script>
+    // visualiza el modal par aun nuevo negocios
     const addNegocio =  document.querySelector(".admin2-contenedor-titulo button");
     addNegocio.addEventListener("click", () => {
+        const admin2ModalContenedor = document.querySelectorAll(".admin2-modal-contenedor form input");
+        const img = document.querySelector("#imgNegocioVisible");
+        const btn = document.querySelector(".admin2-modal-contenedor button > span");
+
+        btn.textContent = "Guardar";
+
+        admin2ModalContenedor[0].value = "";
+        admin2ModalContenedor[1].value = "";
+        admin2ModalContenedor[2].value = "";
+        admin2ModalContenedor[3].value = "";
+        img.src = "";
+        admin2ModalContenedor[5].checked = false;
+
+        const admin2Modal = document.querySelector(".admin2-modal");
+        admin2Modal.classList.add("admin2-modal_visible");
+    });
+
+    const editNegocio = document.querySelector(".admin2-mantenedor-btn");
+    editNegocio.addEventListener("click", () => {
+        const fila = document.querySelector(`#filaNegocio_${editNegocio.id}`).children;
+        const admin2ModalContenedor = document.querySelectorAll(".admin2-modal-contenedor form input");
+        const img = document.querySelector("#imgNegocioVisible");
+        const btn = document.querySelector(".admin2-modal-contenedor button > span");
+
+        btn.textContent = "Modificar";
+
+        admin2ModalContenedor[0].value = fila[2].textContent;
+        admin2ModalContenedor[1].value = fila[3].textContent;
+        admin2ModalContenedor[2].value = fila[4].textContent;
+        admin2ModalContenedor[3].value = fila[5].textContent;
+        img.src = fila[1].textContent;
+        admin2ModalContenedor[5].checked = true;
+
+        const admin2Modal = document.querySelector(".admin2-modal");
+        admin2Modal.classList.add("admin2-modal_visible");
+    });
+
+    // cierra el modal para el negocio
+    const cerrarModal = document.querySelector(".admin2-modal > div");
+    cerrarModal.addEventListener("click", () => {
+        const admin2Modal = document.querySelector(".admin2-modal");
+        admin2Modal.classList.remove("admin2-modal_visible");
+    });
+
+    // carga la imagen a previsualizacion 
+    const addNegocioImg = document.querySelector("#imgNegocio");
+    addNegocioImg.addEventListener("change", () => {
+        const archivo = addNegocioImg.files[0];
         
+        const imgNegocioVisible = document.querySelector("#imgNegocioVisible");
+        imgNegocioVisible.file = archivo;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imgNegocioVisible.src = e.target.result;
+        };
+        
+        reader.readAsDataURL(archivo);
+        console.dir(addNegocioImg.files[0])
     });
 </script>
 

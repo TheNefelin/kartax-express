@@ -16,4 +16,3 @@ app.use(routes);
 app.listen(3000, (req, res) => {
     console.log("Kartax App Running on 3000!!!");
 });
-
