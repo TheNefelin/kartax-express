@@ -1,10 +1,37 @@
-<section class="adminNegocio-negocio">
+<section class="admin2-contenedor-titulo">
     <div>
         <h2>Negocios</h2>
         <button class="btn animacion"><span>&#10010; Nuevo Negocio</span></button>
     </div>
 </section>
 
+
+<section class="admin2-mantenedor">
+    <table>
+        <tr>
+            <th>id</th>
+            <th hidden>img</th>
+            <th>Negocio</th>
+            <th>Dirección</th>
+            <th>Descripción</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+        {{#each negocios}}
+        <tr>   
+            <td>{{id}}</td>
+            <td hidden><img src={{logo}}></td>
+            <td>{{nombre}}</td>
+            <td>{{direccion}}</td>
+            <td>{{descripcion}}</td>
+            <td>{{is_active}}</td>
+            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+        </tr>
+        {{/each}}
+    </table>
+</section>
+
+{{!-- 
 {{#each negocios}}
 <section class="adminNegocio-frm">
     <img src={{logo}} alt="">
@@ -52,5 +79,5 @@
         <div><hr></div>
         <button class="btn animacion"><span>Guardar</span></button>
     </form>
-</section>
+</section> --}}
 

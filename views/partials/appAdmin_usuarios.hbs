@@ -1,0 +1,35 @@
+<section class="admin2-contenedor-titulo">
+    <div>
+        <h2>Usuarios</h2>
+        <button class="btn animacion"><span>&#10010; Nuevo Usuario</span></button>
+    </div>
+</section>
+
+<section class="admin2-mantenedor">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Usuario</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Rol</th>
+            <th>fecha</th>
+            <th></th>
+        </tr>
+        {{#each usuarios}}
+        <tr>   
+            <td>{{id}}</td>
+            <td>{{usuario}}</td>
+            <td>{{nombres}}</td>
+            <td>{{apellidos}}</td>
+            <td>{{correo}}</td>
+            <td>{{is_active}}</td>
+            <td>{{rol}}</td>
+            <td>{{fecha}}</td>
+            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+        </tr>
+        {{/each}}
+    </table>
+</section>

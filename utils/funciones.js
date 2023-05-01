@@ -82,6 +82,23 @@ export async function admin_negocio() {
     return arrAdmin[0];    
 };
 
+export async function admin_usuarios() {
+    const { usuario, token } = await recuperarToken();
+
+    if (usuario == "" || token == "") {
+        const arrAdminUsuarios = await apiPostgreSQL.getAdminUsuarios("-", "-");
+        return arrAdminUsuarios[0];
+    };
+
+    const arrAdminUsuarios = await apiPostgreSQL.getAdminUsuarios(usuario, token);
+    return arrAdminUsuarios[0];
+};
+
+
+export async function admin_salir() {
+    await guardarToken({usuario: "", fecha: "",token: ""});
+};
+
 // funciones que extraen informacion desde la API -------------------------
 // ------------------------------------------------------------------------
 

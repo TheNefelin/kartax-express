@@ -102,13 +102,27 @@ myRoutes.get("/admin/negocios", async (req, res) => {
     const { token, usuario, negocios } = await fn.admin_negocio();
 
     if (token.estado) {
-        console.log(usuario)
-        console.log(negocios)
         res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios });
     } else {
         const { negocio } = await fn.principal();
         res.render("iniciarSesion", { negocio: negocio, msge: token.msge })
     };
+});
+
+myRoutes.get("/admin/usuarios", async (req, res) => {
+    const { token, usuario, usuarios } = await fn.admin_usuarios();
+
+    if (token.estado) {
+        res.render("admin", { menu: "usuarios", usuario: usuario });
+    } else {
+        const { negocio } = await fn.principal();
+        res.render("iniciarSesion", { negocio: negocio, msge: token.msge })
+    };    
+});
+
+myRoutes.get("/admin/salir", async (req, res) => {
+    await fn.admin_salir();
+    res.redirect("/iniciarSesion")
 });
 
 // otros --------------------------------------------------------

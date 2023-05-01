@@ -31,6 +31,9 @@ export default class ApiPostgreSQL {
     async getAdminNegocios(usuario, token) {
         return await get(`${this.#url}/admin/negocios/${usuario}&${token}`);
     };
+    async getAdminUsuarios(usuario, token) {
+        return await get(`${this.#url}/admin/usuarios/${usuario}&${token}`);
+    };
     // ----------------------------------------------------------------
     async getLinksCateg_All() {
         return await get("https://bsite.net/metalflap/links-group")

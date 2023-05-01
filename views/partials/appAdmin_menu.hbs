@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
 {{!-- https://fontawesome.com/v4/icons/ --}}
 
-{{#each usuario}}
 <div class="admin2-btn-contenedor">
+    {{#each usuario}}
     <span>{{nombres}} {{apellidos}}</span>
     <span>{{usuario}}: {{rol}}</span>
+    {{/each}}
     <div class="admin2-btn"></div>
 </div>
-{{/each}}
 
 <div class="admin2-navegacion">
     <div class="admin2-img">
@@ -28,7 +28,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/usuarios">
                 <span class="admin2-icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                 <span class="admin2-titulo">Usuarios</span>
             </a>
@@ -40,7 +40,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/salir">
                 <span class="admin2-icon"><i class="fa fa-power-off" aria-hidden="true"></i></span>
                 <span class="admin2-titulo">Salir</span>
             </a>
@@ -48,9 +48,19 @@
     </ul>
 </div>
 
-{{#myIf menu "negocios" }}
-    {{> appAdmin_negocios}}
-{{/myIf}}
+<section class="admin2-contenedor">
+    {{#myIf menu "admin" }}
+        {{> appAdmin_resumen}}
+    {{/myIf}}
+
+    {{#myIf menu "negocios" }}
+        {{> appAdmin_negocios}}
+    {{/myIf}}
+
+    {{#myIf menu "usuarios" }}
+        {{> appAdmin_usuarios}}
+    {{/myIf}}
+</section>
 
 <script>
 
