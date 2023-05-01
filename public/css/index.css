@@ -889,12 +889,32 @@ main {
     color: var(--colorBase02);
 }
 
+.admin2-mantenedor tr:nth-child(even):hover {
+    background-color: var(--colorBase03);
+}
+
 .admin2-mantenedor td, .admin2-mantenedor th {
     text-align: center;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     border: 1px solid var(--colorBase03);
 }
 
+.admin2-mantenedor-btn {
+    cursor: pointer;
+    color: var(--color04);
+}
+
+.admin2-modal {
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--colorBase04);
+    backdrop-filter: blur(10px);
+    display: none;
+}
 
 /* .adminNegocio-frm {
     display: flex;

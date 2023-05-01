@@ -25,11 +25,23 @@
             <td>{{direccion}}</td>
             <td>{{descripcion}}</td>
             <td>{{is_active}}</td>
-            <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+            <td class="admin2-mantenedor-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
         </tr>
         {{/each}}
     </table>
 </section>
+
+<div class="admin2-modal">
+    {{!-- <img src="/img/menu/tiempo.svg"> --}}
+    <span class="close">&times;</span>
+</div>
+
+<script>
+    const addNegocio =  document.querySelector(".admin2-contenedor-titulo button");
+    addNegocio.addEventListener("click", () => {
+        
+    });
+</script>
 
 {{!-- 
 {{#each negocios}}

@@ -105,7 +105,7 @@ myRoutes.get("/admin/negocios", async (req, res) => {
         res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios });
     } else {
         const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge })
+        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
     };
 });
 
@@ -116,8 +116,14 @@ myRoutes.get("/admin/usuarios", async (req, res) => {
         res.render("admin", { menu: "usuarios", usuario: usuario });
     } else {
         const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge })
+        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
     };    
+});
+
+myRoutes.get("/admin/configuracion", async (req, res) => {
+    const { token, usuario } = await fn.admin();
+
+    res.render("admin", { menu: "configuracion", usuario: usuario });
 });
 
 myRoutes.get("/admin/salir", async (req, res) => {
