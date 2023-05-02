@@ -110,8 +110,21 @@ myRoutes.get("/admin/negocios", async (req, res) => {
     };
 });
 
-myRoutes.post("/admin/negocios", async (req, res) => {
+myRoutes.post("/admin/negocios/post", async (req, res) => {
+    console.log("ENTRO AL POST")
     const { token, usuario, negocios, msge } = await fn.admin_negocio_post(req.body);
+
+    if (token.estado) {
+        res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios, msge: msge });
+    } else {
+        const { negocio } = await fn.principal();
+        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    };
+});
+
+myRoutes.post("/admin/negocios/put", async (req, res) => {
+    console.log("ENTRO AL PUT")
+    const { token, usuario, negocios, msge } = await fn.admin_negocio_put(req.body);
 
     if (token.estado) {
         res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios, msge: msge });

@@ -1,7 +1,7 @@
 <section class="admin2-contenedor-titulo">
     <div>
         <h2>Usuarios</h2>
-        <button class="btn animacion"><span>&#10010; Nuevo Usuario</span></button>
+        <button id="#addUsuario" class="btn animacion"><span>&#10010; Nuevo Usuario</span></button>
     </div>
 </section>
 
@@ -33,3 +33,40 @@
         {{/each}}
     </table>
 </section>
+
+<div class="admin2-modal">
+    <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
+
+    <h2>Nuevo Usuario</h2>
+
+    <section class="admin2-modal-contenedor">
+        <img id="imgNegocioVisible" src="">
+        <form action="/admin/negocios" method="post">
+            <label>ID</label>
+            <input type="text" name="id" id="id" readonly>
+            <br>
+            <label>Nombre del Negocio</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Kartax">
+            <br>
+            <label>Rut del Negocio</label>
+            <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
+            <br>
+            <label>Dirección</label>
+            <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
+            <br>
+            <label>Descripción</label>
+            <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
+            <br>       
+            <label>Logo</label>
+            <input id="imgNegocio" type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
+            <br> 
+            <label>Activo: <input type="checkbox" name="check" id="check"></label>
+            <div><hr></div>
+            <button class="btn animacion"><span></span></button>
+        </form>
+    </section>
+</div>
+
+<script>
+   
+</script>

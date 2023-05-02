@@ -28,12 +28,17 @@ export default class ApiPostgreSQL {
     async getAdmin(usuario, token) {
         return await get(`${this.#url}/admin/${usuario}&${token}`);
     };
+    // negocios
     async getAdminNegocios(usuario, token) {
         return await get(`${this.#url}/admin/negocios/${usuario}&${token}`);
     };
     async postAdminNegocios(usuario, token, obj) {
         return await post(`${this.#url}/admin/negocios`, {usuario, token, data: obj});
     };
+    async putAdminNegocios(usuario, token, obj) {
+        return await put(`${this.#url}/admin/negocios`, {usuario, token, data: obj});
+    };
+    // usuarios
     async getAdminUsuarios(usuario, token) {
         return await get(`${this.#url}/admin/usuarios/${usuario}&${token}`);
     };
@@ -74,3 +79,20 @@ async function post(url, obj) {
     };
 };
 
+async function put(url, obj) {
+    try { 
+        const res = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(obj),
+        }); 
+
+        return res.json();
+    } catch (err) {
+        console.log(`Error: en la conexion a la API (ApiPostgreSQL), Detalle: ${err}`);
+        return [];
+    };
+};

@@ -82,7 +82,7 @@ export async function admin_negocio() {
     return arrAdminNegocio[0];    
 };
 
-// modifica un negocio
+// crear un negocio
 export async function admin_negocio_post(body) {
     const { usuario, token } = await recuperarToken();
 
@@ -93,7 +93,20 @@ export async function admin_negocio_post(body) {
 
     const arrAdminNegocio = await apiPostgreSQL.postAdminNegocios(usuario, token, body);
     return arrAdminNegocio[0];
-}
+};
+
+// modifica un negocio
+export async function admin_negocio_put(body) {
+    const { usuario, token } = await recuperarToken();
+
+    if (usuario == "" || token == "") {
+        const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios("-", "-");
+        return arrAdminNegocios[0];  
+    };
+
+    const arrAdminNegocio = await apiPostgreSQL.putAdminNegocios(usuario, token, body);
+    return arrAdminNegocio[0];
+};
 
 // acede a la seccion usuarios del administrador
 export async function admin_usuarios() {

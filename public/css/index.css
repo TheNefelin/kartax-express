@@ -102,6 +102,26 @@ a:hover {
     text-align: center;
 }
 
+.btn2 {
+	width: 80%;
+	height: 40px;
+    max-width: 300px;
+    margin: 10px auto 10px auto;
+	background: var(--color03);
+	color: var(--colorBase01);
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+}
+
+.btn2:active {
+    scale: 0.9;
+}
+
 /* -- navBar ------------------------------------------- */
 /* ----------------------------------------------------- */
 nav {
@@ -554,7 +574,6 @@ main {
     color: var(--colorBase02);
     background-color: var(--color02);
     border-radius: 4px;
-    background-color: var(--color02);
     cursor: pointer;
     padding: 10px 15px;
     cursor: pointer;
