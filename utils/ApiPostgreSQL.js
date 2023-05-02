@@ -31,6 +31,9 @@ export default class ApiPostgreSQL {
     async getAdminNegocios(usuario, token) {
         return await get(`${this.#url}/admin/negocios/${usuario}&${token}`);
     };
+    async postAdminNegocios(usuario, token, obj) {
+        return await post(`${this.#url}/admin/negocios`, {usuario, token, data: obj});
+    };
     async getAdminUsuarios(usuario, token) {
         return await get(`${this.#url}/admin/usuarios/${usuario}&${token}`);
     };

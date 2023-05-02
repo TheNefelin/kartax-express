@@ -1,6 +1,7 @@
 <section class="admin2-contenedor-titulo">
     <div>
         <h2>Negocios</h2>
+        <label>{{msge}}</label>
         <button class="btn animacion"><span>&#10010; Nuevo Negocio</span></button>
     </div>
 </section>
@@ -40,6 +41,9 @@
     <section class="admin2-modal-contenedor">
         <img id="imgNegocioVisible" src="">
         <form action="/admin/negocios" method="post">
+            <label>ID</label>
+            <input type="text" name="id" id="id" readonly>
+            <br>
             <label>Nombre del Negocio</label>
             <input type="text" name="nombre" id="nombre" placeholder="Kartax">
             <br>
@@ -76,6 +80,7 @@
         admin2ModalContenedor[1].value = "";
         admin2ModalContenedor[2].value = "";
         admin2ModalContenedor[3].value = "";
+        admin2ModalContenedor[4].value = "";
         img.src = "";
         admin2ModalContenedor[5].checked = false;
 
@@ -92,12 +97,13 @@
 
         btn.textContent = "Modificar";
 
-        admin2ModalContenedor[0].value = fila[2].textContent;
-        admin2ModalContenedor[1].value = fila[3].textContent;
-        admin2ModalContenedor[2].value = fila[4].textContent;
-        admin2ModalContenedor[3].value = fila[5].textContent;
+        admin2ModalContenedor[0].value = fila[0].textContent;
+        admin2ModalContenedor[1].value = fila[2].textContent;
+        admin2ModalContenedor[2].value = fila[3].textContent;
+        admin2ModalContenedor[3].value = fila[4].textContent;
+        admin2ModalContenedor[4].value = fila[5].textContent;
         img.src = fila[1].textContent;
-        admin2ModalContenedor[5].checked = true;
+        admin2ModalContenedor[6].checked = true;
 
         const admin2Modal = document.querySelector(".admin2-modal");
         admin2Modal.classList.add("admin2-modal_visible");
@@ -127,54 +133,3 @@
         console.dir(addNegocioImg.files[0])
     });
 </script>
-
-{{!-- 
-{{#each negocios}}
-<section class="adminNegocio-frm">
-    <img src={{logo}} alt="">
-    <form>
-        <span>id: <label>{{id}}</label></span>
-        <br>
-        <label>Nombre del Negocio</label>
-        <input value={{nombre}} type="text" name="nombre" id="nombre" readonly>
-        <br>
-        <label>Rut del Negocio</label>
-        <input value={{rut}} type="text" name="rut" id="rut" readonly>
-        <br>
-        <label>Dirección</label>
-        <input value={{direccion}} type="text" name="direccion" id="direccion" readonly>
-        <br>
-        <label>Descripción</label>
-        <input value={{descripcion}} type="text" name="descripcion" id="descripcion" readonly>
-        <br>
-        <label>Activo: <input type="checkbox" name="check" id="check" {{#if is_active}} checked {{/if}} disabled></label>
-        <div><hr></div>
-        <button class="btn animacion"><span>Entrar a la Caja</span></button>
-    </form>
-</section>
-{{/each}}
-
-<section class="adminNegocio-frm">
-    <img src="" alt="">
-    <form>
-        <label>Nombre del Negocio</label>
-        <input type="text" name="nombre" id="nombre" placeholder="Kartax">
-        <br>
-        <label>Rut del Negocio</label>
-        <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
-        <br>
-        <label>Dirección</label>
-        <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
-        <br>
-        <label>Descripción</label>
-        <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
-        <br>       
-        <label>Logo</label>
-        <input type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
-        <br> 
-        <label>Activo: <input type="checkbox" name="check" id="check"></label>
-        <div><hr></div>
-        <button class="btn animacion"><span>Guardar</span></button>
-    </form>
-</section> --}}
-
