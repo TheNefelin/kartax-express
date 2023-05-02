@@ -61,10 +61,10 @@ async function get(url) {
     };
 };
 
-async function post(url, obj) {
+async function put(url, obj) {
     try { 
         const res = await fetch(url, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
@@ -79,10 +79,10 @@ async function post(url, obj) {
     };
 };
 
-async function put(url, obj) {
+async function post(url, obj) {
     try { 
         const res = await fetch(url, {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"

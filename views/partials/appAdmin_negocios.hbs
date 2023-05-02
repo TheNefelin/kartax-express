@@ -2,7 +2,7 @@
     <div>
         <h2>Negocios</h2>
         <label>{{msge}}</label>
-        <button id="negocioAdd" class="btn animacion"><span>&#10010; Nuevo Negocio</span></button>
+        <button id="addNegocio" class="btn animacion"><span>&#10010; Nuevo Negocio</span></button>
     </div>
 </section>
 
@@ -34,14 +34,14 @@
 </section>
 
 {{!-- modal para crear nuevo negocio --}}
-<div id="negocioModalCrear" class="admin2-modal">
+<div id="modalCrear" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
 
     <h2>Nuevo Negocio</h2>
 
     <section class="admin2-modal-contenedor">
         <img id="negocioImgVisible" src="">
-        <form id="negocioFormCrear" action="/admin/negocios/post" method="POST">
+        <form id="negocioFormCrear" action="/admin/negocios" method="POST">
             <label>Nombre del Negocio</label>
             <input type="text" name="nombre" id="nombre" placeholder="Kartax">
             <br>
@@ -59,20 +59,20 @@
             <br> 
             <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
-            <button class="btn animacion"><span id="negocioBtnMod">Guardar</span></button>
+            <button id="btnNegocio_crear" class="btn animacion"><span>Guardar</span></button>
         </form>
     </section>
 </div>
 
 {{!-- modal para modificar negocio --}}
-<div id="negocioModalModificar" class="admin2-modal">
+<div id="modalModificar" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
 
     <h2>Modificar Negocio</h2>
 
     <section class="admin2-modal-contenedor">
         <img id="negocioImgVisible" src="">
-        <form id="negocioFormModificar" action="/admin/negocios/put" method="POST">
+        <form id="negocioFormModificar" action="/admin/negocios?_method=PUT" method="POST">
             <label>ID</label>
             <input type="text" name="id" id="id" readonly>
             <br>
@@ -93,15 +93,15 @@
             <br> 
             <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
-            <button class="btn animacion"><span id="negocioBtnMod">Modificar</span></button>
+            <button id="btnNegocio_modificar" class="btn animacion"><span>Modificar</span></button>
         </form>
     </section>
 </div>
 
 <script>
     // visualiza el modal par aun nuevo negocios
-    const negocioAdd = document.querySelector("#negocioAdd");
-    negocioAdd.addEventListener("click", () => {
+    const addNegocio = document.querySelector("#addNegocio");
+    addNegocio.addEventListener("click", () => {
         const admin2ModalContenedor = document.querySelectorAll("#negocioFormCrear input");
         const img = document.querySelector("#negocioImgVisible");
 
@@ -112,41 +112,55 @@
         img.src = "";
         admin2ModalContenedor[5].checked = false;
 
-        const admin2Modal = document.querySelector("#negocioModalCrear");
-        admin2Modal.classList.add("admin2-modal_visible");
+        const modalCrear = document.querySelector("#modalCrear");
+        modalCrear.classList.add("admin2-modal_visible");
     });
 
     // visualiza el modal par modificacion del negocios
-    const editNegocio = document.querySelector(".admin2-mantenedor-btn");
-    editNegocio.addEventListener("click", () => {
-        const fila = document.querySelector(`#filaNegocio_${editNegocio.id}`).children;
-        const admin2ModalContenedor = document.querySelectorAll("#negocioFormModificar input");
-        const img = document.querySelector("#negocioImgVisible");
+    const editNegocio = document.querySelectorAll(".admin2-mantenedor-btn");
+    editNegocio.forEach(e => {
+        e.addEventListener("click", () => {
+            const fila = document.querySelector(`#filaNegocio_${e.id}`).children;
+            const admin2ModalContenedor = document.querySelectorAll("#negocioFormModificar input");
+            const img = document.querySelector("#negocioImgVisible");
 
-        admin2ModalContenedor[0].value = fila[0].textContent;
-        admin2ModalContenedor[1].value = fila[2].textContent;
-        admin2ModalContenedor[2].value = fila[3].textContent;
-        admin2ModalContenedor[3].value = fila[4].textContent;
-        admin2ModalContenedor[4].value = fila[5].textContent;
-        img.src = fila[1].textContent;
-        admin2ModalContenedor[6].checked = true;
+            admin2ModalContenedor[0].value = fila[0].textContent;
+            admin2ModalContenedor[1].value = fila[2].textContent;
+            admin2ModalContenedor[2].value = fila[3].textContent;
+            admin2ModalContenedor[3].value = fila[4].textContent;
+            admin2ModalContenedor[4].value = fila[5].textContent;
+            img.src = fila[1].textContent;
+            admin2ModalContenedor[6].checked = true;
 
-        const admin2Modal = document.querySelector("#negocioModalModificar");
-        admin2Modal.classList.add("admin2-modal_visible");
+            const modalModificar = document.querySelector("#modalModificar");
+            modalModificar.classList.add("admin2-modal_visible");
+        });
     });
-
+    
     // cierra el modal para crear negocio
-    const negocioModalCrear = document.querySelector("#negocioModalCrear > div");
-    negocioModalCrear.addEventListener("click", () => {
-        const carrarModal = document.querySelector("#negocioModalCrear");
-        carrarModal.classList.remove("admin2-modal_visible");
+    const cerrarModalCrear = document.querySelector("#modalCrear > div");
+    cerrarModalCrear.addEventListener("click", () => {
+        cerrarModal();
     });
 
     // cierra el modal para modificar negocio
-    const negocioModalModificar = document.querySelector("#negocioModalModificar > div");
-    negocioModalModificar.addEventListener("click", () => {
-        const carrarModal = document.querySelector("#negocioModalModificar");
-        carrarModal.classList.remove("admin2-modal_visible");
+    const cerrarModalModificar = document.querySelector("#modalModificar > div");
+    cerrarModalModificar.addEventListener("click", () => {
+        cerrarModal();
+    });
+
+    // click btn crear negocio
+    const btnNegocioCrear = document.querySelector("#btnNegocio_crear");
+    btnNegocioCrear.addEventListener("click", () => {
+        renderLoading2.classList.add("loading-contenedor2_visible");
+        cerrarModal();
+    });
+
+    // click btn modificar negocio
+    const btnNegocioModificar = document.querySelector("#btnNegocio_modificar");
+    btnNegocioModificar.addEventListener("click", () => {
+        renderLoading2.classList.add("loading-contenedor2_visible");
+        cerrarModal();
     });
 
     // carga la imagen a previsualizacion 
@@ -165,4 +179,13 @@
         reader.readAsDataURL(archivo);
         console.dir(imgNegocio.files[0])
     });
+
+    function cerrarModal() {
+        const modalCrear = document.querySelector("#modalCrear");
+        modalCrear.classList.remove("admin2-modal_visible");
+
+        const modalModificar = document.querySelector("#modalModificar");
+        modalModificar.classList.remove("admin2-modal_visible");
+    };
+
 </script>

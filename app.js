@@ -1,5 +1,6 @@
 import express from "express";
 import hbs from "hbs";
+import methodOverride from "method-override";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import routes from "./routes/routes.js";
@@ -12,6 +13,7 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'))
 app.use(routes);
 app.listen(3000, (req, res) => {
     console.log("Kartax App Running on 3000!!!");
