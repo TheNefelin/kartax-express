@@ -57,33 +57,34 @@ myRoutes.post("/iniciarSesion", async (req, res) => {
     };
 });
 
-// en construccion
-// myRoutes.get("/registrarse", async (req, res) => {
-//     try {
-//         const negocio = await fn.data_negocio(1);
-//         res.render("registrarse", { negocio: negocio });
-//     } catch (err) {
-//         console.log(err);
-//         res.redirect("/error");
-//     };
-// });
+// renderiza para registrarse
+myRoutes.get("/registrarse", async (req, res) => {
+    try {
+        const { negocio, footer } = await fn.principal();
+        res.render("registrarse", { negocio: negocio });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
 
-// myRoutes.post("/registrarse", async (req, res) => {
-//     const inputs = req.body;
+// Crea una cuenta nueva
+myRoutes.post("/registrarse", async (req, res) => {
+    const inputs = req.body;
 
-//     try {
-//         if (inputs.btn1 == "registrar") {
-//             const negocio = await fn.data_negocio(1);
-//             const resU = await fn.registrarUsuario(inputs);
-//             res.render("registrarse", { negocio: negocio, resU: resU });
-//         } else {
-//             res.redirect("/kartax");
-//         };
-//     } catch (err) {
-//         console.log(err);
-//         res.redirect("/error");
-//     };
-// });
+    try {
+        if (inputs.btn1 == "registrar") {
+            const { negocio, footer } = await fn.principal();
+            const resU = await fn.registrarUsuario(inputs);
+            res.render("registrarse", { negocio: negocio, resU: resU });
+        } else {
+            res.redirect("/kartax");
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
 
 // privado ------------------------------------------------------
 // --------------------------------------------------------------
@@ -113,7 +114,6 @@ myRoutes.post("/admin/negocios", async (req, res) => {
     const { token, usuario, negocios, msge } = await fn.admin_negocio_post(req.body);
 
     if (token.estado) {
-        console.log(msge)
         res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios, msge: msge });
     } else {
         const { negocio } = await fn.principal();

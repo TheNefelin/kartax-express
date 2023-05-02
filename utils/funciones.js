@@ -79,7 +79,6 @@ export async function admin_negocio() {
     };
     
     const arrAdminNegocio = await apiPostgreSQL.getAdminNegocios(usuario, token);
-    console.log(arrAdminNegocio[0])
     return arrAdminNegocio[0];    
 };
 
