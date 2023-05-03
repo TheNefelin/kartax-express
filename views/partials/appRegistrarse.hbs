@@ -4,11 +4,12 @@
         <input type="text" name="txtNombres" onkeyup="this.value = this.value.toUpperCase();" placeholder="Nombres">
         <input type="text" name="txtApellidos" onkeyup="this.value = this.value.toUpperCase();" placeholder="Apellidos">    
         <input type="text" name="txtUser" onkeyup="this.value = this.value.toUpperCase();" placeholder="Usuario">
+        <input type="email" name="txtEmail" onkeyup="this.value = this.value.toUpperCase();" placeholder="Correo">
         <input type="password" name="txtPass1" placeholder="Contraseña">
         <input type="password" name="txtPass2" placeholder="Confirmar Contraseña">
      
         <button class="btn animacion " name="btn1" onclick="this.value='registrar'"><span>Registrar</span></button>
         <button class="sesion-btn" name="btn1" onclick="this.value='demo'">Ver Demo</button>
-        <label class="error" name="error">{{resU.msge}}</label>
+        <label class="error" name="error">{{respuesta.msge}}</label>
     </form>
 </section>

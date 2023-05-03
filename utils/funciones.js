@@ -1,5 +1,6 @@
 import * as fs from "fs"
 import ApiPostgreSQL from "./ApiPostgreSQL.js";
+import { json } from "express";
 
 const apiPostgreSQL = new ApiPostgreSQL();
 const id_mesa_demo = 1;
@@ -32,25 +33,14 @@ export async function principal() {
 };
 
 // funcion para iniciar sesion
-export async function iniciar_sesion(obj) {
-    const negocio = await data_negocio(id_mesa_demo);
-    const resultado = { negocio, estado: false, msge: "" };
+export async function iniciar_sesion(txtUser, txtPass) {
+    const respuesta = await apiPostgreSQL.iniciarSesion(txtUser, txtPass);
 
-    if (!obj.txtUser || !obj.txtPass) {
-        resultado.msge = "Debe Ingresar Todos los Datos Requeridos";
-        return resultado;
-    };
+    if (respuesta[0].estado) {
+        await guardarToken({usuario: txtUser, fecha: Date(), token: respuesta[0].token});
+    }
 
-    const token = await apiPostgreSQL.iniciarSesion(obj.txtUser, obj.txtPass);
-
-    if (token.length == 0) {
-        resultado.msge = "Usuario o Contraseña Incorrecta";
-        return resultado;
-    } else {   
-        await guardarToken({usuario: obj.txtUser, fecha: Date(), token: token[0].token});
-        resultado.estado = true;  
-        return resultado;
-    };
+    return respuesta;
 };
 
 // funciones que responden a las rutas privadas ---------------------------
@@ -62,11 +52,11 @@ export async function admin() {
  
     if (usuario == "" || token == "") {
         const arrAdmin = await apiPostgreSQL.getAdmin("-", "-");
-        return arrAdmin[0];
+        return arrAdmin;
     };
     
     const arrAdmin = await apiPostgreSQL.getAdmin(usuario, token);
-    return arrAdmin[0];
+    return arrAdmin;
 };
 
 // acede a la seccion negocio del administrador
@@ -75,11 +65,11 @@ export async function admin_negocio() {
 
     if (usuario == "" || token == "") {
         const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios("-", "-");
-        return arrAdminNegocios[0];
+        return arrAdminNegocios;
     };
     
     const arrAdminNegocio = await apiPostgreSQL.getAdminNegocios(usuario, token);
-    return arrAdminNegocio[0];    
+    return arrAdminNegocio;    
 };
 
 // crear un negocio
@@ -87,12 +77,12 @@ export async function admin_negocio_post(body) {
     const { usuario, token } = await recuperarToken();
 
     if (usuario == "" || token == "") {
-        const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios("-", "-");
-        return arrAdminNegocios[0];  
+        const arrAdminNegocios = await apiPostgreSQL.postAdminNegocios("-", "-", {});
+        return arrAdminNegocios;  
     };
 
     const arrAdminNegocio = await apiPostgreSQL.postAdminNegocios(usuario, token, body);
-    return arrAdminNegocio[0];
+    return arrAdminNegocio;
 };
 
 // modifica un negocio
@@ -100,12 +90,12 @@ export async function admin_negocio_put(body) {
     const { usuario, token } = await recuperarToken();
 
     if (usuario == "" || token == "") {
-        const arrAdminNegocios = await apiPostgreSQL.getAdminNegocios("-", "-");
-        return arrAdminNegocios[0];  
+        const arrAdminNegocios = await apiPostgreSQL.putAdminNegocios("-", "-", {});
+        return arrAdminNegocios;  
     };
 
     const arrAdminNegocio = await apiPostgreSQL.putAdminNegocios(usuario, token, body);
-    return arrAdminNegocio[0];
+    return arrAdminNegocio;
 };
 
 // acede a la seccion usuarios del administrador
@@ -114,11 +104,11 @@ export async function admin_usuarios() {
 
     if (usuario == "" || token == "") {
         const arrAdminUsuarios = await apiPostgreSQL.getAdminUsuarios("-", "-");
-        return arrAdminUsuarios[0];
+        return arrAdminUsuarios;
     };
 
     const arrAdminUsuarios = await apiPostgreSQL.getAdminUsuarios(usuario, token);
-    return arrAdminUsuarios[0];
+    return arrAdminUsuarios;
 };
 
 // sale de la app
@@ -176,20 +166,6 @@ export async function validarToken() {
 
 // privado ----------------------------------------------------------------
 // ------------------------------------------------------------------------
-// export async function registrarUsuario(obj) {
-//     const sql = new Sql();
-
-//     if (obj.txtPass1 !== obj.txtPass2) {
-//         return { isActive: 0, msge: "Contraseña no Coinciden" };
-//     };
-
-//     if (!obj.txtNombres || !obj.txtApellidos || !obj.txtUser || !obj.txtPass1 || !obj.txtPass2) {
-//         return { isActive: 0, msge: "Debe Ingresar Todos los Datos Requeridos" };
-//     };
-
-//     const res = await sql.setUsuario(obj.txtNombres, obj.txtApellidos, obj.txtUser, obj.txtPass1);
-//     return res[0];
-// };
 
 // postgre functions ------------------------------------------------------
 // ------------------------------------------------------------------------

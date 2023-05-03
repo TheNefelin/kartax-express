@@ -900,15 +900,11 @@ main {
     white-space: nowrap;
 }
 
-.admin2-mantenedor tr {
+.admin2-mantenedor th {
     color: var(--color03);
 }
 
-.admin2-mantenedor tr:nth-child(even) {
-    color: var(--colorBase02);
-}
-
-.admin2-mantenedor tr:nth-child(even):hover {
+.admin2-mantenedor tr:hover {
     background-color: var(--colorBase03);
 }
 
@@ -974,6 +970,7 @@ main {
 .admin2-modal-contenedor form {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 }
 
 .admin2-modal-contenedor input {

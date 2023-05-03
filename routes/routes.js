@@ -1,8 +1,11 @@
 import { Router } from "express";
 import * as fn from "../utils/funciones.js";
+import ApiPostgreSQL from "../utils/ApiPostgreSQL.js";
 
 const myRoutes = Router();
 export default myRoutes;
+
+const apiPostgreSQL = new ApiPostgreSQL();
 
 // publico ------------------------------------------------------
 // --------------------------------------------------------------
@@ -38,7 +41,7 @@ myRoutes.get("/", async (req, res) => {
 //renderiza el inicio de sesion
 myRoutes.get("/iniciarSesion", async (req, res) => {
     try {
-        const { negocio } = await fn.principal();
+        const { negocio, footer } = await fn.principal();
         res.render("iniciarSesion", { negocio: negocio });
     } catch (err) {
         console.log(err);
@@ -48,13 +51,20 @@ myRoutes.get("/iniciarSesion", async (req, res) => {
 
 // envia los datos de iniciar sesion a la API y recibe un token
 myRoutes.post("/iniciarSesion", async (req, res) => {
-    const { negocio, estado, msge } = await fn.iniciar_sesion(req.body);
+    const { txtUser, txtPass, btn1 } = req.body
 
-    if (estado) {
-        res.redirect("/admin");
-    } else {
-        res.render("iniciarSesion", { negocio: negocio, msge: msge })
-    };
+    try {
+        const respuesta = await fn.iniciar_sesion(txtUser, txtPass)
+        if (respuesta[0].estado) {
+            res.redirect("/admin");
+        } else {
+            const { negocio, footer } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, respuesta: respuesta[0] })
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    }
 });
 
 // renderiza para registrarse
@@ -70,16 +80,12 @@ myRoutes.get("/registrarse", async (req, res) => {
 
 // Crea una cuenta nueva
 myRoutes.post("/registrarse", async (req, res) => {
-    const inputs = req.body;
+    const { txtNombres, txtApellidos, txtUser, txtEmail, txtPass1, txtPass2, btn1 } = req.body;
 
     try {
-        if (inputs.btn1 == "registrar") {
-            const { negocio, footer } = await fn.principal();
-            const resU = await fn.registrarUsuario(inputs);
-            res.render("registrarse", { negocio: negocio, resU: resU });
-        } else {
-            res.redirect("/kartax");
-        };
+        const { negocio, footer } = await fn.principal();
+        const respuesta = await apiPostgreSQL.registrarUsuario(txtNombres, txtApellidos, txtUser, txtEmail, txtPass1, txtPass2);
+        res.render("registrarse", { negocio: negocio, respuesta: respuesta[0] });
     } catch (err) {
         console.log(err);
         res.redirect("/error");
@@ -89,65 +95,90 @@ myRoutes.post("/registrarse", async (req, res) => {
 // privado ------------------------------------------------------
 // --------------------------------------------------------------
 myRoutes.get("/admin", async (req, res) => {
-    const { token, usuario } = await fn.admin();
-
-    if (token.estado) {
-        res.render("admin", { menu: "admin", usuario: usuario });
-    } else {
-        const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    try {
+        const respuesta = await fn.admin();
+        if (respuesta[0].estado) {
+            res.render("admin", { menu: "admin" });
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
     };
 });
 
 myRoutes.get("/admin/negocios", async (req, res) => {
-    const { token, usuario, negocios } = await fn.admin_negocio();
-
-    if (token.estado) {
-        res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios });
-    } else {
-        const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    try {
+        const resultado = await fn.admin_negocio();
+        if (resultado[0].estado) {
+            res.render("admin", { menu: "negocios", negocios: resultado[0].negocios });
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: resultado[0].msge });
+        }
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
     };
 });
 
 myRoutes.post("/admin/negocios", async (req, res) => {
-    const { token, usuario, negocios, msge } = await fn.admin_negocio_post(req.body);
-
-    if (token.estado) {
-        res.redirect("/admin/negocios");
-        // res.render("admin", { menu: "negocios", usuario: usuario, negocios: negocios, msge: msge });
-    } else {
-        const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    try {
+        const respuesta = await fn.admin_negocio_post(req.body);
+        if (respuesta[0].estado) {
+            res.redirect("/admin/negocios");
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
     };
 });
 
 myRoutes.put("/admin/negocios", async (req, res) => {
-    const { token, usuario, negocios, msge } = await fn.admin_negocio_put(req.body);
-
-    if (token.estado) {
-        res.redirect("/admin/negocios");
-    } else {
-        const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    try {
+        const respuesta = await fn.admin_negocio_put(req.body);
+        if (respuesta[0].estado) {
+            res.redirect("/admin/negocios");
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
     };
 });
 
 myRoutes.get("/admin/usuarios", async (req, res) => {
-    const { token, usuario, usuarios } = await fn.admin_usuarios();
-
-    if (token.estado) {
-        res.render("admin", { menu: "usuarios", usuario: usuario });
-    } else {
-        const { negocio } = await fn.principal();
-        res.render("iniciarSesion", { negocio: negocio, msge: token.msge });
+    try {
+        const respuesta = await fn.admin_usuarios();
+        if (respuesta[0].estado) {
+            res.render("admin", { menu: "usuarios", usuarios: respuesta[0].usuarios });
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
     };    
 });
 
-myRoutes.get("/admin/configuracion", async (req, res) => {
-    const { token, usuario } = await fn.admin();
-
-    res.render("admin", { menu: "configuracion", usuario: usuario });
+myRoutes.post("/admin/usuarios", async (req, res) => {
+    console.log("ENTRO AL POST")
+    console.log(req.body)
+  
+    try {
+        res.redirect("/admin/usuarios")
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    }
 });
 
 myRoutes.get("/admin/salir", async (req, res) => {

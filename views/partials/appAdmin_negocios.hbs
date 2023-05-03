@@ -19,15 +19,15 @@
             <th></th>
         </tr>
         {{#each negocios}}
-        <tr id="filaNegocio_{{id}}">   
-            <td>{{id}}</td>
+        <tr id="filaNegocio_{{id_negocio}}">   
+            <td>{{id_negocio}}</td>
             <td hidden>{{logo}}</td>
             <td>{{nombre}}</td>
             <td>{{rut}}</td>
             <td>{{direccion}}</td>
             <td>{{descripcion}}</td>
             <td>{{is_active}}</td>
-            <td id={{id}} class="admin2-mantenedor-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+            <td id={{id_negocio}} class="admin2-mantenedor-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
         </tr>
         {{/each}}
     </table>
@@ -36,30 +36,19 @@
 {{!-- modal para crear nuevo negocio --}}
 <div id="modalCrear" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
-
     <h2>Nuevo Negocio</h2>
-
     <section class="admin2-modal-contenedor">
         <img id="negocioImgVisible" src="">
-        <form id="negocioFormCrear" action="/admin/negocios" method="POST">
-            <label>Nombre del Negocio</label>
-            <input type="text" name="nombre" id="nombre" placeholder="Kartax">
-            <br>
-            <label>Rut del Negocio</label>
-            <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
-            <br>
-            <label>Dirección</label>
-            <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
-            <br>
-            <label>Descripción</label>
-            <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
-            <br>       
+        <form id="modalFormCrear" action="/admin/negocios" method="POST">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="rut" id="rut" placeholder="Rut..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="direccion" id="direccion" placeholder="Dirección..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="descripcion" id="descripcion" placeholder="Descripción..." onkeyup="this.value = this.value.toUpperCase();">    
             <label>Logo</label>
             <input id="imgNegocio" type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
-            <br> 
             <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
-            <button id="btnNegocio_crear" class="btn animacion"><span>Guardar</span></button>
+            <button name="btnModal" id="btnModal" onclick="this.value='crear'" class="btn animacion"><span>Guardar</span></button>
         </form>
     </section>
 </div>
@@ -67,33 +56,20 @@
 {{!-- modal para modificar negocio --}}
 <div id="modalModificar" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
-
     <h2>Modificar Negocio</h2>
-
     <section class="admin2-modal-contenedor">
         <img id="negocioImgVisible" src="">
-        <form id="negocioFormModificar" action="/admin/negocios?_method=PUT" method="POST">
-            <label>ID</label>
+        <form id="modalFormModificar" action="/admin/negocios?_method=PUT" method="POST">
             <input type="text" name="id" id="id" readonly>
-            <br>
-            <label>Nombre del Negocio</label>
-            <input type="text" name="nombre" id="nombre" placeholder="Kartax">
-            <br>
-            <label>Rut del Negocio</label>
-            <input type="text" name="rut" id="rut" placeholder="00.000.000-0">
-            <br>
-            <label>Dirección</label>
-            <input type="text" name="direccion" id="direccion" placeholder="Viña del Mar...">
-            <br>
-            <label>Descripción</label>
-            <input type="text" name="descripcion" id="descripcion" placeholder="Demo">
-            <br>       
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="rut" id="rut" placeholder="Rut..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="direccion" id="direccion" placeholder="Dirección..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="descripcion" id="descripcion" placeholder="Descripción..." onkeyup="this.value = this.value.toUpperCase();">    
             <label>Logo</label>
             <input id="imgNegocio" type="file" name="img" id="img" accept="image/png, image/gif, image/jpeg">
-            <br> 
             <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
-            <button id="btnNegocio_modificar" class="btn animacion"><span>Modificar</span></button>
+            <button name="btnModal" id="btnModal" class="btn animacion"><span>Modificar</span></button>
         </form>
     </section>
 </div>
@@ -102,7 +78,7 @@
     // visualiza el modal par aun nuevo negocios
     const addNegocio = document.querySelector("#addNegocio");
     addNegocio.addEventListener("click", () => {
-        const admin2ModalContenedor = document.querySelectorAll("#negocioFormCrear input");
+        const admin2ModalContenedor = document.querySelectorAll("#modalFormCrear input");
         const img = document.querySelector("#negocioImgVisible");
 
         admin2ModalContenedor[0].value = "";
@@ -118,10 +94,11 @@
 
     // visualiza el modal par modificacion del negocios
     const editNegocio = document.querySelectorAll(".admin2-mantenedor-btn");
+
     editNegocio.forEach(e => {
         e.addEventListener("click", () => {
             const fila = document.querySelector(`#filaNegocio_${e.id}`).children;
-            const admin2ModalContenedor = document.querySelectorAll("#negocioFormModificar input");
+            const admin2ModalContenedor = document.querySelectorAll("#modalFormModificar input");
             const img = document.querySelector("#negocioImgVisible");
 
             admin2ModalContenedor[0].value = fila[0].textContent;
@@ -149,18 +126,13 @@
         cerrarModal();
     });
 
-    // click btn crear negocio
-    const btnNegocioCrear = document.querySelector("#btnNegocio_crear");
-    btnNegocioCrear.addEventListener("click", () => {
-        renderLoading2.classList.add("loading-contenedor2_visible");
-        cerrarModal();
-    });
-
-    // click btn modificar negocio
-    const btnNegocioModificar = document.querySelector("#btnNegocio_modificar");
-    btnNegocioModificar.addEventListener("click", () => {
-        renderLoading2.classList.add("loading-contenedor2_visible");
-        cerrarModal();
+    // carga el componente loadong
+    const modalLoading = document.querySelectorAll("#btnModal");
+    modalLoading.forEach(e => {
+        e.addEventListener("click", () => {
+            renderLoading2.classList.add("loading-contenedor2_visible");
+            cerrarModal();
+        });
     });
 
     // carga la imagen a previsualizacion 
