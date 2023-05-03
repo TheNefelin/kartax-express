@@ -210,6 +210,10 @@ myRoutes.get("/testing", (req, res) => {
     res.render("testing");
 });
 
+myRoutes.get("/encuesta", (req, res) => {
+    res.render("encuesta");
+});
+
 myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
