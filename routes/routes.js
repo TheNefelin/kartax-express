@@ -170,15 +170,33 @@ myRoutes.get("/admin/usuarios", async (req, res) => {
 });
 
 myRoutes.post("/admin/usuarios", async (req, res) => {
-    console.log("ENTRO AL POST")
-    console.log(req.body)
-  
     try {
-        res.redirect("/admin/usuarios")
+        const respuesta = await fn.admin_usuarios_post(req.body);
+        if (respuesta[0].estado) {
+            res.redirect("/admin/usuarios");
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
     } catch (err) {
         console.log(err);
         res.redirect("/error");
-    }
+    };
+});
+
+myRoutes.put("/admin/usuarios", async (req, res) => {
+    try {
+        const respuesta = await fn.admin_usuarios_put(req.body);
+        if (respuesta[0].estado) {
+            res.redirect("/admin/usuarios");
+        } else {
+            const { negocio } = await fn.principal();
+            res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        };
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
 });
 
 myRoutes.get("/admin/salir", async (req, res) => {

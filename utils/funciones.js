@@ -111,6 +111,32 @@ export async function admin_usuarios() {
     return arrAdminUsuarios;
 };
 
+// crea un usuario
+export async function admin_usuarios_post(body) {
+    const { usuario, token } = await recuperarToken();
+
+    if (usuario == "" || token == "") {
+        const arrAdminNegocios = await apiPostgreSQL.postAdminUsuaruio("-", "-", {});
+        return arrAdminNegocios;  
+    };
+
+    const arrAdminUsuarios = await apiPostgreSQL.postAdminUsuaruio(usuario, token, body);
+    return arrAdminUsuarios;
+};
+
+// modifica un usuario
+export async function admin_usuarios_put(body) {
+    const { usuario, token } = await recuperarToken();
+
+    if (usuario == "" || token == "") {
+        const arrAdminNegocios = await apiPostgreSQL.putAdminUsuaruio("-", "-", {});
+        return arrAdminNegocios;  
+    };
+
+    const arrAdminUsuarios = await apiPostgreSQL.putAdminUsuaruio(usuario, token, body);
+    return arrAdminUsuarios;
+};
+
 // sale de la app
 export async function admin_salir() {
     await guardarToken({usuario: "", fecha: "",token: ""});

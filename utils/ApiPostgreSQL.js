@@ -45,6 +45,12 @@ export default class ApiPostgreSQL {
     async getAdminUsuarios(usuario, token) {
         return await get(`${this.#url}/admin/usuarios/${ usuario }&${ token }`);
     };
+    async postAdminUsuarios(usuario, token) {
+        return await post(`${this.#url}/admin/usuarios`, { usuario, token, data: obj });
+    };
+    async putAdminUsuarios(usuario, token) {
+        return await put(`${this.#url}/admin/usuarios`, { usuario, token, data: obj });
+    };
     // ----------------------------------------------------------------
     async getLinksCateg_All() {
         return await get("https://bsite.net/metalflap/links-group")

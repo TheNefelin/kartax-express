@@ -37,14 +37,13 @@
 {{!-- modal para crear nuevo negocio --}}
 <div id="modalCrear" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
-    <h2>Nuevo Usuario</h2>
+    <h2>Nuevo Negocio</h2>
     <section class="admin2-modal-contenedor">
-        <form id="modalFormCrear" action="/admin/usuario" method="POST">
-            <input type="text" name="nombres" id="nombres" placeholder="Nombres..." onkeyup="this.value = this.value.toUpperCase();">
+        <form id="modalFormCrear" action="/admin/usuarios" method="POST">
+            <input type="text" name="nombres" id="nombres" placeholder="Nombres.." onkeyup="this.value = this.value.toUpperCase();">
             <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos..." onkeyup="this.value = this.value.toUpperCase();">
             <input type="email" name="correo" id="correo" placeholder="Correo..." onkeyup="this.value = this.value.toUpperCase();">
             <input type="text" name="usuario" id="usuario" placeholder="Usuario..." onkeyup="this.value = this.value.toUpperCase();">    
-            <input type="password" name="clave" id="clave">   
             <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
             <button name="btnModal" id="btnModal" onclick="this.value='crear'" class="btn animacion"><span>Guardar</span></button>
@@ -55,26 +54,25 @@
 {{!-- modal para modificar negocio --}}
 <div id="modalModificar" class="admin2-modal">
     <div><i class="fa fa-times fa-3x" aria-hidden="true"></i></div>
-    <h2>Modificar Usuario</h2>
+    <h2>Modificar Negocio</h2>
     <section class="admin2-modal-contenedor">
-        <form id="modalFormModificar" action="/admin/usuario?_method=PUT" method="POST">
+        <form id="modalFormModificar" action="/admin/usuarios?_method=PUT" method="POST">
             <input type="text" name="id" id="id" readonly>
-            <input type="text" name="nombres" placeholder="Nombres..." onkeyup="this.value = this.value.toUpperCase();">
-            <input type="text" name="apellidos" placeholder="Apellidos..." onkeyup="this.value = this.value.toUpperCase();">
-            <input type="email" name="correo" placeholder="Correo..." onkeyup="this.value = this.value.toUpperCase();">
-            <input type="text" name="usuario" placeholder="Usuario..." onkeyup="this.value = this.value.toUpperCase();">    
-            <input type="password" name="clave">   
-            <label>Activo: <input type="checkbox" name="check"></label>
+            <input type="text" name="nombres" id="nombres" placeholder="Nombres..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="email" name="correo" id="correo" placeholder="Correo..." onkeyup="this.value = this.value.toUpperCase();">
+            <input type="text" name="usuario" id="usuario" placeholder="Usuario..." onkeyup="this.value = this.value.toUpperCase();">    
+            <label>Activo: <input type="checkbox" name="check" id="check"></label>
             <div><hr></div>
-            <button name="btnModal" class="btn animacion"><span>Modificar</span></button>
+            <button name="btnModal" id="btnModal" class="btn animacion"><span>Modificar</span></button>
         </form>
     </section>
 </div>
 
 <script>
-    // visualiza el modal par aun nuevo usuario
-    const addUsuario = document.querySelector("#addUsuario");
-    addUsuario.addEventListener("click", () => {
+     // visualiza el modal par aun nuevo negocios
+    const addNegocio = document.querySelector("#addUsuario");
+    addNegocio.addEventListener("click", () => {
         const admin2ModalContenedor = document.querySelectorAll("#modalFormCrear input");
 
         admin2ModalContenedor[0].value = "";
@@ -87,10 +85,45 @@
         modalCrear.classList.add("admin2-modal_visible");
     });
 
+    // visualiza el modal par modificacion del negocios
+    const editNegocio = document.querySelectorAll(".admin2-mantenedor-btn");
+
+    editNegocio.forEach(e => {
+        e.addEventListener("click", () => {
+            const fila = document.querySelector(`#filaNegocio_${e.id}`).children;
+            const admin2ModalContenedor = document.querySelectorAll("#modalFormModificar input");
+
+            admin2ModalContenedor[0].value = fila[0].textContent;
+            admin2ModalContenedor[1].value = fila[2].textContent;
+            admin2ModalContenedor[2].value = fila[3].textContent;
+            admin2ModalContenedor[3].value = fila[4].textContent;
+            admin2ModalContenedor[4].value = fila[5].textContent;
+            admin2ModalContenedor[5].checked = true;
+
+            const modalModificar = document.querySelector("#modalModificar");
+            modalModificar.classList.add("admin2-modal_visible");
+        });
+    });
+    
     // cierra el modal para crear negocio
     const cerrarModalCrear = document.querySelector("#modalCrear > div");
     cerrarModalCrear.addEventListener("click", () => {
         cerrarModal();
+    });
+
+    // cierra el modal para modificar negocio
+    const cerrarModalModificar = document.querySelector("#modalModificar > div");
+    cerrarModalModificar.addEventListener("click", () => {
+        cerrarModal();
+    });
+
+    // carga el componente loadong
+    const modalLoading = document.querySelectorAll("#btnModal");
+    modalLoading.forEach(e => {
+        e.addEventListener("click", () => {
+            renderLoading2.classList.add("loading-contenedor2_visible");
+            cerrarModal();
+        });
     });
 
     function cerrarModal() {
