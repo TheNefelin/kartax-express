@@ -7,6 +7,7 @@ export default class ApiPostgreSQL {
         //this.#url = "http://localhost:3001";
         //this.#url = "https://kartax-api-production.up.railway.app";
         this.#url = process.env.API_LINK;
+        console.log(process.env.API_LINK)
     };
     getUrl() {
         return this.#url

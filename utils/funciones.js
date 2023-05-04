@@ -171,6 +171,7 @@ async function data_tipo_alim(id) {
 // ------------------------------------------------------------------------
 
 async function guardarToken(obj) {
+    console.log(obj)
     await fs.promises.writeFile("./data/login.json", JSON.stringify(obj));
 };
 
