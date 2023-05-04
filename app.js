@@ -15,6 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'))
 app.use(routes);
-app.listen(process.env.PORT, (req, res) => {
+app.listen(3000, (req, res) => {
     console.log("Kartax App Running on 3000!!!");
 });
