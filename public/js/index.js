@@ -20,6 +20,10 @@ async function put_HacerPedido(obj) {
     return await put(`${API_LINK}/comanda-deta`, obj);
 };
 
+async function post_Encuesta(obj) {  
+    return await post(`${API_LINK}/encuesta`, obj);
+};
+
 // obtiene datos del la API
 async function get(url) {
     try {

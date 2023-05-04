@@ -214,6 +214,11 @@ myRoutes.get("/encuesta", (req, res) => {
     res.render("encuesta");
 });
 
+myRoutes.post("/encuesta", (req, res) => {
+    console.log(req.body)
+    res.render("encuesta");
+});
+
 myRoutes.get("/error", (req, res) => {
     res.render("error");
 });
