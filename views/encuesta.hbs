@@ -68,10 +68,7 @@
             <div><hr></div>
 
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    ¿Usted es?
-                </button>
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">¿Usted es?</button>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item">Empresa, Negocio</li>
                     <li class="dropdown-item">Consumidor, Cliente</li>
@@ -83,20 +80,16 @@
             <div><hr></div>
 
             <form action="/encuesta" method="POST">
-                <label for="customRange2" class="form-label">(nota: <span id="nota1">3</span>) - ¿Como ha sido tu
-                    experiencia con la App Kartax?</label>
+                <label for="customRange2" class="form-label">(nota: <span id="nota1">3</span>) - ¿Como ha sido tu experiencia con la App Kartax?</label>
                 <input type="range" class="form-range" min="0" max="5" id="pregunta1">
 
-                <label for="customRange2" class="form-label">(nota: <span id="nota2">3</span>) - ¿Como ha sido tu
-                    experiencia con la velocidad?</label>
+                <label for="customRange2" class="form-label">(nota: <span id="nota2">3</span>) - ¿Como ha sido tu experiencia con la velocidad?</label>
                 <input type="range" class="form-range" min="0" max="5" id="pregunta2">
 
-                <label for="customRange2" class="form-label">(nota: <span id="nota3">3</span>) - ¿Ha sido Intuitivo el
-                    uso de la App?</label>
+                <label for="customRange2" class="form-label">(nota: <span id="nota3">3</span>) - ¿Ha sido Intuitivo el uso de la App?</label>
                 <input type="range" class="form-range" min="0" max="5" id="pregunta3">
 
-                <label for="customRange2" class="form-label">(nota: <span id="nota4">3</span>) - ¿Nos
-                    recomendarias?</label>
+                <label for="customRange2" class="form-label">(nota: <span id="nota4">3</span>) - ¿Nos recomendarias?</label>
                 <input type="range" class="form-range" min="0" max="5" id="pregunta4">
 
                 <div class="mb-3">
@@ -106,9 +99,7 @@
             </form>
 
             <div><hr></div>
-
             <button id="btnEnviar" type="button" class="btn btn-primary">Enviar</button>
-            
             <div><hr></div>
 
             <a id="volverAInicio" href="/">Volver a Kartax</a>
@@ -116,27 +107,45 @@
 
         <div>
             <h1>Resultados</h1>
-            <ol class="list-group list-group-numbered">
+            <div><hr></div>
+            <p><strong>Puntaje</strong></p>
+
+            <ol id="encuestaVotos" class="list-group list-group-numbered">
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
+                        <div class="fw-bold">Experiencia</div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
+                    <span class="badge bg-primary rounded-pill">0</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
+                        <div class="fw-bold">Intuitivo</div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
+                    <span class="badge bg-primary rounded-pill">0</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">Subheading</div>
-                        Content for list item
+                        <div class="fw-bold">Recomendable</div>
                     </div>
-                    <span class="badge bg-primary rounded-pill">14</span>
+                    <span class="badge bg-primary rounded-pill">0</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">velocidad</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">0</span>
+                </li>
+            </ol>
+
+            <div><hr></div>
+            <p><strong>Encuestados</strong></p>
+
+            <ol id="encuestaEncuestados" class="list-group list-group-numbered">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">Experiencia</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">0</span>
                 </li>
             </ol>
         </div>
@@ -149,13 +158,33 @@
     crossorigin="anonymous"></script>
 
 <script>
-    await getDatosEncuesta();
+    getDatosEncuesta();
 
     async function getDatosEncuesta() {
+        let html = "";
         const resultado = await get_Encuesta();
-        console.log(resultado.entidades)
-        console.log(resultado.votos)
-    }
+
+        const roundedPill = document.querySelectorAll("#encuestaVotos .rounded-pill");
+        roundedPill[0].textContent = resultado[0].votos[0].experiencia;
+        roundedPill[1].textContent = resultado[0].votos[0].intuitivo;
+        roundedPill[2].textContent = resultado[0].votos[0].recomendable;
+        roundedPill[3].textContent = resultado[0].votos[0].velocidad;
+
+        resultado[0].entidades.forEach(e => {
+            html += `
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">${e.entidad}</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">${e.cant}</span>
+                </li>
+            `;
+            console.log(e)
+        });
+
+        const encuestaEncuestados = document.querySelector("#encuestaEncuestados");
+        encuestaEncuestados.innerHTML = html;
+    };
 
     const dropdownMenu = document.querySelectorAll(".dropdown-menu li");
     dropdownMenu.forEach(e => {
@@ -207,7 +236,8 @@
         };
 
         await post_Encuesta(obj);
-        await getDatosEncuesta()
+        await getDatosEncuesta();
+        renderLoading2.classList.remove("loading-contenedor2_visible");
     });
 </script>
 
