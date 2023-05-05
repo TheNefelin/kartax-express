@@ -199,6 +199,15 @@ myRoutes.put("/admin/usuarios", async (req, res) => {
     };
 });
 
+myRoutes.get("/admin/configuracion", async (req, res) => {
+    try {
+        res.render("admin", { menu: "configuracion" });
+    } catch (err) {
+        console.log(err);
+        res.redirect("/error");
+    };
+});
+
 myRoutes.get("/admin/salir", async (req, res) => {
     await fn.admin_salir();
     res.redirect("/iniciarSesion")
