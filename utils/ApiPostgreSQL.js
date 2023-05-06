@@ -2,8 +2,8 @@ import dotenv from 'dotenv'
 dotenv.config();
 const url = process.env.API_LINK;
 
-//url = "http://localhost:3001";
-//url = "https://kartax-api-production.up.railway.app";
+//const url = "http://localhost:3001";
+//const url = "https://kartax-api-production.up.railway.app";
 
 export default class ApiPostgreSQL {
     constructor() {};
@@ -58,7 +58,7 @@ export default class ApiPostgreSQL {
 
 async function get(url) {
     try {
-        const res = await fetch(`${url}`);
+        const res = await fetch(url);
         return await res.json();
     } catch(err) {
         console.log(url)
