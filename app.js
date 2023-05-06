@@ -7,6 +7,7 @@ import { dirname, join } from "path";
 import routes from "./routes/routes.js";
 import * as helpers from "./utils/helpers.js"
 
+globalThis.fetch = fetch
 const app = express();
 
 hbs.registerPartials(join(dirname(fileURLToPath(import.meta.url)), "/views/partials"));
