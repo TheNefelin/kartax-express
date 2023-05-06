@@ -28,13 +28,15 @@
     }
 
     #encuestaContenedor {
-        display: grid;
-        place-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem;
     }
 
-    #encuestaContenedor>div {
-        width: 60%;
-        min-width: 260px;
+    #encuestaContenedor > div {
+        max-width: 600px;
+        width: 100%;
         background-color: rgba(0, 0, 0, 0.5);
         padding: 1rem;
         border-radius: 8px;
@@ -45,9 +47,7 @@
         color: white;
     }
 
-    span,
-    h1,
-    p {
+    span, h1, p {
         color: rgb(252, 161, 32);
     }
 
