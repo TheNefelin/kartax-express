@@ -100,6 +100,8 @@ async function post(url, obj) {
         return res.json();
     } catch (err) {
         console.log(`Error: en la conexion a la API (ApiPostgreSQL), Detalle: ${err}`);
+        console.log(url);
+        console.log(obj);
         return [];
     };
 };
