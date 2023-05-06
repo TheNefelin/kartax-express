@@ -61,6 +61,7 @@ async function get(url) {
         const res = await fetch(url);
         return await res.json();
     } catch(err) {
+        console.log(url)
         console.log(`Error: en la conexion a la API (ApiPostgreSQL) Detalle: ${ err }`)
         return [];
     };
