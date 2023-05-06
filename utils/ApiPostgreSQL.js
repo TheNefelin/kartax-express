@@ -58,7 +58,7 @@ export default class ApiPostgreSQL {
 
 async function get(url) {
     try {
-        const res = await fetch(url);
+        const res = await fetch(`${url}`);
         return await res.json();
     } catch(err) {
         console.log(url)
