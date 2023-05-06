@@ -13,6 +13,8 @@
 npm install dotenv
 npm install express
 npm install hbs
+npm install method-override
+npm install node-fetch
 npm install pg
 ```
 

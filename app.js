@@ -1,6 +1,7 @@
 import express from "express";
 import hbs from "hbs";
 import methodOverride from "method-override";
+import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import routes from "./routes/routes.js";
