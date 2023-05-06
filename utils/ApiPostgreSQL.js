@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config();
-const url = process.env.API_LINK;
+const url = process.env.API_LINK_BACK;
 
 //const url = "http://localhost:3001";
 //const url = "https://kartax-api-production.up.railway.app";
