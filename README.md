@@ -20,10 +20,17 @@ npm install pg
 
 > Se debe agregar en la raiz un archivo .env, en donde se definiran las variables de entornos para la conexion a la api y el puerto de la app.
 ```
-#API_LINK="http://localhost:3001"
-API_LINK="https://kartax-api-production.up.railway.app"
+API_LINK="http://localhost:3001"
+#API_LINK="https://kartax-api-production.up.railway.app"
 
 PORT=3000
+```
+
+> se debe considerar la ruta de la api en la parte publica del proyecto
+```
+/public/js/index.js
+const API_LINK = "http://localhost:3001";
+//const API_LINK = "https://kartax-api-production.up.railway.app";
 ```
 
 ## Rúbrica
