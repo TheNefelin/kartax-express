@@ -116,11 +116,11 @@ export async function admin_usuarios_post(body) {
     const { usuario, token } = await recuperarToken();
 
     if (usuario == "" || token == "") {
-        const arrAdminNegocios = await apiPostgreSQL.postAdminUsuaruio("-", "-", {});
+        const arrAdminNegocios = await apiPostgreSQL.postAdminUsuarios("-", "-", {});
         return arrAdminNegocios;  
     };
 
-    const arrAdminUsuarios = await apiPostgreSQL.postAdminUsuaruio(usuario, token, body);
+    const arrAdminUsuarios = await apiPostgreSQL.postAdminUsuarios(usuario, token, body);   
     return arrAdminUsuarios;
 };
 

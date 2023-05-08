@@ -172,12 +172,19 @@ myRoutes.get("/admin/usuarios", async (req, res) => {
 myRoutes.post("/admin/usuarios", async (req, res) => {
     try {
         const respuesta = await fn.admin_usuarios_post(req.body);
-        if (respuesta[0].estado) {
+        console.log(respuesta[0].msge)
+        if (respuesta[0].estadoToken) {
             res.redirect("/admin/usuarios");
         } else {
             const { negocio } = await fn.principal();
             res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
         };
+        // if (respuesta[0].estado) {
+        //     res.redirect("/admin/usuarios");
+        // } else {
+        //     const { negocio } = await fn.principal();
+        //     res.render("iniciarSesion", { negocio: negocio, msge: respuesta[0].msge });
+        // };
     } catch (err) {
         console.log(err);
         res.redirect("/error");
