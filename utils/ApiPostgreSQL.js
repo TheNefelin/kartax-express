@@ -61,7 +61,6 @@ export default class ApiPostgreSQL {
 };
 
 async function get(url) {
-    console.log(url)
     try {
         const res = await fetch(url);
         return await res.json();
@@ -72,9 +71,6 @@ async function get(url) {
 };
 
 async function post(url, obj) {
-    // console.log(url);
-    // console.log(JSON.stringify(obj));
-
     try { 
         const res = await fetch(url, {
             method: "POST",
